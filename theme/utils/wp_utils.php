@@ -18,5 +18,5 @@ function is_blog_archive () {
 
 function create_unique_css_id () {
 	// Prefix is required - ids must not start with digits, uniqid does not guarantee this
-	return 'vib_' . uniqid();
+	return 'ds_' . uniqid();
 }
