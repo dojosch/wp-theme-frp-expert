@@ -205,3 +205,32 @@ function remove_block_library_css() {
 }
 add_action('wp_enqueue_scripts', 'remove_block_library_css', 100);
 
+add_action('after_switch_theme', function () {
+    // Discourage search engines
+    update_option('blog_public', '0');
+
+	require_once ABSPATH . 'wp-admin/includes/translation-install.php';
+    $locale = 'de_DE';
+    if (!in_array($locale, get_available_languages())) {
+        wp_download_language_pack($locale);
+    }
+
+    // Set site language to German
+    update_option('WPLANG', $locale);
+
+    // Set timezone to Vienna
+    update_option('timezone_string', 'Europe/Vienna');
+
+    // Default post settings
+    update_option('default_pingback_flag', 0); // Attempt to notify blogs
+    update_option('default_ping_status', 'closed'); // Allow pingbacks
+    update_option('default_comment_status', 'closed'); // Allow comments
+
+    // Discussion settings
+    update_option('comment_registration', 1); // Must be logged in
+    update_option('comments_notify', 0); // Notify on comment
+    update_option('comment_moderation', 0); // Hold for moderation
+    update_option('show_avatars', 0); // Show avatars
+});
+
+add_filter('show_admin_bar', '__return_false');
