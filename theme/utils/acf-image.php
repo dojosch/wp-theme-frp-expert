@@ -44,20 +44,27 @@ function ds_get_image_data_from_option_field( $field_name, $size = 'large' ) {
 /**
  * Get image data from an attachment ID.
  *
+ * Always returns either a full associative array with 'src', 'alt', 'width', and 'height', or null.
+ *
  * @param int    $attachment_id The attachment ID of the image.
  * @param string $size          The size of the image to retrieve. Default is 'large'.
- * @return array|null           An associative array containing 'src', 'alt', 'width', and 'height', or null if not found.
+ * @return array|null           Image data or null if not found or invalid.
  */
 function ds_get_image_data_from_id( $attachment_id, $size = 'large' ) {
-	$data   = wp_get_attachment_image_src( $attachment_id, $size );
-	$src    = $data[0] ?? '';
-	$alt    = get_post_meta( $attachment_id, '_wp_attachment_image_alt', true );
-	$width  = $data[1] ?? null;
-	$height = $data[2] ?? null;
-
-	if ( ! $src ) {
+	if ( ! is_numeric( $attachment_id ) || intval( $attachment_id ) <= 0 ) {
 		return null;
 	}
 
-	return compact( 'src', 'alt', 'width', 'height' );
+	$data = wp_get_attachment_image_src( intval( $attachment_id ), $size );
+
+	if ( ! is_array( $data ) || empty( $data[0] ) ) {
+		return null;
+	}
+
+	return array(
+		'src'    => esc_url( $data[0] ),
+		'alt'    => esc_attr( get_post_meta( $attachment_id, '_wp_attachment_image_alt', true ) ),
+		'width'  => isset( $data[1] ) ? (int) $data[1] : null,
+		'height' => isset( $data[2] ) ? (int) $data[2] : null,
+	);
 }

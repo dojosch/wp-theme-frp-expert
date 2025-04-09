@@ -11,6 +11,20 @@
  */
 
 /**
+ * Checks if a given link array is valid.
+ *
+ * A valid link must be an array with a non-empty URL and a title.
+ *
+ * @param mixed $link The input to validate as a link array.
+ * @return bool True if the link is valid, false otherwise.
+ */
+function ds_is_valid_link( $link ) {
+	return is_array( $link )
+		&& ! empty( $link['url'] )
+		&& ! empty( $link['title'] );
+}
+
+/**
  * Generates an HTML heading element with the specified text, tag, and CSS class.
  *
  * @param string $text      The text content for the heading.
@@ -19,70 +33,117 @@
  *
  * @return string The generated HTML heading element as a string.
  */
-function ds_get_heading( $text, $tag = 'h2', $css_class = '' ) {
-	return "<$tag class='" . esc_attr( $css_class ) . "'>" . esc_html( $text ) . "</$tag>";
+function ds_get_heading( $text = '', $tag = 'h2', $css_class = '' ) {
+	if ( empty( $text ) || ! is_string( $text ) ) {
+		return '';
+	}
+
+	$allowed_tags = array( 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'span', 'p', 'div' );
+	$tag          = in_array( strtolower( $tag ), $allowed_tags, true ) ? strtolower( $tag ) : 'h2';
+
+	return sprintf(
+		'<%1$s class="%2$s">%3$s</%1$s>',
+		$tag,
+		esc_attr( $css_class ),
+		esc_html( $text )
+	);
 }
 
 /**
  * Generates an HTML link with optional CSS class.
  *
- * @param string $link The URL for the link.
+ * @param array  $link      The ACF-style link array with keys 'url', 'title', and optionally 'target'.
  * @param string $css_class Optional. The CSS class to apply to the link. Default is an empty string.
+ *
  * @return string The generated HTML link.
  */
-function ds_get_link( $link, $css_class = '' ) {
-	if ( is_array( $link ) === false ) {
+function ds_get_link( $link = null, $css_class = '' ) {
+	if ( ! ds_is_valid_link( $link ) ) {
 		return '';
 	}
 
-	$rel = '_blank' === $link['target'] ? 'rel="noopener noreferrer"' : '';
-	return "<a $rel class='" . esc_attr( $css_class ) . "' href='" . esc_url( $link['url'] ) . "' target='" . esc_attr( $link['target'] ) . "'>" . esc_html( $link['title'] ) . '</a>';
+	$rel    = ( $link['target'] ?? '' ) === '_blank' ? 'rel="noopener noreferrer"' : '';
+	$target = esc_attr( $link['target'] ?? '_self' );
+
+	return sprintf(
+		'<a href="%1$s" target="%2$s" %3$s class="%4$s">%5$s</a>',
+		esc_url( $link['url'] ),
+		$target,
+		$rel,
+		esc_attr( $css_class ),
+		esc_html( $link['title'] )
+	);
 }
 
 /**
- * Generates an HTML link with an icon.
+ * Generates an HTML link with an embedded icon.
  *
- * @param string $link       The URL for the link.
- * @param string $icon_id    The ID or identifier for the icon.
- * @param string $css_class  Optional. Additional CSS classes for the link element. Default is an empty string.
- * @param string $icon_class Optional. Additional CSS classes for the icon element. Default is an empty string.
+ * @param array  $link       The ACF-style link array.
+ * @param int    $icon_id    The attachment ID of the icon.
+ * @param string $css_class  Optional. CSS classes for the anchor tag.
+ * @param string $icon_class Optional. CSS classes for the image element.
  *
- * @return string The HTML string for the link with the icon.
+ * @return string The generated HTML string for the icon link.
  */
-function ds_get_icon_link( $link, $icon_id, $css_class = '', $icon_class = '' ) {
+function ds_get_icon_link( $link = null, $icon_id = null, $css_class = '', $icon_class = '' ) {
+	if ( ! ds_is_valid_link( $link ) || empty( $icon_id ) ) {
+		return '';
+	}
+
 	$icon = ds_get_image_data_from_id( $icon_id );
-	if ( ! $icon ) {
+
+	if ( ! $icon || empty( $icon['src'] ) ) {
 		return '';
 	}
 
-	$rel       = '_blank' === $link['target'] ? 'rel="noopener noreferrer"' : '';
-	$icon_elem = '<img src="' . esc_url( $icon['src'] ) . '" alt="' . esc_attr( $icon['alt'] ) . '" class="' . esc_attr( $icon_class ) . '" />';
+	$rel       = ( $link['target'] ?? '' ) === '_blank' ? 'rel="noopener noreferrer"' : '';
+	$target    = esc_attr( $link['target'] ?? '_self' );
+	$icon_elem = sprintf(
+		'<img src="%1$s" alt="%2$s" class="%3$s" />',
+		esc_url( $icon['src'] ),
+		esc_attr( $icon['alt'] ?? '' ),
+		esc_attr( $icon_class )
+	);
 
-	return "<a $rel class='" . esc_attr( $class ) . "' href='" . esc_url( $link['url'] ) . "' target='" . esc_attr( $link['target'] ) . "'>$icon_elem</a>";
+	return sprintf(
+		'<a href="%1$s" target="%2$s" %3$s class="%4$s">%5$s</a>',
+		esc_url( $link['url'] ),
+		$target,
+		$rel,
+		esc_attr( $css_class ),
+		$icon_elem
+	);
 }
 
 /**
- * Opens a link with optional CSS class.
+ * Opens a link as a wrapper (for wrapping custom content).
  *
- * @param string $link The URL of the link to open.
- * @param string $css_class Optional. Additional CSS class to apply to the link. Default is an empty string.
+ * @param array  $link      The ACF-style link array.
+ * @param string $css_class Optional. Additional CSS class to apply to the anchor.
+ *
+ * @return string The opening <a> tag or an empty string.
  */
-function ds_open_link( $link, $css_class = '' ) {
-	if ( is_array( $link ) === false ) {
+function ds_open_link( $link = null, $css_class = '' ) {
+	if ( ! ds_is_valid_link( $link ) ) {
 		return '';
 	}
-	$rel = '_blank' === $link['target'] ? 'rel="noopener noreferrer"' : '';
-	return "<a $rel class='bj-type-link " . esc_attr( $css_class ) . "' href='" . esc_url( $link['url'] ) . "' target='" . esc_attr( $link['target'] ) . "'>";
+
+	$rel    = ( $link['target'] ?? '' ) === '_blank' ? 'rel="noopener noreferrer"' : '';
+	$target = esc_attr( $link['target'] ?? '_self' );
+
+	return sprintf(
+		'<a href="%1$s" target="%2$s" %3$s class="bj-type-link %4$s">',
+		esc_url( $link['url'] ),
+		$target,
+		$rel,
+		esc_attr( $css_class )
+	);
 }
 
 /**
  * Closes an open HTML link tag.
  *
- * This function is used to properly close an open anchor (`<a>`) tag
- * in the HTML output. It ensures that the markup remains valid and
- * prevents potential rendering issues.
- *
- * @return string
+ * @return string The closing anchor tag.
  */
 function ds_close_link() {
 	return '</a>';
@@ -92,20 +153,29 @@ function ds_close_link() {
  * Parses a phone number into a tel: link format.
  *
  * @param string $phone The phone number to be parsed.
+ *
  * @return string The formatted phone number as a tel: link.
  */
-function ds_parse_phone_into_tel( $phone ) {
-	$phone = str_replace( array( '-', ' ' ), '', $phone );
-	$phone = preg_replace( '/\(\d+\)/', '', $phone );
-	return 'tel:' . $phone;
+function ds_parse_phone_into_tel( $phone = '' ) {
+	if ( ! is_string( $phone ) || empty( $phone ) ) {
+		return '';
+	}
+
+	$clean = preg_replace( array( '/[^\d\+]/', '/\(\d+\)/' ), '', $phone );
+	return 'tel:' . esc_attr( $clean );
 }
 
 /**
  * Parses an email address and converts it into a mailto link.
  *
  * @param string $mail The email address to be converted.
+ *
  * @return string The mailto link generated from the email address.
  */
-function ds_parse_mail_into_mailto( $mail ) {
+function ds_parse_mail_into_mailto( $mail = '' ) {
+	if ( ! is_email( $mail ) ) {
+		return '';
+	}
+
 	return 'mailto:' . sanitize_email( $mail );
 }

@@ -1,6 +1,5 @@
 <?php
 /**
-/**
  * Security Configuration for WordPress Theme
  *
  * This file contains security-related configurations for the WordPress theme.
