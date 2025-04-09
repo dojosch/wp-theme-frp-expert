@@ -71,3 +71,20 @@ function ds_is_blog_archive() {
 function ds_create_unique_css_id() {
 	return 'ds_' . uniqid();
 }
+
+/**
+ * Logs PHP data to the browser's developer console.
+ *
+ * @param mixed  $data     The data to log (string, array, object, etc).
+ * @param string $context  Optional. A context label to prefix the log. Default is 'Debug'.
+ */
+function ds_console_log( $data, $context = 'Debug' ) {
+	if ( is_array( $data) || is_object( $data ) ) {
+		$data = json_encode( $data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE );
+	} else {
+		$data = json_encode( (string) $data );
+	}
+
+	echo "<script>console.log('[{$context}]', {$data});</script>";
+}
+

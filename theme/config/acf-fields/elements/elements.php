@@ -12,7 +12,7 @@
 
 $layouts = [];
 
-foreach ( glob( get_template_directory() . '/config/acf_fields/elements/fields/*.php' ) as $file ) {
+foreach ( glob( get_template_directory() . '/config/acf-fields/elements/fields/*.php' ) as $file ) {
 	require_once $file;
 
 	$layout_name = basename( $file, '.php' );
@@ -28,6 +28,24 @@ acf_add_local_field_group(
 	array(
 		'key'      => 'group_elements',
 		'title'    => 'Page Fields',
+		'menu_order' => 0,
+		'position' => 'acf_after_title',
+		'style' => 'default',
+		'label_placement' => 'top',
+		'instruction_placement' => 'label',
+		'hide_on_screen' => array(
+			0 => 'the_content',
+			1 => 'excerpt',
+			2 => 'discussion',
+			3 => 'comments',
+			4 => 'author',
+			5 => 'format',
+			7 => 'featured_image',
+			8 => 'categories',
+			9 => 'tags',
+		),
+		'active' => true,
+		'description' => '',
 		'fields'   => array(
 			array(
 				'key'          => 'field_elements',
