@@ -17,27 +17,8 @@ get_header();
 			/* Start the Loop */
 			while ( have_posts() ) :
 				the_post();
-				get_template_part( 'template-parts/content/content', 'single' );
+				
 
-				if ( is_singular( 'post' ) ) {
-					// Previous/next post navigation.
-					the_post_navigation(
-						array(
-							'next_text' => '<span aria-hidden="true">' . __( 'Next Post', 'ds-starter' ) . '</span> ' .
-								'<span class="sr-only">' . __( 'Next post:', 'ds-starter' ) . '</span> <br/>' .
-								'<span>%title</span>',
-							'prev_text' => '<span aria-hidden="true">' . __( 'Previous Post', 'ds-starter' ) . '</span> ' .
-								'<span class="sr-only">' . __( 'Previous post:', 'ds-starter' ) . '</span> <br/>' .
-								'<span>%title</span>',
-						)
-					);
-				}
-
-				// If comments are open, or we have at least one comment, load
-				// the comment template.
-				if ( comments_open() || get_comments_number() ) {
-					comments_template();
-				}
 
 				// End the loop.
 			endwhile;

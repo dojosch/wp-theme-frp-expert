@@ -13,7 +13,7 @@
 
 	</div><!-- #content -->
 
-	<?php get_template_part( 'template-parts/layout/footer', 'content' ); ?>
+	<?php get_template_part( 'page-templates/layout/footer', 'content' ); ?>
 
 </div><!-- #page -->
 

@@ -28,9 +28,9 @@
 		"touch": "^3.1.0"
 	},
 	"scripts": {
-		"development:tailwind:frontend": "npx tailwindcss --postcss -i ./tailwind/tailwind.css -c ./tailwind/tailwind.config.js -o ./theme/style.css",
-		"development:tailwind:editor": "cross-env _TW_TARGET=editor npx tailwindcss --postcss -i ./tailwind/tailwind.css -c ./tailwind/tailwind.config.js -o ./theme/style-editor.css",
-		"development:esbuild": "npx esbuild ./javascript/script.js --target=esnext --bundle --outdir=./theme/js --out-extension:.js=.min.js",
+		"development:tailwind:frontend": "npx tailwindcss --postcss -i ./tailwind/tailwind.css -c ./tailwind/tailwind.config.js -o ./theme/dist/style.css",
+		"development:tailwind:editor": "cross-env _TW_TARGET=editor npx tailwindcss --postcss -i ./tailwind/tailwind.css -c ./tailwind/tailwind.config.js -o ./theme/dist/style-editor.css",
+		"development:esbuild": "npx esbuild ./javascript/script.js --target=esnext --bundle --outdir=./theme/dist --out-extension:.js=.min.js",
 		"development": "run-p \"development:**\"",
 		"dev": "npm run development",
 		"watch:tailwind:frontend": "npm run development:tailwind:frontend -- --watch",
