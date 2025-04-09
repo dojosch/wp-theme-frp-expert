@@ -3,14 +3,16 @@ Theme Name: devsolution Starter
 Theme URI: https://www.devsolution.at
 Author: devsolution
 Author URI: https://www.devsolution.at
-Description: Starter Theme for devsolution
+Description: A modern WordPress starter theme built by devsolution. Featuring Tailwind CSS, Alpine.js, ACF support, flexible layout architecture, and best practices for maintainability and performance.
 Version: 0.1.0
-Tested up to: 6.2
+Tested up to: 6.5
+Requires at least: 6.2
 Requires PHP: 7.4
 License: GNU General Public License v2 or later
-License URI: LICENSE
+License URI: https://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 Text Domain: ds
-Tags:
+Domain Path: /languages
+Tags: custom-background, custom-logo, custom-menu, featured-images, full-site-editing, theme-options, translation-ready, tailwindcss, acf, alpinejs
 
 devsolution Starter is a custom WordPress starter theme.
 

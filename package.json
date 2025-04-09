@@ -12,6 +12,8 @@
 		"@wordpress/prettier-config": "^3.5.0",
 		"adm-zip": "^0.5.10",
 		"archiver": "^6.0.1",
+		"browser-sync": "^3.0.4",
+		"browser-sync-webpack-plugin": "^2.3.0",
 		"chokidar-cli": "^3.0.0",
 		"cross-env": "^7.0.3",
 		"esbuild": "^0.19.10",
@@ -35,32 +37,28 @@
 		"development:esbuild": "npx esbuild ./javascript/script.js --target=esnext --bundle --outdir=./theme/dist --out-extension:.js=.min.js",
 		"development": "run-p \"development:**\"",
 		"dev": "npm run development",
+		"watch:bs": "node browsersync.cjs",
 		"watch:tailwind:frontend": "npm run development:tailwind:frontend -- --watch",
 		"watch:tailwind:editor": "npm run development:tailwind:editor -- --watch",
 		"watch:tailwind:themejson": "chokidar \"./theme/theme.json\" -c \"nodetouch ./tailwind/tailwind.config.js\"",
 		"watch:esbuild": "npm run development:esbuild -- --watch",
 		"watch": "run-p \"watch:**\"",
-
 		"lint:eslint": "eslint javascript/ theme/ --ext .js",
 		"lint:prettier": "prettier --check \"**/*.{js,css,scss,html,md}\"",
 		"lint:php": "vendor/bin/phpcs --report=summary || true && vendor/bin/phpcs --report=full --report-file=phpcs-report.txt || true",
 		"lint": "run-p lint:*",
-
 		"lint-fix:eslint": "eslint javascript/ theme/ --ext .js --fix",
 		"lint-fix:prettier": "prettier --write \"**/*.{js,css,scss,html,md}\"",
 		"lint-fix:php": "vendor/bin/phpcbf",
 		"lint-fix": "run-p lint-fix:*",
-
 		"production:tailwind:frontend": "cross-env NODE_ENV=production npm run development:tailwind:frontend -- --minify",
 		"production:tailwind:editor": "cross-env NODE_ENV=production npm run development:tailwind:editor -- --minify",
 		"production:esbuild": "npm run development:esbuild -- --minify",
 		"production": "run-p \"production:**\"",
 		"prod": "npm run production",
-
 		"zip": "node node_scripts/zip.js ds-starter",
 		"bundle": "run-s production zip"
 	},
-
 	"prettier": "@wordpress/prettier-config",
 	"dependencies": {
 		"alpinejs": "^3.14.9",
