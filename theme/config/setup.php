@@ -1,7 +1,27 @@
-<?php 
+<?php
+/**
+ * Theme setup function.
+ *
+ * Sets up theme defaults and registers support for various WordPress features.
+ * This function is hooked into the 'after_setup_theme' hook, which runs before
+ * the init hook. The init hook is too late for some features, such as indicating
+ * support for post thumbnails.
+ *
+ * @return void
+ * @package wp-starter-tw
+ */
 
+/**
+ * Sets up theme defaults and registers support for various WordPress features.
+ *
+ * This function is hooked into the 'after_setup_theme' action, which runs
+ * before the init hook. The init hook is too late for some features, such as
+ * indicating support for post thumbnails.
+ *
+ * @return void
+ */
 function ds_setup() {
-	
+
 	load_theme_textdomain( 'ds-starter', get_template_directory() . '/languages' );
 
 	/*

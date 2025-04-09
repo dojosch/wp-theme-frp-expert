@@ -25,6 +25,7 @@ Starter Theme for devsolution
 ---
 
 This theme uses:
+
 - **Tailwind CSS v4**
 - **Alpine.js v3**
 - A clean utility structure for custom post types, security, ACF blocks, components, and mail handling.

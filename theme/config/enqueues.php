@@ -1,5 +1,27 @@
-<?php 
+<?php
+/**
+ * Theme Enqueue Configuration File
+ *
+ * This file is responsible for registering and enqueuing the theme's stylesheets
+ * and JavaScript files. It ensures that the necessary assets are loaded for both
+ * the frontend and the editor. Additionally, it handles the inclusion of the
+ * WordPress comment-reply script when applicable.
+ *
+ * @package WordPress
+ * @subpackage WP_Starter_TW
+ * @since 1.0.0
+ */
 
+/**
+ * Enqueues theme styles and scripts.
+ *
+ * This function registers and enqueues the main stylesheet, editor stylesheet,
+ * and JavaScript files for the theme. Additionally, it enqueues the WordPress
+ * comment-reply script if the current post is singular, comments are open, and
+ * threaded comments are enabled.
+ *
+ * @return void
+ */
 function ds_scripts() {
 	wp_enqueue_style( 'ds-starter-style', get_template_directory_uri() . '/dist/style.css', array(), 1 );
 	wp_enqueue_style( 'ds-starter-style', get_template_directory_uri() . '/dist/style-editor.css', array(), 1 );

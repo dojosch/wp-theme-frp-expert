@@ -3,15 +3,15 @@ module.exports = {
 		'./theme/**/*.php',
 		'./theme/**/*.js',
 		'./tailwind/**/*.css',
-		'./javascript/**/*.js'
+		'./javascript/**/*.js',
 	],
 	theme: {
 		extend: {
-		// your customizations
-		}
+			// your customizations
+		},
 	},
 	plugins: [
 		require('@tailwindcss/typography'),
 		// any other plugins
-	]
-}
+	],
+};
