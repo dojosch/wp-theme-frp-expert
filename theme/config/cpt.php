@@ -24,12 +24,12 @@ add_action(
 		);
 
 		ds_register_cpt(
-			'career',
-			'Offene Stelle',
-			'Offene Stellen',
+			'testimonial',
+			'Testimonial',
+			'Testimonials',
 			array(
-				'slug'      => 'offene-stellen',
-				'menu_icon' => 'dashicons-editor-help',
+				'slug'      => 'testimonials',
+				'menu_icon' => 'dashicons-format-quote',
 			)
 		);
 	}

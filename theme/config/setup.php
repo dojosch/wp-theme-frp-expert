@@ -72,3 +72,5 @@ function ds_setup() {
 	remove_theme_support( 'block-templates' );
 }
 add_action( 'after_setup_theme', 'ds_setup' );
+
+add_filter('wpcf7_autop_or_not', '__return_false');

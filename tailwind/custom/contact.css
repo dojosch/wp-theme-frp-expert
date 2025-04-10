@@ -1,0 +1,116 @@
+.ds-cf form {
+    @apply grid grid-cols-1 lg:grid-cols-6 gap-x-[40px] gap-y-[20px];
+}
+
+.ds-cf-element {
+    @apply col-span-1 lg:col-span-6 h-fit;
+}
+
+
+.ds-cf-half {
+    @apply col-span-1 lg:col-span-3;
+}
+
+.ds-cf-third {
+    @apply col-span-1 lg:col-span-2 first:mt-0 lg:mt-[40px];
+}
+
+.ds-cf-element {
+    @apply flex flex-col justify-center;
+}
+.ds-cf-element input, .ds-cf-element textarea, .ds-cf-element select {
+    @apply w-full;
+}
+
+.ds-cf-element input, .ds-cf-element textarea, .ds-cf-element select, .ds-cf-number {
+    @apply pt-[15px] pb-[16px] pl-[25px] pr-[19px] rounded-[100px] bg-background placeholder:text-black placeholder:opacity-40 focus:outline-none;
+}
+
+.ds-cf-element textarea {
+    @apply rounded-[26px];
+}
+
+.ds-cf-element select {
+    @apply appearance-none;
+    background-image: url("data:image/svg+xml,%3Csvg width='3' height='6' viewBox='0 0 8 5' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 1L4 4L1 1' stroke='%23404040' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 25px center;
+    background-size: 10px;
+}
+
+.ds-cf-date-hidden {
+    @apply appearance-none flex flex-row justify-between cursor-pointer;
+}
+
+/* hide date placeholder */
+.ds-cf-date-hidden::-webkit-datetime-edit,
+.ds-cf-date-hidden::-webkit-inner-spin-button,
+.ds-cf-date-hidden::-webkit-clear-button {
+    @apply hidden;
+}
+
+.ds-cf-date-hidden:before {
+    content: attr(placeholder);
+    @apply text-black opacity-40;
+}
+
+.ds-cf-number-label {
+    @apply flex-grow;
+}
+
+.ds-cf-number-button {
+    @apply size-[8px];
+}
+
+.ds-cf-number input[type="number"] {
+    @apply placeholder:!opacity-100 shrink-0 placeholder:!text-black focus:outline-none w-[2ch] text-center bg-transparent mx-[28px];
+}
+
+.ds-cf-number input[type="number"]::-webkit-inner-spin-button,
+.ds-cf-number input[type="number"]::-webkit-outer-spin-button {
+    @apply appearance-none;
+}
+
+.ds-cf-number {
+    @apply flex flex-row items-center justify-end h-fit pr-[20px];
+}
+
+.ds-cf-acc {
+    @apply lg:mt-[40px] gap-[14px] flex flex-col;
+}
+
+.ds-cf-element label:has(input[type="checkbox"]) {
+    @apply flex flex-row gap-[15px] items-center cursor-pointer;
+}
+
+.ds-cf input[type="checkbox"] {
+    @apply appearance-none p-0 size-[20px] w-fit aspect-square rounded-full bg-background border-none cursor-pointer relative flex items-center justify-center;
+}
+
+.ds-cf input[type="checkbox"]::after {
+    content: "";
+    @apply hidden !size-[0px] border-[5px] border-primary rounded-full bg-primary absolute;
+}
+
+.ds-cf input[type="checkbox"]:checked::after {
+    @apply block;
+}
+
+.ds-cf input[type="submit"] {
+    /*TODO - Should use ds-button*/
+    @apply text-center text-white bg-primary border border-primary rounded-full w-fit;
+    @apply py-3 px-5 lg:py-2.5 lg:px-6 text-sm lg:text-base leading-normal;
+    @apply lg:hover:bg-transparent lg:hover:text-primary;
+}
+
+.ds-cf-half:has(input[type="submit"]) {
+    @apply flex flex-col lg:items-end lg:mt-[40px];
+}
+
+.wpcf7-not-valid-tip {
+    @apply ml-1 py-1;
+}
+
+.ds-cf .wpcf7-list-item label {
+    @apply !flex flex-row gap-[15px] items-center cursor-pointer;
+}

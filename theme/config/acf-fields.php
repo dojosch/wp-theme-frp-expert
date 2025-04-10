@@ -26,7 +26,7 @@ require_once get_template_directory() . '/config/acf-fields/blog.php';
 require_once get_template_directory() . '/config/acf-fields/blog-single.php';
 
 // Auto-load all PHP files in specific subfolders
-foreach ( [ 'cpt', 'options' ] as $subfolder ) {
+foreach ( [ 'cpt', 'theme_options' ] as $subfolder ) {
 	foreach ( glob( get_template_directory() . "/config/acf-fields/$subfolder/*.php" ) as $file ) {
 		require_once $file;
 	}

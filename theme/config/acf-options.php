@@ -10,6 +10,8 @@
  *
  * @return void
  */
+
+add_action('acf/init', 'ds_register_acf_options_pages');
 function ds_register_acf_options_pages() {
 	if ( ! function_exists( 'acf_add_options_page' ) ) {
 		return;
@@ -30,16 +32,16 @@ function ds_register_acf_options_pages() {
 	$subpages = array(
 		'Footer',
 		'Navigation',
-		'404-Page',
+		'404-Seite',
 	);
 
 	foreach ( $subpages as $title ) {
 		acf_add_options_sub_page(
 			array(
 				// translators: %s: Subpage title.
-				'page_title'  => sprintf( __( 'Subpage: %s', 'ds' ), $title ),
+				'page_title'  => sprintf( __( '%s', 'ds' ), $title ),
 				// translators: %s: Subpage title.
-				'menu_title'  => sprintf( __( 'Subpage: %s', 'ds' ), $title ),
+				'menu_title'  => sprintf( __( '%s', 'ds' ), $title ),
 				'parent_slug' => 'theme-overview-settings',
 			)
 		);
