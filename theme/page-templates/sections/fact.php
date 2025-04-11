@@ -7,8 +7,8 @@
 ?>
 
 <section class="w-full">
-    <div class="ds-section-narrow">
-        <div class="flex flex-col lg:flex-row gap-[30px] lg:gap-[75px] p-[50px] lg:p-[80px] bg-secondary rounded-[20px]">
+    <div class="ds-section-medium">
+        <div class="flex flex-col lg:flex-row gap-[30px] lg:gap-[75px] p-[50px] lg:p-[80px] bg-background rounded-[20px]">
             <div class="flex flex-col lg:w-[50%] shrink-0">
                 <?php 
                     ds_render_component( 'heading', [
