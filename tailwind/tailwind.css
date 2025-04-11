@@ -1,13 +1,17 @@
 @import "./custom/fonts.css" layer(base);
 @import "./custom/layout.css" layer(base);
 @import "./custom/contact.css" layer(base);
+@import "./custom/slider.css" layer(base);
+@import "./custom/wysiwyg.css" layer(base);
 @import "tailwindcss";
 
+@import "@glidejs/glide/dist/css/glide.core.css";
+@import "@glidejs/glide/dist/css/glide.theme.css";
 
 @theme {
   /* Fonts */
   --font-sans: 'Arial', sans-serif;
-  --font-serif: 'Times New R', serif;
+  --font-serif: 'Times New Roman', serif;
 
   /* Font Sizes */
   --font-size-sm: 0.75rem;   /* 12px */

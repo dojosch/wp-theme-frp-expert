@@ -16,8 +16,7 @@
                         'heading_tag' => $sub_heading_tag,
                         'css_class' => 'ds-subheading',
                     ]);
-                ?>
-                <?php 
+                    
                     ds_render_component( 'heading', [
                         'heading' => $heading,
                         'heading_tag' => $heading_tag,

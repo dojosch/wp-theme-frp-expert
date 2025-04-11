@@ -23,8 +23,7 @@
                                 'image'     => $image_data,
                                 'css_class' => 'size-[50px] md:size-[35px] shrink-0',
                             ] );
-                        ?>
-                        <?php 
+                       
                             ds_render_component( 'text', [
                                 'text' => $item['text'],
                                 'css_class' => 'ds-wysiwyg text-sm',

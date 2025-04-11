@@ -10,6 +10,10 @@
     @apply container mx-auto py-20  lg:py-24 px-6 lg:px-[240px];
 }
 
+.ds-section-full {
+    @apply mx-auto py-20 lg:py-24;
+}
+
 .ds-heading {
     @apply font-serif text-xl lg:text-2xl leading-normal hyphens-auto;
 }

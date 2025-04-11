@@ -14,8 +14,8 @@
                     'image' => $image,
                     'css_class'  => 'w-full h-auto object-cover',
                 ] );
-            ?>
-            <?php 
+           
+        
                 ds_render_component( 'image', [
                     'image' => $icon,
                     'css_class' => 'absolute -top-[84px] -right-[19px] lg:-top-[45px] lg:-right-[88px] lg:size-[146px] size-[120px]',
@@ -29,8 +29,7 @@
                     'heading_tag' => $heading_tag,
                     'css_class' => 'ds-heading text-center lg:text-left hyphens-auto',
                 ]);
-            ?>
-            <?php 
+           
                 ds_render_component( 'link-button', [
                     'link' => $link,
                     'css_class' => 'mt-[32px]',

@@ -13,8 +13,7 @@
                             'image'     => $image_data,
                             'css_class' => 'size-[50px] md:size-[35px] shrink-0',
                         ] );
-                    ?>
-                    <?php
+                    
                         ds_render_component( 'text', [
                             'text'       => $icon['text'],
                             'css_class'  => 'text-sm hyphens-auto',
