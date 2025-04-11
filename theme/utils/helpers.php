@@ -42,6 +42,16 @@ function ds_get_theme_icon_url( $path ) {
 }
 
 /**
+ * Retrieves the URL for a theme icon based on the provided path.
+ *
+ * @param string $path The relative path to the icon within the theme directory.
+ * @return string The full URL to the theme icon.
+ */
+function ds_get_theme_logo_url( $path ) {
+	return get_stylesheet_directory_uri() . '/assets/images/logos/' . ltrim( $path, '/' );
+}
+
+/**
  * Retrieves the URL of a template file within the theme.
  *
  * @param string $path The relative path to the template file within the theme directory.
