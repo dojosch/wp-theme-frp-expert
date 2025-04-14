@@ -1,0 +1,9 @@
+.env
+node_modules
+vendor
+.git
+.gitignore
+excludesFile
+package.json
+package-lock.json
+yarn.lock

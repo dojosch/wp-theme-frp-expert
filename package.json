@@ -57,7 +57,8 @@
 		"production": "run-p \"production:**\"",
 		"prod": "npm run production",
 		"zip": "node node_scripts/zip.js ds-starter",
-		"bundle": "run-s production zip"
+		"bundle": "run-s production zip",
+		"sync-production": "./scripts/sync-production.sh"
 	},
 	"prettier": "@wordpress/prettier-config",
 	"dependencies": {
