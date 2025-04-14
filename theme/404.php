@@ -13,10 +13,12 @@ get_header();
 $text = get_field('text_404', 'option');
 ?>
 
-<section class="ds-section">
-	<div class="container mx-auto px-[25px] min-h-[25vh] mt-[120px]">
-		<div class="ds-wysiwyg">
-			<?php echo $text; ?>
+<section class="">
+	<div class="ds-section">
+		<div class="container mx-auto px-[25px] min-h-[25vh] mt-[120px]">
+			<div class="ds-wysiwyg">
+				<?php echo $text; ?>
+			</div>
 		</div>
 	</div>
 </section>

@@ -17,7 +17,7 @@ get_header();
 $debugging = false;
 ?>
 
-<main class="pt-[90px] min-h-dvh <?php echo $debugging ? 'ds-debug' : ''; ?>">
+<main class="pt-[82px] lg:pt-[90px] min-h-dvh <?php echo $debugging ? 'ds-debug' : ''; ?>">
 	<?php if ( have_rows( 'elements' ) ) : ?>
 		<?php
 		while ( have_rows( 'elements' ) ) :
