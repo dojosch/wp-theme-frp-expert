@@ -1,6 +1,5 @@
 <?php
     $columns = get_sub_field('columns');
-    $background_color = get_sub_field('background_color');
 ?>
 
 <?php echo ds_open_section() ?>    

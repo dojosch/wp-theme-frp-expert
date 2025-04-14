@@ -18,6 +18,7 @@
 .ds-cf-element {
     @apply flex flex-col justify-center;
 }
+
 .ds-cf-element input, .ds-cf-element textarea, .ds-cf-element select {
     @apply w-full;
 }
