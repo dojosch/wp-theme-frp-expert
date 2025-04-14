@@ -6,7 +6,7 @@
     $timeline = get_sub_field('timeline');
 ?>
 
-<section class="">
+<?php echo ds_open_section() ?>    
     <div class="ds-section gap-[50px] flex flex-col lg:flex-row justify-between relative">
         <div class="lg:w-[35%] h-fit flex flex-col gap-[24px] lg:sticky lg:top-[100px]">
             <?php 
@@ -44,4 +44,4 @@
             </div>
         <?php endif; ?>
     </div>
-</section>
+<?php echo ds_close_section() ?>    

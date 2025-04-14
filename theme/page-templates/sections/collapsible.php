@@ -4,7 +4,7 @@
     $collapsible = get_sub_field('collapsible');
 ?>
 
-<section>
+<?php echo ds_open_section() ?>    
     <div class="ds-section flex flex-col lg:flex-row gap-[100px] justify-between">
         <?php 
             ds_render_component('heading', [
@@ -30,4 +30,4 @@
             </div>
         <?php endif; ?>
     </div>
-</section>
+<?php echo ds_close_section() ?>    

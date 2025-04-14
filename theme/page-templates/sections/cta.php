@@ -6,7 +6,7 @@
     $icon = ds_get_image_data_from_sub_field('icon');
 ?>
 
-<section class="w-full">
+<?php echo ds_open_section() ?>    
     <div class="ds-section-medium flex flex-col lg:flex-row items-center gap-[30px] lg:gap-[40px]">
         <div class="lg:w-1/2 w-full relative">
             <?php 
@@ -37,4 +37,4 @@
             ?>
         </div>
     </div>
-</section>
+<?php echo ds_close_section() ?>    

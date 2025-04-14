@@ -94,3 +94,23 @@ function ds_render_component( $view, $args = array() ) {
 		ds_missing_component_notice( $view );
 	}
 }
+
+function ds_load_acf_layout( $file, $section_config ) {
+	require_once $file;
+
+	$layout_name = basename( $file, '.php' );
+
+	if ( isset( ${$layout_name} ) && is_array( ${$layout_name} ) ) {
+		// Deep clone layout and section config
+		$layout = unserialize( serialize( ${$layout_name} ) );
+
+		if ( isset( $layout['sub_fields'] ) && is_array( $layout['sub_fields'] ) ) {
+			// Add section config as the FIRST field
+			array_unshift( $layout['sub_fields'], unserialize( serialize( $section_config ) ) );
+		}
+		return [ $layout_name => $layout ];
+	} else {
+		trigger_error( "ACF layout variable \${$layout_name} not found in {$file}", E_USER_WARNING );
+		return [];
+	}
+}

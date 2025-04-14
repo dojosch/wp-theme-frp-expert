@@ -3,7 +3,7 @@
     $author = get_sub_field('author');
 ?>
 
-<section class="w-full">
+<?php echo ds_open_section() ?>    
     <div class="ds-section-narrow">
         <?php if($quote): ?>
             <div class="text-primary text-2xl font-serif ds-wysiwyg">
@@ -16,4 +16,4 @@
             </div>
         <?php endif; ?>
     </div>
-</section>
+<?php echo ds_close_section() ?>    

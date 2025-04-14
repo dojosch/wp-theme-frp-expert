@@ -5,7 +5,7 @@
     $text = get_sub_field('text');
 ?>
 
-<section class="w-full">
+<?php echo ds_open_section() ?>    
     <div class="ds-section grid grid-cols-3 lg:grid-cols-8 gap-[30px] lg:gap-[50px] items-end">
         <div class="flex flex-col col-span-3 lg:col-span-5 gap-[30px] lg:gap-[25px]">
             <?php 
@@ -28,4 +28,4 @@
             ]);
         ?>
     </div>
-</section>
+<?php echo ds_close_section() ?>    

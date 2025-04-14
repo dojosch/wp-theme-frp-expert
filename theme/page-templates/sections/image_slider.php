@@ -2,7 +2,7 @@
 $images = get_sub_field('images');
 ?>
 
-<section class="w-full">
+<?php echo ds_open_section() ?>    
     <div class="ds-section-full">
         <?php if ($images && count($images) > 0): ?>
             <div class="ds-image-slider relative" role="region" aria-label="Image gallery slider">
@@ -36,4 +36,4 @@ $images = get_sub_field('images');
             </div>
         <?php endif; ?>
     </div>
-</section>
+<?php echo ds_close_section() ?>    

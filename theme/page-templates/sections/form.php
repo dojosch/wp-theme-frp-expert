@@ -2,7 +2,7 @@
     $shortcode = get_sub_field('shortcode');
 ?>
 
-<section class="w-full">
+<?php echo ds_open_section() ?>    
     <div class="ds-section">
         <?php 
             ds_render_component( 'shortcode', [
@@ -11,4 +11,4 @@
             ] );
         ?>
     </div>
-</section>
+<?php echo ds_close_section() ?>    

@@ -7,7 +7,7 @@
     $faq = get_sub_field('faqs');
 ?>
 
-<section>
+<?php echo ds_open_section() ?>    
     <div class="ds-section justify-between">
         <div class="flex flex-col gap-[20px]">
             <?php 
@@ -51,4 +51,4 @@
             </div>
         <?php endif; ?>
     </div>
-</section>
+<?php echo ds_close_section() ?>    

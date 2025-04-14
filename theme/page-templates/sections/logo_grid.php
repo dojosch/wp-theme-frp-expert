@@ -6,7 +6,7 @@
     $logos = get_sub_field('logos');
 ?>
 
-<section class="overflow-x-hidden">
+<?php echo ds_open_section("overflow-x-hidden") ?>    
     <div class="ds-section flex flex-col">
         <div class="relative flex flex-col lg:items-center">
             <?php 
@@ -64,4 +64,4 @@
             <?php endif; ?>
         </div>
     </div>
-</section>
+<?php echo ds_close_section() ?>    

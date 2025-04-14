@@ -2,7 +2,7 @@
 	$icons = get_sub_field( 'icons' );
 ?>
 
-<section class="w-full">
+<?php echo ds_open_section() ?>    
     <div class="ds-section">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-[60px]">
             <?php foreach ( $icons as $icon ) : ?>
@@ -23,4 +23,4 @@
             <?php endforeach; ?>
         </div>
     </div>
-</section>
+<?php echo ds_close_section() ?>    

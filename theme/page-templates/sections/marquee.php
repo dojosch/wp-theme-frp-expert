@@ -3,8 +3,7 @@
     $column2 = get_sub_field('column_2');
 ?>
 
-<section
-    class="ds-section !px-0 !max-full !min-w-full flex flex-col ds-section--marquee text-brand-dark font-serif text-4xl lg:text-5xl font-light leading-[60px] lg:leading-[100px]">
+<?php echo ds_open_section("ds-section !px-0 !max-full !min-w-full flex flex-col ds-section--marquee text-brand-dark font-serif text-4xl lg:text-5xl font-light leading-[60px] lg:leading-[100px]") ?>
     <?php if($column1 && count($column1) > 0): ?>
     <div class="overflow-hidden flex whitespace-nowrap ds-marquee gap-[10px] lg:gap-[20px]" data-direction="right">
         <div>
@@ -35,4 +34,4 @@
         </div>
     </div>
     <?php endif; ?>
-</section>
+<?php echo ds_close_section() ?>    

@@ -12,17 +12,19 @@
 
 $layouts = [];
 
+require_once get_template_directory() . '/config/acf-fields/elements/section_config.php';
+
 foreach ( glob( get_template_directory() . '/config/acf-fields/elements/fields/*.php' ) as $file ) {
-	require_once $file;
+	$new_config = unserialize( serialize( $section_config ) );
 
-	$layout_name = basename( $file, '.php' );
+	$new_config['key'] = 'field_' . basename( $file, '.php' );
 
-	if ( isset( ${$layout_name} ) ) {
-		$layouts[ $layout_name ] = ${$layout_name};
-	} else {
-		trigger_error( "ACF layout variable \${$layout_name} not found in {$file}", E_USER_WARNING );
-	}
+	$layout_entry = ds_load_acf_layout( $file, $new_config );
+
+	// Merge single-element array into layouts
+	$layouts = array_merge( $layouts, $layout_entry );
 }
+
 
 acf_add_local_field_group(
 	array(

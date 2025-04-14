@@ -2,7 +2,7 @@
     $text = get_sub_field('text');
 ?>
 
-<section class="w-full">
+<?php echo ds_open_section() ?>    
     <div class="ds-section-medium">
         <?php 
             ds_render_component( 'text', [
@@ -11,4 +11,4 @@
             ]);
         ?>
     </div>
-</section>
+<?php echo ds_close_section() ?>    

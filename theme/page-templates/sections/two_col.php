@@ -8,7 +8,7 @@
     $text = get_sub_field('text');
 ?>
 
-<section class="">
+<?php echo ds_open_section() ?>    
     <div class="ds-section flex flex-col lg:flex-row gap-[25px] lg:gap-[15%] lg:items-center">   
         <div class="lg:w-1/2 w-full aspect-[595/650] relative">
             <?php 
@@ -44,4 +44,4 @@
             ?>
         </div>
     </div>
-</section>
+<?php echo ds_close_section() ?>    

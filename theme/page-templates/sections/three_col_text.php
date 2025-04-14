@@ -3,7 +3,7 @@
     $background_color = get_sub_field('background_color');
 ?>
 
-<section class="w-full">
+<?php echo ds_open_section() ?>    
     <div class="ds-section grid grid-cols-1 lg:grid-cols-3 gap-[50px]">
         <?php foreach($columns as $column): ?>
             <div class="flex flex-col">
@@ -28,4 +28,4 @@
             </div>
         <?php endforeach; ?>
     </div>
-</section>
+<?php echo ds_close_section() ?>    

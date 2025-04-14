@@ -7,7 +7,7 @@
     $column_2 = get_sub_field('column_2');
 ?>
 
-<section class="w-full">
+<?php echo ds_open_section() ?>    
     <div class="ds-section-narrow">
         <div>
             <?php 
@@ -37,4 +37,4 @@
             <?php endif;?>
         </div>
     </div>
-</section>
+<?php echo ds_close_section() ?>    

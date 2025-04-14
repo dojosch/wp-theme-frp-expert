@@ -7,7 +7,7 @@
     $image = ds_get_image_data_from_sub_field('image');
 ?>
 
-<section class="">
+<?php echo ds_open_section() ?>    
     <div class="ds-section-header flex flex-col-reverse lg:flex-row gap-[50px]">
         <div class="flex flex-col justify-between text-brand-dark gap-[30px] lg:gap-[50px] lg:w-1/2">
             <div class="flex flex-col gap-[30px] lg:gap-[20px]">
@@ -45,4 +45,4 @@
             </div>
         <?php endif; ?>
     </div>
-</section>
+<?php echo ds_close_section() ?>    

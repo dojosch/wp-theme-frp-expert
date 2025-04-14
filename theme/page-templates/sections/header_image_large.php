@@ -7,9 +7,8 @@
     $image = ds_get_image_data_from_sub_field('image');
 ?>
 
-<section class="">
+<?php echo ds_open_section() ?>    
     <div class="ds-section-header flex flex-col gap-[40px] lg:gap-[110px]">
-    
         <div class="flex flex-col gap-[20px]">
             <?php 
                 ds_render_component( 'heading', [
@@ -44,4 +43,4 @@
             </div>
         <?php endif; ?>
     </div>
-</section>
+<?php echo ds_close_section() ?>    

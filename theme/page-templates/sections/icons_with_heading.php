@@ -4,7 +4,7 @@
     $list         = get_sub_field( 'list' );
 ?>
 
-<section class="w-full">
+<?php echo ds_open_section() ?>    
     <div class="ds-section">
         <?php
             ds_render_component( 'heading', [
@@ -34,4 +34,4 @@
             </div>
         <?php endif; ?>
     </div>
-</section>
+<?php echo ds_close_section() ?>    

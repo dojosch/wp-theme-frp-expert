@@ -11,7 +11,7 @@
 }
 
 .ds-section-narrow {
-    @apply container mx-auto py-20  lg:py-24 px-6 lg:px-[240px];
+    @apply container mx-auto py-20 lg:py-24 px-6 lg:px-[240px];
 }
 
 .ds-section-full {
@@ -30,8 +30,4 @@
     @apply text-center text-white bg-primary border border-primary rounded-full w-fit;
     @apply py-3 px-5 lg:py-2.5 lg:px-6 text-sm lg:text-base leading-normal;
     @apply lg:hover:bg-transparent lg:hover:text-primary;
-}
-
-section:nth-child(odd) {
-    @apply bg-primary/5;
 }

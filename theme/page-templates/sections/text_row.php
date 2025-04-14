@@ -2,7 +2,7 @@
     $rows = get_sub_field('rows');
 ?>
 
-<section>
+<?php echo ds_open_section() ?>    
     <div class="ds-section flex flex-col"> 
         <?php if($rows && count($rows) > 0): ?>
             <?php foreach($rows as $row): ?>
@@ -23,4 +23,4 @@
             <?php endforeach; ?>
         <?php endif; ?>
     </div>
-</section>
+<?php echo ds_close_section() ?>    
