@@ -1,37 +1,44 @@
-@import "./custom/file-header.css";
-/**
- * The line above injects the WordPress file header. It needs to be first,
- * before this comment.
- */
+@import "./custom/fonts.css" layer(base);
+@import "./custom/layout.css" layer(base);
+@import "./custom/contact.css" layer(base);
+@import "./custom/slider.css" layer(base);
+@import "./custom/wysiwyg.css" layer(base);
+@import "tailwindcss";
 
-/**
- * This injects custom `@font-face` rules.
- */
-@import "./custom/fonts.css";
+@import "@glidejs/glide/dist/css/glide.core.css";
+@import "@glidejs/glide/dist/css/glide.theme.css";
 
-/**
- * This injects Tailwind's base styles and any base styles registered by
- * plugins, then adds custom base styles.
- */
-@import "tailwindcss/base";
-@import "./custom/base.css";
+@theme {
+  /* Fonts */
+  --font-sans: 'Arial', sans-serif;
+  --font-serif: 'Times New Roman', serif;
 
-/**
- * This injects Tailwind's component classes and any component classes
- * registered by plugins, then adds custom component classes.
- *
- * The `@import-glob` line imports all CSS files from the `components`
- * directory (except for `components.css`, which is imported on the following
- * line). This is meant to simplify the process of integrating styles from
- * JavaScript components or WordPress plugins.
- */
-@import "tailwindcss/components";
-@import-glob "./custom/components/**/!(components).css";
-@import "./custom/components/components.css";
+  /* Font Sizes */
+  --font-size-sm: 0.75rem;   /* 12px */
+  --font-size-base: 1rem;    /* 16px */
+  --font-size-lg: 1.25rem;   /* 20px */
+  --font-size-xl: 1.5rem;    /* 24px */
+  --font-size-2xl: 2rem;     /* 32px */
 
-/**
- * This injects Tailwind's utility classes and any utility classes registered
- * by plugins, then adds custom utility classes.
- */
-@import "tailwindcss/utilities";
-@import "./custom/utilities.css";
+  /* Colors */
+  --color-black: #000000;
+  --color-white: #ffffff;
+  --color-background: #f5f2ef;
+  --color-primary: #0000ff;
+  --color-secondary: #ff0000;
+}
+
+.ds-debug section{
+  @apply border border-4 border-red-500;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.ds-no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.ds-no-scrollbar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}

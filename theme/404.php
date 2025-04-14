@@ -1,4 +1,5 @@
 <?php
+
 /**
  * The template for displaying 404 pages (not found)
  *
@@ -8,24 +9,19 @@
  */
 
 get_header();
+
+$text = get_field('text_404', 'option');
 ?>
 
-	<section id="primary">
-		<main id="main">
-
-			<div>
-				<header class="page-header">
-					<h1 class="page-title"><?php esc_html_e( 'Page Not Found', 'ds-starter' ); ?></h1>
-				</header><!-- .page-header -->
-
-				<div <?php ds_content_class( 'page-content' ); ?>>
-					<p><?php esc_html_e( 'This page could not be found. It might have been removed or renamed, or it may never have existed.', 'ds-starter' ); ?></p>
-					<?php get_search_form(); ?>
-				</div><!-- .page-content -->
+<section class="">
+	<div class="ds-section">
+		<div class="container mx-auto px-[25px] min-h-[25vh] mt-[120px]">
+			<div class="ds-wysiwyg">
+				<?php echo $text; ?>
 			</div>
-
-		</main><!-- #main -->
-	</section><!-- #primary -->
+		</div>
+	</div>
+</section>
 
 <?php
 get_footer();

@@ -26,6 +26,6 @@
 <div id="page">
 	<a href="#content" class="sr-only"><?php esc_html_e( 'Skip to content', 'ds-starter' ); ?></a>
 
-	<?php get_template_part( 'template-parts/layout/header', 'content' ); ?>
+	<?php get_template_part( 'page-templates/layout/header', 'content' ); ?>
 
 	<div id="content">

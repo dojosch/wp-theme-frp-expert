@@ -1,0 +1,7 @@
+.glide__bullet {
+    @apply bg-transparent size-[10px] !border !border-primary shadow-none hover:bg-transparent transition-none;
+}
+
+.glide__bullet--active {
+    @apply !bg-primary;
+}

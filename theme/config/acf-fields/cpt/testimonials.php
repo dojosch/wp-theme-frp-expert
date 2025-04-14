@@ -1,0 +1,68 @@
+<?php 
+
+acf_add_local_field_group( array(
+	'key' => 'group_67879735a7e23',
+	'title' => 'Testimonial Elements',
+	'fields' => array(
+		array(
+			'key' => 'field_67879735ff59d',
+			'label' => 'Text',
+			'name' => 'text',
+			'aria-label' => '',
+			'type' => 'wysiwyg',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'default_value' => '',
+			'allow_in_bindings' => 0,
+			'tabs' => 'all',
+			'toolbar' => 'italic_only',
+			'media_upload' => 0,
+			'delay' => 0,
+		),
+		array(
+			'key' => 'field_67879782ff59e',
+			'label' => 'Author',
+			'name' => 'author',
+			'aria-label' => '',
+			'type' => 'text',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'default_value' => '',
+			'maxlength' => '',
+			'allow_in_bindings' => 0,
+			'placeholder' => '',
+			'prepend' => '',
+			'append' => '',
+		),
+	),
+	'location' => array(
+		array(
+			array(
+				'param' => 'post_type',
+				'operator' => '==',
+				'value' => 'testimonial',
+			),
+		),
+	),
+	'menu_order' => 0,
+	'position' => 'normal',
+	'style' => 'default',
+	'label_placement' => 'top',
+	'instruction_placement' => 'label',
+	'hide_on_screen' => '',
+	'active' => true,
+	'description' => '',
+	'show_in_rest' => 0,
+));

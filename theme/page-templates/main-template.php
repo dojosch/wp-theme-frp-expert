@@ -1,39 +1,59 @@
 <?php
-/*
-    * Template Name: Main Template
-    * Template Post Type: page
-    */
+/**
+ * Main Template for WordPress Theme
+ *
+ * This file defines a custom page template for the WordPress theme.
+ *
+ * Template Name: Main Template
+ * Template Post Type: page
+ *
+ * @package WordPress
+ * @subpackage wp-starter-tw
+ * @since 1.0.0
+ */
+
+get_header();
+
+$debugging = false;
 ?>
 
-<?php get_header(); ?>
-
-<main class="min-h-dvh">
-	<?php if (have_rows('elements')) : ?>
-		<?php while (have_rows('elements')) : the_row(); ?>
+<main class="pt-[82px] lg:pt-[90px] min-h-dvh <?php echo $debugging ? 'ds-debug' : ''; ?>">
+	<?php if ( have_rows( 'elements' ) ) : ?>
+		<?php
+		while ( have_rows( 'elements' ) ) :
+			the_row();
+			?>
 			<?php
-			$path =  'sections/' . get_row_layout() . '.php';
-			$checkPath =  get_stylesheet_directory() . '/page-templates/' . $path;
+			$layout       = get_row_layout();
+			$section_path = 'sections/' . $layout . '.php';
+			$file         = get_stylesheet_directory() . '/page-templates/' . $section_path;
 
-			if (file_exists($checkPath)) :
-				include($path);
-			else : ?>
-				<div class="bg-gray-50 py-20">
-					<div class="mx-auto max-w-7xl sm:px-6 lg:px-8 ">
-						<div class="rounded-md bg-red-50 p-4 m-8 border border-red-300">
-							<div class="flex">
-								<div class="flex-shrink-0">
-									<svg class="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-										<path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.28 7.22a.75.75 0 00-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 101.06 1.06L10 11.06l1.72 1.72a.75.75 0 101.06-1.06L11.06 10l1.72-1.72a.75.75 0 00-1.06-1.06L10 8.94 8.28 7.22z" clip-rule="evenodd" />
-									</svg>
-								</div>
-								<div class="ml-3">
-									<h3 class="text-sm font-medium text-red-800"><?php echo 'Row Layout "' . get_row_layout() . '" not found'; ?></h3>
-								</div>
-							</div>
+			if($debugging) {
+				?>
+					<div class="rounded-md bg-blue-50 p-4 max-w-3xl mx-auto my-4">
+					<div class="flex">
+						<div class="shrink-0">
+						<svg class="size-5 text-blue-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+							<path fill-rule="evenodd" d="M18 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0Zm-7-4a1 1 0 1 1-2 0 1 1 0 0 1 2 0ZM9 9a.75.75 0 0 0 0 1.5h.253a.25.25 0 0 1 .244.304l-.459 2.066A1.75 1.75 0 0 0 10.747 15H11a.75.75 0 0 0 0-1.5h-.253a.25.25 0 0 1-.244-.304l.459-2.066A1.75 1.75 0 0 0 9.253 9H9Z" clip-rule="evenodd" />
+						</svg>
+						</div>
+						<div class="ml-3 flex-1 md:flex md:justify-between">
+						<p class="text-sm text-blue-700">Section: <?php echo $layout ?></p>
+						<p class="mt-3 text-sm md:mt-0 md:ml-6">
+							
+						</p>
 						</div>
 					</div>
-				</div>
-			<?php endif; ?>
+					</div>
+				<?php
+			}
+
+			if ( file_exists( $file ) ) {
+				include $section_path;
+			} else {
+				ds_missing_layout_notice( $layout );
+			}
+			?>
 		<?php endwhile; ?>
 	<?php endif; ?>
 </main>

@@ -3,3 +3,13 @@
  *
  * These will be added immediately before Tailwind’s `base` layer.
  */
+
+/* 
+    @font-face {
+        font-display: swap; 
+        font-family: 'Newsreader';
+        font-style: normal;
+        font-weight: 200;
+        src: url('../theme/assets/fonts/newsreader-v25-latin-200.woff2') format('woff2'); 
+    } 
+*/

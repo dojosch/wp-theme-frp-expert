@@ -1,0 +1,33 @@
+.ds-section {
+    @apply container mx-auto py-20 px-6 lg:py-24;
+}
+
+.ds-section-header {
+    @apply container mx-auto pt-16 pb-20 px-6 lg:pb-24;
+}
+
+.ds-section-medium {
+    @apply container mx-auto py-20 lg:py-24 px-6 lg:px-[120px];
+}
+
+.ds-section-narrow {
+    @apply container mx-auto py-20 lg:py-24 px-6 lg:px-[240px];
+}
+
+.ds-section-full {
+    @apply mx-auto py-20 lg:py-24;
+}
+
+.ds-heading {
+    @apply font-serif text-xl lg:text-2xl leading-normal hyphens-auto;
+}
+
+.ds-subheading {
+    @apply uppercase text-primary text-sm lg:text-sm leading-[1.2];
+}
+
+.ds-button {
+    @apply text-center text-white bg-primary border border-primary rounded-full w-fit;
+    @apply py-3 px-5 lg:py-2.5 lg:px-6 text-sm lg:text-base leading-normal;
+    @apply lg:hover:bg-transparent lg:hover:text-primary;
+}

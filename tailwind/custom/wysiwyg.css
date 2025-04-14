@@ -1,0 +1,94 @@
+.ds-wysiwyg {
+  @apply font-sans text-base text-black leading-relaxed space-y-6;
+}
+
+.ds-wysiwyg h1 {
+  @apply font-serif text-2xl lg:text-[2.5rem] leading-tight font-bold mt-10 mb-6;
+}
+
+.ds-wysiwyg h2 {
+  @apply font-serif text-xl lg:text-2xl leading-snug font-bold mt-10 mb-5;
+}
+
+.ds-wysiwyg h3 {
+  @apply font-serif text-lg lg:text-xl leading-snug font-semibold mt-8 mb-4;
+}
+
+.ds-wysiwyg h4 {
+  @apply font-serif text-base lg:text-lg leading-snug font-medium mt-8 mb-3;
+}
+
+.ds-wysiwyg h5 {
+  @apply font-serif text-sm lg:text-base font-medium mt-6 mb-2;
+}
+
+.ds-wysiwyg h6 {
+  @apply font-serif text-sm uppercase tracking-wide text-primary font-bold mt-6 mb-2;
+}
+
+.ds-wysiwyg p {
+  @apply text-base leading-relaxed mb-4;
+}
+
+.ds-wysiwyg a {
+  @apply text-primary underline underline-offset-2 hover:text-secondary;
+}
+
+.ds-wysiwyg strong {
+  @apply font-semibold text-black;
+}
+
+.ds-wysiwyg em {
+  @apply italic;
+}
+
+.ds-wysiwyg ul,
+.ds-wysiwyg ol {
+  @apply pl-5 mb-4 space-y-2;
+}
+
+.ds-wysiwyg ul {
+  @apply list-disc;
+}
+
+.ds-wysiwyg ol {
+  @apply list-decimal;
+}
+
+.ds-wysiwyg li {
+  @apply text-base leading-relaxed;
+}
+
+.ds-wysiwyg blockquote {
+  @apply border-l-4 border-primary pl-4 italic text-lg text-black/80 my-8;
+}
+
+.ds-wysiwyg blockquote a {
+  @apply underline hover:text-secondary;
+}
+
+.ds-wysiwyg figure {
+  @apply my-8;
+}
+
+.ds-wysiwyg img {
+  @apply w-full h-auto rounded-md;
+}
+
+.ds-wysiwyg figcaption {
+  @apply text-sm text-black/60 mt-2 text-center;
+}
+
+.ds-wysiwyg pre {
+  @apply bg-black text-white text-sm font-mono p-4 rounded-md overflow-x-auto my-6;
+}
+
+.ds-wysiwyg code {
+  @apply text-sm font-mono;
+}
+
+/* Optional: nested emphasis */
+.ds-wysiwyg strong em,
+.ds-wysiwyg em strong {
+  @apply font-semibold italic;
+}

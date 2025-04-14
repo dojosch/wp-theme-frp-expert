@@ -1,10 +1,14 @@
-/**
- * Front-end JavaScript
- *
- * The JavaScript code you place here will be processed by esbuild. The output
- * file will be created at `../theme/js/script.min.js` and enqueued in
- * `../theme/functions.php`.
- *
- * For esbuild documentation, please see:
- * https://esbuild.github.io/
- */
+import Alpine from 'alpinejs';
+import { initImageSlider } from './layouts/image-slider.js';
+import { initTestimonials } from './layouts/testimonials.js';
+import { initMarquee } from './layouts/marquee.js';
+import { initLogoGrid } from './layouts/logo-grid.js';
+
+window.Alpine = Alpine;
+
+Alpine.start();
+
+initImageSlider();
+initTestimonials();
+initMarquee();
+initLogoGrid();
