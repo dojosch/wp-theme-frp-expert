@@ -14,6 +14,7 @@ $home_link = [
         submenuOpen: false,
         activeTab: null,
         toggleTab(index) {
+            event.preventDefault();
             if (this.activeTab === index) {
                 this.activeTab = null;
             } else {
@@ -23,7 +24,7 @@ $home_link = [
     }"
     x-effect="document.body.style.overflow = submenuOpen ? 'hidden' : 'auto'"
 >
-    <header class="bg-background w-full fixed top0 z-[1000]">
+    <header class="bg-background w-full fixed top0 z-[1000] transition-all duration-300 ease-in-out">
         <div class="ds-section !py-[24px] flex flex-row justify-between items-center">
             <?php echo ds_open_link($home_link, "block w-[130px] lg:w-[145px] max-h-[80px] h-auto"); ?>
                 <img
