@@ -151,7 +151,7 @@ $home_link = [
                             <!-- Mobile accordion content -->
                             <?php if ($hasSub): ?>
                             <div
-                                class="flex-col gap-[5px] lg:hidden pl-4"
+                                class="flex flex-col gap-[5px] lg:hidden pl-4"
                                 x-show="activeTab === '<?php echo $index; ?>'"
                                 x-transition
                                 x-cloak
@@ -171,7 +171,7 @@ $home_link = [
                         <?php foreach ($links as $index => $item): ?>
                             <?php if ($item['sub_links'] && count($item['sub_links']) > 0): ?>
                             <div
-                                class="flex-col gap-[5px]"
+                                class="flex flex-col gap-[5px]"
                                 x-show="activeTab === '<?php echo $index; ?>'"
                                 x-transition
                                 x-cloak
