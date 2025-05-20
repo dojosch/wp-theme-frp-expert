@@ -28,7 +28,7 @@
   --color-secondary: #ff0000;
 }
 
-.ds-debug section{
+.ds-debug section {
   @apply border border-4 border-red-500;
 }
 
