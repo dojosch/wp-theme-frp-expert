@@ -1,5 +1,5 @@
 .ds-wysiwyg {
-  @apply font-sans text-base text-black leading-relaxed space-y-6;
+  @apply font-sans text-base leading-relaxed space-y-6;
 }
 
 .ds-wysiwyg h1 {
