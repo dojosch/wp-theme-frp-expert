@@ -16,6 +16,7 @@
 		"browser-sync-webpack-plugin": "^2.3.0",
 		"chokidar-cli": "^3.0.0",
 		"cross-env": "^7.0.3",
+		"dotenv": "^17.2.2",
 		"esbuild": "^0.19.10",
 		"eslint": "^9.24.0",
 		"eslint-config-prettier": "^10.1.1",
@@ -59,12 +60,13 @@
 		"zip": "node node_scripts/zip.js ds-starter",
 		"bundle": "run-s production zip",
 		"sync-production": "./scripts/sync-production.sh",
-        "check-keys": "bash ./check_acf_keys.sh"
+		"check-keys": "bash ./check_acf_keys.sh"
 	},
 	"prettier": "@wordpress/prettier-config",
 	"dependencies": {
 		"@glidejs/glide": "^3.7.1",
 		"alpinejs": "^3.14.9",
-		"autoprefixer": "^10.4.21"
+		"autoprefixer": "^10.4.21",
+		"swiper": "^12.0.1"
 	}
 }

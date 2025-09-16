@@ -4,8 +4,11 @@ import { initTestimonials } from './layouts/testimonials.js';
 import { initMarquee } from './layouts/marquee.js';
 import { initLogoGrid } from './layouts/logo-grid.js';
 
-window.Alpine = Alpine;
+document.addEventListener('alpine:init', () => {
+    // Alpine.data('dsFunction', dsFunction);
+});
 
+window.Alpine = Alpine;
 Alpine.start();
 
 initImageSlider();
