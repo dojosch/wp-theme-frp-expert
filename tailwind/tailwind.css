@@ -28,11 +28,15 @@
     --text-ds-12: 0.75rem; /* 12px */
 
     /* Colors */
-    --color-black: #000000;
-    --color-white: #ffffff;
     --color-background: #f5f2ef;
     --color-primary: #0000ff;
     --color-secondary: #ff0000;
+
+    --color-ds-black: #000000;
+    --color-ds-white: #ffffff;
+
+    /* Breakpoints */
+    --breakpoint-xs: 375px;
 }
 
 .ds-debug section {
