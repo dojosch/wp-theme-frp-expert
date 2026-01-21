@@ -143,3 +143,83 @@ function remove_block_library_css() {
 	wp_dequeue_style( 'wc-block-style' ); // if you're using WooCommerce
 }
 add_action( 'wp_enqueue_scripts', 'remove_block_library_css', 100 );
+
+/**
+ * Removes Contact Form 7 and related plugin assets if not used on the page.
+ *
+ * This function scans the current post's content and ACF meta fields to detect
+ * if Contact Form 7 shortcodes are present. If not found, it dequeues and deregisters
+ * CSS and JavaScript files from Contact Form 7 and related plugins to improve
+ * performance by preventing unnecessary asset loading.
+ *
+ * Scans the following plugin folders:
+ * - contact-form-7
+ * - honeypot
+ * - wpcf7-redirect
+ * - cf7-conditional-fields
+ *
+ * @return void
+ */
+function remove_unused_cf7_css() {
+    global $post;
+
+    // --- CONFIGURATION ---
+    $plugins_to_unload = [
+        '/contact-form-7/',
+        '/honeypot/',
+        '/wpcf7-redirect/',
+        '/cf7-conditional-fields/'
+    ];
+
+    // Safety check
+    if ( ! isset( $post ) || ! is_a( $post, 'WP_Post' ) ) {
+        return;
+    }
+
+    // CHECK 1: Standard Content (Classic Editor / Gutenberg)
+    if ( strpos( $post->post_content, 'contact-form-7' ) !== false ) {
+        return; // Found in main content
+    }
+
+    // CHECK 2: ACF / Flexible Content (Scans Database Fields)
+    // We get all meta data for this page and check if the shortcode string exists anywhere.
+    $all_meta = get_post_meta( $post->ID );
+    // Convert all fields to a single string for easy searching
+    $meta_string = json_encode( $all_meta );
+
+    if ( strpos( $meta_string, 'contact-form-7' ) !== false ) {
+        return; // Found in ACF fields!
+    }
+
+    // --- UNLOADER ---
+    // If we reach here, the form is NOT on the page. Unload the files.
+    $dequeue_assets_by_folder = function( $type ) use ( $plugins_to_unload ) {
+        global $wp_styles, $wp_scripts;
+        $registry = ( $type === 'style' ) ? $wp_styles : $wp_scripts;
+        
+        if ( empty( $registry->queue ) ) return;
+
+        foreach ( $registry->queue as $handle ) {
+            if ( ! isset( $registry->registered[ $handle ] ) ) continue;
+            
+            $src = $registry->registered[ $handle ]->src;
+
+            foreach ( $plugins_to_unload as $plugin_folder ) {
+                if ( strpos( $src, $plugin_folder ) !== false ) {
+                    if ( $type === 'style' ) {
+                        wp_dequeue_style( $handle );
+                        wp_deregister_style( $handle );
+                    } else {
+                        wp_dequeue_script( $handle );
+                        wp_deregister_script( $handle );
+                    }
+                    break; 
+                }
+            }
+        }
+    };
+
+    $dequeue_assets_by_folder( 'style' );
+    $dequeue_assets_by_folder( 'script' );
+}
+add_action( 'wp_enqueue_scripts', 'remove_unused_cf7_css', 100 );
