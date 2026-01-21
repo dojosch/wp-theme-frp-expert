@@ -160,7 +160,7 @@ add_action( 'wp_enqueue_scripts', 'remove_block_library_css', 100 );
  *
  * @return void
  */
-function remove_unused_cf7_css() {
+function remove_unused_cf7_assets() {
     global $post;
 
     // --- CONFIGURATION ---
@@ -222,4 +222,4 @@ function remove_unused_cf7_css() {
     $dequeue_assets_by_folder( 'style' );
     $dequeue_assets_by_folder( 'script' );
 }
-add_action( 'wp_enqueue_scripts', 'remove_unused_cf7_css', 100 );
+add_action( 'wp_enqueue_scripts', 'remove_unused_cf7_assets', 100 );
