@@ -38,14 +38,14 @@ function ds_get_heading( $text = '', $tag = 'h2', $css_class = '' ) {
 		return '';
 	}
 
-	$allowed_tags = array( 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'span', 'p', 'div' );
+    $allowed_tags = array( 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'span', 'p', 'div', 'strong', 'em', 'u', 'a', 'ul', 'ol', 'li', 'br' );
 	$tag          = in_array( strtolower( $tag ), $allowed_tags, true ) ? strtolower( $tag ) : 'h2';
 
 	return sprintf(
 		'<%1$s class="%2$s">%3$s</%1$s>',
 		$tag,
 		esc_attr( $css_class ),
-		esc_html( $text )
+		wp_kses( $text, array_fill_keys( $allowed_tags, array() ) )
 	);
 }
 
