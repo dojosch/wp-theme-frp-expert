@@ -1,5 +1,16 @@
 <?php
 
+
+/**
+ * Returns an ACF field array for a heading with selectable tag.
+ *
+ * @param string $key   The unique key for the field.
+ * @param string $label The label for the field.
+ * @param array  $args  Optional. Additional arguments to customize the group field.
+ *                      These will override the default group settings.
+ *
+ * @return array|null The ACF field array for the heading group, or null on error.
+ */
 function ds_heading_field($key, $label, $args = []) {
     if (empty($key)) {
         error_log('ds_heading_field: key parameter is required');
