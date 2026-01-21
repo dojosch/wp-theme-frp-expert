@@ -98,3 +98,27 @@ function ds_console_log( $data, $context = 'Debug' ) {
 	echo "<script>console.log('[{$context}]', {$data});</script>";
 }
 
+/**
+ * Convert a human-readable label to a machine-readable field name
+ * 
+ * @param string $label The label to convert (e.g., "Hero Heading")
+ * @return string The converted field name (e.g., "hero_heading")
+ */
+function ds_parse_label_to_name($label) {
+    // Convert to lowercase
+    $name = strtolower($label);
+    
+    // Replace spaces and dashes with underscores
+    $name = str_replace([' ', '-'], '_', $name);
+    
+    // Remove special characters (keep only alphanumeric and underscores)
+    $name = preg_replace('/[^a-z0-9_]/', '', $name);
+    
+    // Remove multiple consecutive underscores
+    $name = preg_replace('/_+/', '_', $name);
+    
+    // Trim underscores from start and end
+    $name = trim($name, '_');
+    
+    return $name;
+}
