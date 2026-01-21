@@ -6,6 +6,7 @@
  *
  * @param string $key   The unique key for the field.
  * @param string $label The label for the field.
+ * @param string $default_tag Optional. The default HTML tag for the heading. Default is 'h2'.
  * @param array  $args  Optional. Additional arguments to customize the group field.
  *                      These will override the default group settings.
  *
