@@ -98,7 +98,6 @@ function ds_header_image_field($key, $label, $args = []) {
         'max_height' => '',
         'max_size' => '',
         'mime_types' => '',
-        'is_header_image' => true,
     );
 
     return wp_parse_args($args, $header_image_field);
