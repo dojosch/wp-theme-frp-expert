@@ -27,3 +27,27 @@ function ds_preload_fonts() {
     }
 }
 add_action( 'wp_head', 'ds_preload_fonts' );
+
+/**
+ * Preload header images from the first section's ACF fields.
+ *
+ * This function retrieves the 'elements' ACF field, checks the first section
+ * for any image-type fields, and preloads those images in the document head.
+ *
+ * @return void
+ */
+function ds_preload_header_images() {
+    $elements = get_field('elements');
+    $first_section = $elements[0] ?? null;
+
+    if( !$first_section) return;
+    
+    foreach( $first_section as $key => $value ) {
+        if( is_array($value) && isset($value['type']) && $value['type'] === 'image' && isset($value['url']) ) {
+            $image_url = $value['url'];
+            echo '<link rel="preload" href="' . esc_url( $image_url ) . '" as="image" fetchpriority="high">' . "\n";
+        }
+    }
+
+}
+add_action( 'wp_head', 'ds_preload_header_images');

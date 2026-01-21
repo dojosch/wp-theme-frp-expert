@@ -24,7 +24,6 @@ $css_class = $css_class ?? '';
 <?php if ( $media['type'] === 'image' && isset( $media['image'] ) ) : ?>
 <?php
     $image_data = ds_get_image_data_from_id( $media['image'] );
-    ds_console_log($image_data);
     if ( $image_data && isset( $image_data['src'] ) ) :
     ?>
 <img src="<?php echo esc_url( $image_data['src'] ); ?>" alt="<?php echo $image_data['alt']; ?>"

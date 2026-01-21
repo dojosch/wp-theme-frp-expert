@@ -4,7 +4,6 @@ $heading = get_sub_field('heading');
 $heading_2 = get_sub_field('heading_2');
 $link_1 = get_sub_field('link_1');
 $media = get_sub_field('media');
-ds_console_log($media);
 $cropped_media = get_sub_field('cropped_media');
 ?>
 

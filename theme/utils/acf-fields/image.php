@@ -76,3 +76,30 @@ function ds_image_crop_field($key, $label, $width=1, $height=1, $args = []) {
 
     return wp_parse_args($args, $image_crop_field);
 }
+
+function ds_header_image_field($key, $label, $args = []) {
+    if( empty($key) ) {
+        error_log('ds_header_image_field: key parameter is required');
+        return null;
+    }
+    
+    $header_image_field = array(
+        'key' => $key,
+        'label' => $label,
+        'name' => ds_parse_label_to_name($label),
+        'type' => 'image',
+        'return_format' => 'array',
+        'preview_size' => 'medium',
+        'library' => 'all',
+        'min_width' => '',
+        'min_height' => '',
+        'min_size' => '',
+        'max_width' => '',
+        'max_height' => '',
+        'max_size' => '',
+        'mime_types' => '',
+        'is_header_image' => true,
+    );
+
+    return wp_parse_args($args, $header_image_field);
+}
