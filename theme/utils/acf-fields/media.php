@@ -24,11 +24,6 @@ function ds_media_field($key, $label, $args=[]) {
         'instructions' => '',
         'required' => 0,
         'conditional_logic' => 0,
-        'wrapper' => array(
-            'width' => '',
-            'class' => '',
-            'id' => '',
-        ),
         'choices' => array(
             'image' => 'Image',
             'video' => 'Video'
@@ -58,11 +53,6 @@ function ds_media_field($key, $label, $args=[]) {
                 ),
             ),
         ),
-        'wrapper' => array(
-            'width' => '',
-            'class' => '',
-            'id' => '',
-        ),
         'return_format' => 'id',
         'preview_size' => 'medium',
         'library' => 'all',
@@ -90,11 +80,6 @@ function ds_media_field($key, $label, $args=[]) {
                     'value' => 'video',
                 ),
             ),
-        ),
-        'wrapper' => array(
-            'width' => '',
-            'class' => '',
-            'id' => '',
         ),
         'return_format' => 'array',
         'library' => 'all',
@@ -154,11 +139,6 @@ function ds_media_crop_field($key, $label, $width=1, $height=1, $args=[]) {
         'instructions' => '',
         'required' => 0,
         'conditional_logic' => 0,
-        'wrapper' => array(
-            'width' => '',
-            'class' => '',
-            'id' => '',
-        ),
         'choices' => array(
             'image' => 'Image',
             'video' => 'Video'
@@ -187,11 +167,6 @@ function ds_media_crop_field($key, $label, $width=1, $height=1, $args=[]) {
                     'value' => 'image',
                 ),
             ),
-        ),
-        'wrapper' => array(
-            'width' => '',
-            'class' => '',
-            'id' => '',
         ),
         'aspect_ratio_width' => $width,
         'aspect_ratio_height' => $height,
@@ -223,11 +198,6 @@ function ds_media_crop_field($key, $label, $width=1, $height=1, $args=[]) {
                 ),
             ),
         ),
-        'wrapper' => array(
-            'width' => '',
-            'class' => '',
-            'id' => '',
-        ),
         'return_format' => 'array',
         'library' => 'all',
         'min_size' => '',
@@ -243,11 +213,6 @@ function ds_media_crop_field($key, $label, $width=1, $height=1, $args=[]) {
         'instructions' => '',
         'required' => 0,
         'conditional_logic' => 0,
-        'wrapper' => array(
-            'width' => '',
-            'class' => '',
-            'id' => '',
-        ),
         'layout' => 'block',
     );
 
