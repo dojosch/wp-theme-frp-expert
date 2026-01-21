@@ -11,7 +11,7 @@
  *
  * @return array|null The ACF field array for the heading group, or null on error.
  */
-function ds_heading_field($key, $label, $args = []) {
+function ds_heading_field($key, $label, $default_tag='h2', $args = []) {
     if (empty($key)) {
         error_log('ds_heading_field: key parameter is required');
         return null;
@@ -59,7 +59,7 @@ function ds_heading_field($key, $label, $args = []) {
             'h6' => 'h6',
             'span' => 'Text',
         ),
-        'default_value' => 'h2',
+        'default_value' => $default_tag,
         'allow_null' => 0,
         'multiple' => 0,
         'ui' => 0,
