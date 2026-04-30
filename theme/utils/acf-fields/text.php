@@ -6,22 +6,21 @@
  *
  * @param string $key   The unique key for the field.
  * @param string $label The label for the field.
- * @param array  $args  Optional. Additional arguments to customize the text field.
- *                      These will override the default text field settings.
+ * @param array  $args  Optional. Additional arguments to customize the field.
+ *                      These will override the default settings.
  *
  * @return array|null The ACF field array for the text field, or null on error.
  */
-
 function ds_text_field($key, $label, $args = []) {
     if (empty($key)) {
         error_log('ds_text_field: key parameter is required');
         return null;
     }
 
-    $text_field = array(
+    $defaults = array(
         'key' => $key,
         'label' => $label,
-        'name' => $key,
+        'name' => ds_parse_label_to_name($label),
         'type' => 'text',
         'instructions' => '',
         'required' => 0,
@@ -38,17 +37,17 @@ function ds_text_field($key, $label, $args = []) {
         'maxlength' => '',
     );
 
-    return array_merge($text_field, $args);
+    return wp_parse_args($args, $defaults);
 }
 
 /**
  * Returns an ACF field array for a textarea field.
  *
- * @param string $key   The unique key for the field.
- * @param string $label The label for the field.
+ * @param string  $key   The unique key for the field.
+ * @param string  $label The label for the field.
  * @param integer $rows  Optional. The number of rows for the textarea. Default is 4.
- * @param array  $args  Optional. Additional arguments to customize the textarea field.
- *                      These will override the default settings.
+ * @param array   $args  Optional. Additional arguments to customize the field.
+ *                       These will override the default settings.
  *
  * @return array|null The ACF field array for the textarea field, or null on error.
  */
@@ -58,10 +57,10 @@ function ds_textarea_field($key, $label, $rows = 4, $args = []) {
         return null;
     }
 
-    $textarea_field = array(
+    $defaults = array(
         'key' => $key,
         'label' => $label,
-        'name' => $key,
+        'name' => ds_parse_label_to_name($label),
         'type' => 'textarea',
         'instructions' => '',
         'required' => 0,
@@ -77,32 +76,31 @@ function ds_textarea_field($key, $label, $rows = 4, $args = []) {
         'rows' => $rows,
     );
 
-    return array_merge($textarea_field, $args);
+    return wp_parse_args($args, $defaults);
 }
 
 /**
  * Returns an ACF field array for a wysiwyg field.
  *
- * @param string $key   The unique key for the field.
- * @param string $label The label for the field.
- * @param string $toolbar Optional. The toolbar configuration for the wysiwyg editor. Default is 'full'.
- * @param boolean $media_upload Optional. Whether to allow media uploads in the wysiwyg editor. Default is false.
- * @param array  $args  Optional. Additional arguments to customize the wysiwyg field.
- *                      These will override the default wysiwyg settings.
+ * @param string  $key          The unique key for the field.
+ * @param string  $label        The label for the field.
+ * @param string  $toolbar      Optional. The toolbar configuration. Default is 'basic'.
+ * @param boolean $media_upload Optional. Whether to allow media uploads. Default is false.
+ * @param array   $args         Optional. Additional arguments to customize the field.
+ *                              These will override the default settings.
  *
  * @return array|null The ACF field array for the wysiwyg field, or null on error.
  */
-
 function ds_wysiwyg_field($key, $label, $toolbar = 'basic', $media_upload = 0, $args = []) {
     if (empty($key)) {
         error_log('ds_wysiwyg_field: key parameter is required');
         return null;
     }
 
-    $wysiwyg_field = array(
+    $defaults = array(
         'key' => $key,
         'label' => $label,
-        'name' => $key,
+        'name' => ds_parse_label_to_name($label),
         'type' => 'wysiwyg',
         'instructions' => '',
         'required' => 0,
@@ -112,10 +110,12 @@ function ds_wysiwyg_field($key, $label, $toolbar = 'basic', $media_upload = 0, $
             'class' => '',
             'id' => '',
         ),
-        'default_value' => 'all',
+        'default_value' => '',
+        'tabs' => 'all',
         'toolbar' => $toolbar,
         'media_upload' => $media_upload,
+        'delay' => 0,
     );
 
-    return array_merge($wysiwyg_field, $args);
+    return wp_parse_args($args, $defaults);
 }

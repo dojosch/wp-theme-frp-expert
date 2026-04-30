@@ -6,10 +6,15 @@ $link_1 = get_sub_field('link_1');
 $media = get_sub_field('media');
 $cropped_media = get_sub_field('cropped_media');
 $video = get_sub_field('video');
+$text = get_sub_field('text');
+$textarea = get_sub_field('textarea');
+$wysiwyg = get_sub_field('wysiwyg');
+ds_console_log($wysiwyg);
 ?>
 
-<?php echo ds_open_section(); ?>
-<?php ds_render_component('heading', array(
+<?php echo ds_open_section('ds-section flex flex-col gap-[10px]'); ?>
+<?php 
+    ds_render_component('heading', array(
         'heading' => $heading,
         'css_class' => 'text-center',
     )); 
@@ -32,6 +37,18 @@ $video = get_sub_field('video');
     ds_render_component('video', array(
         'video' => $video,
         'css_class' => 'my-4',
+    ));
+    ds_render_component('text', array(
+        'text' => $text,
+        'css_class' => 'my-4',
+    ));
+    ds_render_component('text', array(
+        'text' => $textarea,
+        'css_class' => 'my-4',
+    ));
+    ds_render_component('text', array(
+        'text' => $wysiwyg,
+        'css_class' => 'my-4 ds-wysiwyg',
     ));
 ?>
 <?php echo ds_close_section(); ?>
