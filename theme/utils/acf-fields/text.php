@@ -1,0 +1,121 @@
+<?php
+
+
+/**
+ * Returns an ACF field array for a text field.
+ *
+ * @param string $key   The unique key for the field.
+ * @param string $label The label for the field.
+ * @param array  $args  Optional. Additional arguments to customize the text field.
+ *                      These will override the default text field settings.
+ *
+ * @return array|null The ACF field array for the text field, or null on error.
+ */
+
+function ds_text_field($key, $label, $args = []) {
+    if (empty($key)) {
+        error_log('ds_text_field: key parameter is required');
+        return null;
+    }
+
+    $text_field = array(
+        'key' => $key,
+        'label' => $label,
+        'name' => $key,
+        'type' => 'text',
+        'instructions' => '',
+        'required' => 0,
+        'conditional_logic' => 0,
+        'wrapper' => array(
+            'width' => '',
+            'class' => '',
+            'id' => '',
+        ),
+        'default_value' => '',
+        'placeholder' => '',
+        'prepend' => '',
+        'append' => '',
+        'maxlength' => '',
+    );
+
+    return array_merge($text_field, $args);
+}
+
+/**
+ * Returns an ACF field array for a textarea field.
+ *
+ * @param string $key   The unique key for the field.
+ * @param string $label The label for the field.
+ * @param integer $rows  Optional. The number of rows for the textarea. Default is 4.
+ * @param array  $args  Optional. Additional arguments to customize the textarea field.
+ *                      These will override the default settings.
+ *
+ * @return array|null The ACF field array for the textarea field, or null on error.
+ */
+function ds_textarea_field($key, $label, $rows = 4, $args = []) {
+    if (empty($key)) {
+        error_log('ds_textarea_field: key parameter is required');
+        return null;
+    }
+
+    $textarea_field = array(
+        'key' => $key,
+        'label' => $label,
+        'name' => $key,
+        'type' => 'textarea',
+        'instructions' => '',
+        'required' => 0,
+        'conditional_logic' => 0,
+        'wrapper' => array(
+            'width' => '',
+            'class' => '',
+            'id' => '',
+        ),
+        'default_value' => '',
+        'placeholder' => '',
+        'maxlength' => '',
+        'rows' => $rows,
+    );
+
+    return array_merge($textarea_field, $args);
+}
+
+/**
+ * Returns an ACF field array for a wysiwyg field.
+ *
+ * @param string $key   The unique key for the field.
+ * @param string $label The label for the field.
+ * @param string $toolbar Optional. The toolbar configuration for the wysiwyg editor. Default is 'full'.
+ * @param boolean $media_upload Optional. Whether to allow media uploads in the wysiwyg editor. Default is false.
+ * @param array  $args  Optional. Additional arguments to customize the wysiwyg field.
+ *                      These will override the default wysiwyg settings.
+ *
+ * @return array|null The ACF field array for the wysiwyg field, or null on error.
+ */
+
+function ds_wysiwyg_field($key, $label, $toolbar = 'basic', $media_upload = 0, $args = []) {
+    if (empty($key)) {
+        error_log('ds_wysiwyg_field: key parameter is required');
+        return null;
+    }
+
+    $wysiwyg_field = array(
+        'key' => $key,
+        'label' => $label,
+        'name' => $key,
+        'type' => 'wysiwyg',
+        'instructions' => '',
+        'required' => 0,
+        'conditional_logic' => 0,
+        'wrapper' => array(
+            'width' => '',
+            'class' => '',
+            'id' => '',
+        ),
+        'default_value' => 'all',
+        'toolbar' => $toolbar,
+        'media_upload' => $media_upload,
+    );
+
+    return array_merge($wysiwyg_field, $args);
+}
