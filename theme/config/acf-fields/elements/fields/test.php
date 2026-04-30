@@ -8,7 +8,8 @@ $test = array(
     'sub_fields' => array(
         ds_header_image_field('field_1a00fa39b771e8', 'Header Image'),
         ds_heading_field('field_ead438133c6bee', 'Heading'),
-        ds_heading_wysiwyg_field('field_e3b8a6145024d7', 'Heading 2', 'bold_only'),
+        ds_heading_textarea_field('field_2241a942e18f08', 'Heading 2', 'h2'),
+        ds_heading_wysiwyg_field('field_e3b8a6145024d7', 'Heading 3', 'bold_only'),
         ds_image_field('field_1c667852a763c8', 'Image'),
         ds_image_crop_field('field_4fbde806902968', 'Cropped Image', 16, 9),
         ds_media_field('field_628ef346b52473', 'Media'),
