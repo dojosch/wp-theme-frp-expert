@@ -1,13 +1,13 @@
 <?php 
-
+$header_image = ds_get_image_data_from_sub_field('header_image');
 $heading = get_sub_field('heading');
 $heading_2 = get_sub_field('heading_2');
 $heading_3 = get_sub_field('heading_3');
-$link_1 = get_sub_field('link_1');
-$media = get_sub_field('media');
 $image = ds_get_image_data_from_sub_field('image');
 $cropped_image = ds_get_image_data_from_sub_field('cropped_image');
+$media = get_sub_field('media');
 $cropped_media = get_sub_field('cropped_media');
+$link_1 = get_sub_field('link_1');
 $video = get_sub_field('video');
 $text = get_sub_field('text');
 $textarea = get_sub_field('textarea');
