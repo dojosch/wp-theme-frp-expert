@@ -51,8 +51,9 @@ ds_get_image_data_from_id($attachment_id, $size)
 
 **Content:**
 ```php
-ds_get_heading($text, $tag='h2', $css_class)   // → heading HTML
 ds_get_link($link_array, $css_class)            // ACF link array → <a> tag
+ds_open_link($link_array, $css_class)           // ACF link array -> <a> tag
+ds_close_link()
 ds_open_section($additional_classes)            // Opens <section> wrapper
 ds_close_section()
 ```
