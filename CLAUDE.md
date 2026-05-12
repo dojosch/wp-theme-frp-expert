@@ -30,12 +30,25 @@ This is a WordPress theme (PHP 7.4+, WP 6.2+) using Tailwind CSS v4, Alpine.js v
 
 ### Component System
 
-Components live in `theme/page-templates/components/` and sections in `theme/page-templates/sections/`. Use the central render function:
+Always use `ds_render_component()` instead of writing inline HTML for anything a component already covers. Components live in `theme/page-templates/components/`; sections in `theme/page-templates/sections/`. The render function extracts the `$args` array as local variables inside the component file.
 
 ```php
 ds_render_component('component-name', ['var' => $value]);
-// Includes components/{component-name}.php with $args extracted as variables
 ```
+
+**Available components and their variables:**
+
+| Component | Required variables | Optional variables |
+|---|---|---|
+| `heading` | `$heading` (array with `heading` + `heading_tag` keys) | `$css_class` |
+| `image` | `$image` (array with `src` + `alt` keys) | `$css_class` |
+| `text` | `$text` (HTML string) | `$css_class` |
+| `link` | `$link` (ACF link array) | `$css_class` |
+| `link-button` | `$link` (ACF link array) | `$css_class` (appended to `ds-button`) |
+| `video` | `$video` (array with `url` + `mime_type` keys) | `$css_class` |
+| `media` | `$media` (array with `type`, `image` ID or `video` array) | `$css_class` |
+| `shortcode` | `$shortcode` (shortcode string) | `$css_class` |
+| `collapsible` | `$heading` (array), `$index` | `$heading_tag`, `$text`, `$link` |
 
 Section layouts are included from `theme/page-templates/sections/` based on the ACF flexible content row layout name. Each section has a `section_config` sub-field with `id`, `css_class`, and `background`.
 
@@ -91,3 +104,45 @@ Registered in `theme/config/cpt.php` using `ds_register_cpt()`.
 ### ACF Field Groups
 
 JSON sync files live in `theme/config/acf-fields/`. Options pages are configured in `theme/config/acf-options.php`.
+
+When registering ACF field groups in PHP, always use the helpers from `theme/utils/acf-fields/` instead of writing raw field arrays. Each helper accepts `$key`, `$label`, and an optional `$args` array that is merged via `wp_parse_args` to override defaults.
+
+**Heading fields** (`theme/utils/acf-fields/heading.php`) — all return a `group` with `heading` + `heading_tag` sub-fields:
+```php
+ds_heading_field($key, $label, $default_tag='h2', $args=[])          // text input
+ds_heading_textarea_field($key, $label, $default_tag='h2', $args=[]) // textarea (supports line breaks)
+ds_heading_wysiwyg_field($key, $label, $toolbar='basic', $default_tag='h2', $args=[]) // WYSIWYG
+```
+The returned group value is an array `['heading' => '...', 'heading_tag' => 'h2']` — pass it directly as `$heading` to the `heading` component.
+
+**Text fields** (`theme/utils/acf-fields/text.php`):
+```php
+ds_text_field($key, $label, $args=[])                          // single-line text
+ds_textarea_field($key, $label, $rows=4, $args=[])             // textarea
+ds_wysiwyg_field($key, $label, $toolbar='basic', $media_upload=0, $args=[]) // WYSIWYG → use $text in text component
+```
+
+**Image fields** (`theme/utils/acf-fields/image.php`) — return format is `id`:
+```php
+ds_image_field($key, $label, $args=[])                          // standard image
+ds_image_crop_field($key, $label, $width=1, $height=1, $args=[]) // forced aspect ratio crop
+ds_header_image_field($key, $label, $args=[])                   // returns full array, not id
+```
+Retrieve image data with `ds_get_image_data_from_field()` / `ds_get_image_data_from_id()` and pass the result as `$image` to the `image` component.
+
+**Link field** (`theme/utils/acf-fields/link.php`):
+```php
+ds_link_field($key, $label, $args=[]) // ACF link array → pass as $link to link / link-button component
+```
+
+**Video field** (`theme/utils/acf-fields/video.php`):
+```php
+ds_video_field($key, $label, $args=[]) // file field (mp4/webm) → pass as $video to video component
+```
+
+**Media field** (`theme/utils/acf-fields/media.php`) — group with `type` selector + conditional `image`/`video` sub-fields:
+```php
+ds_media_field($key, $label, $args=[])                          // image (id) or video
+ds_media_crop_field($key, $label, $width=1, $height=1, $args=[]) // same with aspect-ratio crop
+```
+Pass the whole group value as `$media` to the `media` component.
