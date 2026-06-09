@@ -70,6 +70,7 @@ function ds_textarea_field($key, $label, $rows = 4, $args = []) {
             'class' => '',
             'id' => '',
         ),
+        'new_lines' => 'br',
         'default_value' => '',
         'placeholder' => '',
         'maxlength' => '',
