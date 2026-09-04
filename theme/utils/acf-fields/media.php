@@ -16,6 +16,16 @@ function ds_media_field($key, $label, $args=[]) {
         return null;
     }
 
+    $video_condition = array(
+        array(
+            array(
+                'field' => $key . '_type',
+                'operator' => '==',
+                'value' => 'video',
+            ),
+        ),
+    );
+
     $select_field = array(
         'key' => $key . '_type',
         'label' => 'Type',
@@ -72,21 +82,18 @@ function ds_media_field($key, $label, $args=[]) {
         'type' => 'file',
         'instructions' => '',
         'required' => 0,
-        'conditional_logic' => array(
-            array(
-                array(
-                    'field' => $key . '_type',
-                    'operator' => '==',
-                    'value' => 'video',
-                ),
-            ),
-        ),
+        'conditional_logic' => $video_condition,
         'return_format' => 'array',
         'library' => 'all',
         'min_size' => '',
         'max_size' => '',
         'mime_types' => 'mp4,webm',
     );
+
+    $thumbnail_field = ds_image_field($key . '_video_thumbnail', 'Video Thumbnail', array(
+        'instructions' => 'Wird als Vorschaubild angezeigt, solange das Video nicht läuft.',
+        'conditional_logic' => $video_condition,
+    ));
 
     $defaults_group = array(
         'key' => $key,
@@ -109,6 +116,7 @@ function ds_media_field($key, $label, $args=[]) {
         $select_field,
         $image_field,
         $video_field,
+        $thumbnail_field,
     );
     return $group_field;
 }
@@ -130,6 +138,16 @@ function ds_media_crop_field($key, $label, $width=1, $height=1, $args=[]) {
         error_log('ds_media_crop_field: key parameter is required');
         return null;
     }
+
+    $video_condition = array(
+        array(
+            array(
+                'field' => $key . '_type',
+                'operator' => '==',
+                'value' => 'video',
+            ),
+        ),
+    );
 
     $select_field = array(
         'key' => $key . '_type',
@@ -189,21 +207,18 @@ function ds_media_crop_field($key, $label, $width=1, $height=1, $args=[]) {
         'type' => 'file',
         'instructions' => '',
         'required' => 0,
-        'conditional_logic' => array(
-            array(
-                array(
-                    'field' => $key . '_type',
-                    'operator' => '==',
-                    'value' => 'video',
-                ),
-            ),
-        ),
+        'conditional_logic' => $video_condition,
         'return_format' => 'array',
         'library' => 'all',
         'min_size' => '',
         'max_size' => '',
         'mime_types' => 'mp4,webm',
     );
+
+    $thumbnail_field = ds_image_crop_field($key . '_video_thumbnail', 'Video Thumbnail', $width, $height, array(
+        'instructions' => 'Wird als Vorschaubild angezeigt, solange das Video nicht läuft.',
+        'conditional_logic' => $video_condition,
+    ));
 
     $defaults_group = array(
         'key' => $key,
@@ -221,6 +236,7 @@ function ds_media_crop_field($key, $label, $width=1, $height=1, $args=[]) {
         $select_field,
         $image_field,
         $video_field,
+        $thumbnail_field,
     );
     return $group_field;
 }
