@@ -135,6 +135,21 @@ Retrieve image data with `ds_get_image_data_from_field()` / `ds_get_image_data_f
 ds_link_field($key, $label, $args=[]) // ACF link array → pass as $link to link / link-button component
 ```
 
+**Group field** (`theme/utils/acf-fields/group.php`):
+```php
+ds_group_field($key, $label, $sub_fields=[], $args=[]) // group of sub_fields
+```
+
+**Repeater field** (`theme/utils/acf-fields/repeater.php`):
+```php
+ds_repeater_field($key, $label, $sub_fields=[], $args=[]) // repeater of sub_fields
+```
+
+**Toggle field** (`theme/utils/acf-fields/toggle.php`):
+```php
+ds_toggle_field($key, $label, $args=[]) // true/false switch
+```
+
 **Video field** (`theme/utils/acf-fields/video.php`):
 ```php
 ds_video_field($key, $label, $args=[]) // file field (mp4/webm) → pass as $video to video component
