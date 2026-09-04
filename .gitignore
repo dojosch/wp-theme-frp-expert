@@ -13,3 +13,5 @@ ds-starter.zip
 phpcs-report.txt
 
 .env
+
+CLAUDE.local.md
