@@ -30,8 +30,9 @@ function ds_register_acf_options_pages() {
 
 	// Subpages to register under the parent.
 	$subpages = array(
-		'Footer',
+        'Defaults',
 		'Navigation',
+		'Footer',
 		'404-Seite',
 	);
 

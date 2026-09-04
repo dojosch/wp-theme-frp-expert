@@ -14,5 +14,10 @@ function my_toolbars($toolbars)
     // bold
     $toolbars['Bold Only'] = array();
     $toolbars['Bold Only'][1] = array('bold');
+
+    // basic (bold, italic, link)
+    $toolbars['Basic'] = array();
+    $toolbars['Basic'][1] = array('bold', 'italic', 'link');
+
     return $toolbars;
 }
