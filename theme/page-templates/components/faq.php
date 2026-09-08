@@ -113,14 +113,10 @@ $uid                   = $GLOBALS['ds_faq_uid'];
         <div class="overflow-hidden">
             <div class="<?php echo esc_attr( $content_class ); ?>">
                 <?php
-					ds_render_component(
-						'text',
-						array(
-							'text'      => $text,
-							'css_class' => $text_class,
-						)
-					);
-				?>
+					ds_render_component('text', [
+                        'text'      => $text,
+                        'css_class' => $text_class,
+                    ]); ?>
             </div>
         </div>
     </div>
