@@ -5,7 +5,7 @@
  * This file defines a custom page template for the WordPress theme.
  *
  * Template Name: Main Template
- * Template Post Type: page
+ * Template Post Type: page, post
  *
  * @package WordPress
  * @subpackage wp-starter-tw
