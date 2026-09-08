@@ -5,3 +5,13 @@
 .glide__bullet--active {
     @apply !bg-primary;
 }
+
+.ds-slider-nav {
+    @apply flex size-[44px] shrink-0 cursor-pointer items-center justify-center rounded-full;
+    @apply border border-primary text-primary transition-colors duration-300;
+    @apply lg:hover:bg-primary lg:hover:text-ds-white;
+}
+
+.ds-slider-nav--disabled {
+    @apply pointer-events-none opacity-40;
+}
