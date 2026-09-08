@@ -4,27 +4,7 @@ acf_add_local_field_group( array(
 	'key' => 'group_67877dc96bf94',
 	'title' => 'FAQ Elements',
 	'fields' => array(
-		array(
-			'key' => 'field_67877e9b34b0c',
-			'label' => 'Text',
-			'name' => 'text',
-			'aria-label' => '',
-			'type' => 'textarea',
-			'instructions' => '',
-			'required' => 0,
-			'conditional_logic' => 0,
-			'wrapper' => array(
-				'width' => '',
-				'class' => '',
-				'id' => '',
-			),
-			'default_value' => '',
-			'maxlength' => '',
-			'allow_in_bindings' => 1,
-			'rows' => '',
-			'placeholder' => '',
-			'new_lines' => 'br',
-		),
+		ds_wysiwyg_field('field_35f88d10b4f3ff', 'Text', 'basic', 0),
 	),
 	'location' => array(
 		array(
