@@ -1,5 +1,6 @@
 import Alpine from 'alpinejs';
 import { initNavigation } from './alpine/navigation';
+import { initPopup } from './alpine/popup';
 
 document.addEventListener('alpine:init', () => {
     // Alpine.data('dsFunction', dsFunction);
@@ -8,3 +9,5 @@ document.addEventListener('alpine:init', () => {
 
 window.Alpine = Alpine;
 Alpine.start();
+
+initPopup();

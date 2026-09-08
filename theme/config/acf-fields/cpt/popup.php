@@ -44,12 +44,7 @@ acf_add_local_field_group( array(
                     'class' => '',
                     'id' => '',
                 ),
-                'post_type' => array(
-                    0 => 'page',
-                    1 => 'room',
-                    2 => 'offer',
-                    3 => 'post',
-                ),
+                'post_type' => ds_get_main_template_post_types(),
                 'filters' => array(
                     0 => 'search',
                     1 => 'post_type',
@@ -69,7 +64,7 @@ acf_add_local_field_group( array(
                 'conditional_logic' => array(
                     array(
                         array(
-                            'field' => 'field_field_88e17854163cfe',
+                            'field' => 'field_88e17854163cfe',
                             'operator' => '==',
                             'value' => 'categories',
                         ),

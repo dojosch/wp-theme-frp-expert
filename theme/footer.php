@@ -11,13 +11,15 @@
 
 ?>
 
-	</div><!-- #content -->
+</div><!-- #content -->
 
-	<?php get_template_part( 'page-templates/layout/footer', 'content' ); ?>
+<?php get_template_part( 'page-templates/layout/footer', 'content' ); ?>
+<?php get_template_part( 'page-templates/popup', 'template' ); ?>
 
 </div><!-- #page -->
 
 <?php wp_footer(); ?>
 
 </body>
+
 </html>

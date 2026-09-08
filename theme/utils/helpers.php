@@ -122,3 +122,38 @@ function ds_parse_label_to_name($label) {
     
     return $name;
 }
+/**
+ * Returns the post types the main page template can be assigned to.
+ *
+ * Reads the "Template Post Type" header of page-templates/main-template.php and
+ * always includes the 'page' post type, so field groups can stay in sync with
+ * the template without maintaining a second, hard-coded list.
+ *
+ * @return array List of post type keys.
+ */
+function ds_get_main_template_post_types() {
+    static $post_types = null;
+
+    if ( null !== $post_types ) {
+        return $post_types;
+    }
+
+    $post_types = array( 'page' );
+    $file       = get_template_directory() . '/page-templates/main-template.php';
+
+    if ( file_exists( $file ) ) {
+        $data = get_file_data( $file, array( 'post_type' => 'Template Post Type' ) );
+
+        foreach ( explode( ',', (string) $data['post_type'] ) as $post_type ) {
+            $post_type = trim( $post_type );
+
+            if ( '' !== $post_type ) {
+                $post_types[] = $post_type;
+            }
+        }
+    }
+
+    $post_types = array_values( array_unique( $post_types ) );
+
+    return $post_types;
+}
