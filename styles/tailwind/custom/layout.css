@@ -1,23 +1,11 @@
 [x-cloak] { display: none !important; }
 
+body {
+    @apply font-sans text-ds-16 leading-normal text-ds-black bg-background;
+}
+
 .ds-section {
-    @apply container mx-auto py-20 px-6 lg:py-24;
-}
-
-.ds-section-header {
-    @apply container mx-auto pt-16 pb-20 px-6 lg:pb-24;
-}
-
-.ds-section-medium {
-    @apply container mx-auto py-20 lg:py-24 px-6 lg:px-[120px];
-}
-
-.ds-section-narrow {
-    @apply container mx-auto py-20 lg:py-24 px-6 lg:px-[240px];
-}
-
-.ds-section-full {
-    @apply mx-auto py-20 lg:py-24;
+    @apply max-w-[1440px] mx-auto py-20 px-[30px] lg:px-[100px];
 }
 
 .ds-heading {

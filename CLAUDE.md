@@ -98,6 +98,22 @@ ds_console_log($data, $context) // Outputs to browser console
 - PHP CodeSniffer enforces WordPress-Extra + WordPress-Docs standards; always escape output (`esc_attr`, `esc_url`, `esc_html`, `wp_kses`).
 - Locale: `de_DE` (German), timezone: `Europe/Vienna`.
 
+**Formatting** — `yarn format:php` rewrites `theme/` to match; `yarn lint:format` checks without writing (part of `yarn lint`). Write new code this way rather than relying on the formatter:
+
+- No alignment padding on assignments — `$file = ...`, never `$file       = ...`.
+- No spaces just inside parens, and none between a control keyword and its condition — `if($x)`, `get_field('heading', $id)`, `!empty($x)`. Applies to `if`, `elseif`, `while`, `for`, `foreach`, `switch`, `catch`.
+- A condition whose whole body is a single `return`, `continue` or `break` goes on one line without braces — `if(!$link) return;`. Anything longer keeps its braces.
+- `ds_render_component()` calls use short array syntax with `=>` aligned, the array opening on the call line and the keys one indent level in:
+
+```php
+ds_render_component('heading', [
+    'heading'   => $heading,
+    'css_class' => 'ds-heading',
+]);
+```
+
+Note: these rules invert several WordPress-Extra sniffs (`Generic.Formatting.MultipleStatementAlignment`, `WordPress.WhiteSpace.ControlStructureSpacing`, `Generic.ControlStructures.InlineControlStructure`). `phpcbf` is not installed in this checkout; if it gets installed, exclude those sniffs in `phpcs.xml.dist` — `lint-fix:php` runs the formatter after `phpcbf` so the house style wins either way.
+
 ### Template Rules
 
 Apply these when writing or editing anything under `theme/page-templates/`. `yarn lint:templates` checks the mechanical subset and runs on save during `yarn watch`; suppress a single false positive with a `ds-lint-ignore` (or `ds-lint-ignore:<rule>`) comment on the offending line or the line above.
