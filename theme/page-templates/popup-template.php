@@ -12,7 +12,7 @@ $popups = get_posts(
 		'post_type'      => 'ds_popups',
 		'post_status'    => 'publish',
 		'posts_per_page' => -1,
-		'meta_key'       => 'popup_active',
+		'meta_key'       => 'active',
 		'meta_value'     => '1',
 	)
 );
@@ -26,22 +26,19 @@ $queried_id = get_queried_object_id();
 foreach ( $popups as $popup ) {
 	$popup_id = $popup->ID;
 
-	// All popup fields live inside the "popup" group.
-	$popup_data = get_field( 'popup', $popup_id );
-
-	if ( empty( $popup_data ) || empty( $popup_data['active'] ) ) {
+	if ( ! get_field( 'active', $popup_id ) ) {
 		continue;
 	}
 
 	// Display option check.
-	$display_option = $popup_data['display_option'] ?: 'all';
+	$display_option = get_field( 'display_option', $popup_id ) ?: 'all';
 
 	if ( 'pages' === $display_option ) {
 		$page_ids = array_map(
 			function( $p ) {
 				return is_object( $p ) ? (int) $p->ID : (int) $p;
 			},
-			(array) ( $popup_data['pages'] ?? array() )
+			(array) get_field( 'pages', $popup_id )
 		);
 		$page_ids = array_filter( $page_ids );
 
@@ -53,7 +50,7 @@ foreach ( $popups as $popup ) {
 			function( $cat ) {
 				return is_object( $cat ) ? (int) $cat->term_id : (int) $cat;
 			},
-			(array) ( $popup_data['categories'] ?? array() )
+			(array) get_field( 'categories', $popup_id )
 		);
 		$cat_ids = array_filter( $cat_ids );
 
@@ -69,11 +66,11 @@ foreach ( $popups as $popup ) {
 		}
 	}
 
-	$heading         = $popup_data['heading'] ?? array();
-	$text            = $popup_data['text'] ?? '';
-	$button1         = $popup_data['button_1'] ?? null;
-	$button2         = $popup_data['button_2'] ?? null;
-	$popup_settings  = $popup_data['popup_settings'] ?: array();
+	$heading         = get_field( 'heading', $popup_id );
+	$text            = get_field( 'text', $popup_id );
+	$button1         = get_field( 'button_1', $popup_id );
+	$button2         = get_field( 'button_2', $popup_id );
+	$popup_settings  = get_field( 'popup_settings', $popup_id ) ?: array();
 	$cookie_duration = isset( $popup_settings['cookie_duration'] ) ? (int) $popup_settings['cookie_duration'] : 7;
 	$popup_delay     = isset( $popup_settings['delay'] ) ? (int) $popup_settings['delay'] : 3;
 	?>
