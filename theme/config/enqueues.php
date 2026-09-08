@@ -32,3 +32,17 @@ function ds_scripts() {
 	}
 }
 add_action( 'wp_enqueue_scripts', 'ds_scripts' );
+
+/**
+ * Enqueues styles for the WordPress admin.
+ *
+ * Loads the compiled admin stylesheet on every admin screen so backend
+ * tweaks (hidden meta box actions, editor adjustments) can be authored in
+ * styles/admin.css instead of inline CSS.
+ *
+ * @return void
+ */
+function ds_admin_scripts() {
+	wp_enqueue_style( 'ds-starter-admin-style', get_template_directory_uri() . '/dist/admin.css', array(), 1 );
+}
+add_action( 'admin_enqueue_scripts', 'ds_admin_scripts' );

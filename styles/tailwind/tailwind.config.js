@@ -2,7 +2,7 @@ module.exports = {
 	content: [
 		'./theme/**/*.php',
 		'./theme/**/*.js',
-		'./tailwind/**/*.css',
+		'./styles/tailwind/**/*.css',
 		'./javascript/**/*.js',
 	],
 	theme: {

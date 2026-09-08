@@ -1,0 +1,12 @@
+/**
+ * Admin styles
+ *
+ * Plain CSS — copied verbatim to theme/dist/admin.css by the build and loaded
+ * on every wp-admin screen. No Tailwind here on purpose: the admin UI brings
+ * its own base styles, so utilities and Preflight would only get in the way.
+ */
+
+/* Hide the preview action in the minor publishing actions */
+#minor-publishing-actions > #preview-action {
+    display: none;
+}

@@ -9,7 +9,7 @@ browserSync.init({
     './theme/**/*.css',
     './theme/**/*.js',
     './javascript/**/*.js',
-    './tailwind/**/*.css',
+    './styles/**/*.css',
   ],
   notify: true,
   open: false,
