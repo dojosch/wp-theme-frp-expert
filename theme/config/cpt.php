@@ -32,5 +32,15 @@ add_action(
 				'menu_icon' => 'dashicons-format-quote',
 			)
 		);
+
+        ds_register_cpt(
+			'content_part',
+			'Content Part',
+			'Content Parts',
+			array(
+				'slug'      => 'content-part',
+				'menu_icon' => 'dashicons-layout',
+			)
+		);
 	}
 );
