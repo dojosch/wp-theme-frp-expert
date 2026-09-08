@@ -1,18 +1,14 @@
 <?php
 
-$popups = get_posts(
-	[
+$popups = get_posts([
 		'post_type'      => 'ds_popups',
 		'post_status'    => 'publish',
 		'posts_per_page' => -1,
 		'meta_key'       => 'active',
 		'meta_value'     => '1',
-	]
-);
+	]);
 
-if ( empty( $popups ) ) {
-	return;
-}
+if ( empty( $popups ) ) return;
 
 $queried_id = get_queried_object_id();
 ?>
@@ -21,9 +17,7 @@ $queried_id = get_queried_object_id();
 <?php
 	$popup_id = $popup->ID;
 
-	if ( ! get_field( 'active', $popup_id ) ) {
-		continue;
-	}
+	if ( ! get_field( 'active', $popup_id ) ) continue;
 
 	// Display option check.
 	$display_option = get_field( 'display_option', $popup_id ) ?: 'all';
@@ -61,13 +55,13 @@ $queried_id = get_queried_object_id();
 		}
 	}
 
-	$heading         = get_field( 'heading', $popup_id );
-	$text            = get_field( 'text', $popup_id );
-	$button1         = get_field( 'button_1', $popup_id );
-	$button2         = get_field( 'button_2', $popup_id );
-	$popup_settings  = get_field( 'popup_settings', $popup_id ) ?: [];
+	$heading = get_field( 'heading', $popup_id );
+	$text = get_field( 'text', $popup_id );
+	$button1 = get_field( 'button_1', $popup_id );
+	$button2 = get_field( 'button_2', $popup_id );
+	$popup_settings = get_field( 'popup_settings', $popup_id ) ?: [];
 	$cookie_duration = isset( $popup_settings['cookie_duration'] ) ? (int) $popup_settings['cookie_duration'] : 7;
-	$popup_delay     = isset( $popup_settings['delay'] ) ? (int) $popup_settings['delay'] : 3;
+	$popup_delay = isset( $popup_settings['delay'] ) ? (int) $popup_settings['delay'] : 3;
 	?>
 <dialog id="popup-<?php echo esc_attr( $popup_id ); ?>"
     class="popup-dialog fixed inset-0 m-auto w-[calc(100%-32px)] max-w-[560px] rounded-[24px] lg:rounded-[36px] bg-ds-beige-dark p-[28px] lg:p-[44px] text-ds-brown shadow-2xl border border-ds-brown/15 backdrop:bg-ds-brown/60 backdrop:backdrop-blur-sm z-[9999]"
