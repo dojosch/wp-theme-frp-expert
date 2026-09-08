@@ -147,7 +147,7 @@ ds_group_field($key, $label, $sub_fields=[], $args=[]) // group of sub_fields
 
 **Repeater field** (`theme/utils/acf-fields/repeater.php`):
 ```php
-ds_repeater_field($key, $label, $sub_fields=[], $args=[]) // repeater of sub_fields
+ds_repeater_field($key, $label, $sub_fields=[], $button_label='Add Row', $args=[]) // repeater of sub_fields
 ```
 
 **Toggle field** (`theme/utils/acf-fields/toggle.php`):
