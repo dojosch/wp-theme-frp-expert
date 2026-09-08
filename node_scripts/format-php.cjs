@@ -6,10 +6,13 @@
  * Enforces the house style documented in CLAUDE.md ("Template Rules"):
  *
  *   1. No alignment padding on assignments — `$a = 1;`, never `$a   = 1;`.
- *   2. No spaces around control-structure conditions — `if($x)`, not `if ( $x )`.
+ *   2. Control-structure conditions pad inside the parens but not before them —
+ *      `if( $x )`, not `if ($x)` or `if($x)`. Everything else stays tight:
+ *      `get_field('heading', $id)`, `!empty($x)`, `['page']`.
  *   3. Single `return` / `continue` / `break` bodies collapse onto the
- *      condition line without braces — `if($x) return;`.
- *   4. ds_render_component() calls use short array syntax with `=>` aligned.
+ *      condition line without braces — `if( $x ) return;`.
+ *   4. Short array syntax everywhere — `[]`, never `array()`.
+ *   5. ds_render_component() calls align their `=>`.
  *
  * Usage:
  *   node node_scripts/format-php.cjs [--check] [path ...]
@@ -172,7 +175,56 @@ function splitTopLevel(text, mask) {
 }
 
 /**
- * Rule 2 (part one) — no padding just inside parens, none after `!`.
+ * Rule 4 — long array syntax becomes short array syntax.
+ *
+ * @param {string} source PHP source.
+ * @return {string} Rewritten source.
+ */
+function fixArraySyntax(source) {
+	let result = source;
+	let cursor = 0;
+
+	for (;;) {
+		const mask = buildMask(result);
+		const pattern = /\barray\b\s*\(/g;
+		let match = null;
+
+		pattern.lastIndex = cursor;
+
+		for (;;) {
+			const candidate = pattern.exec(result);
+
+			if (null === candidate) break;
+
+			if (mask[candidate.index]) {
+				match = candidate;
+				break;
+			}
+		}
+
+		if (null === match) break;
+
+		const openIdx = match.index + match[0].length - 1;
+		const closeIdx = findMatching(result, openIdx, mask);
+
+		cursor = match.index + 1;
+
+		if (-1 === closeIdx) continue;
+
+		result =
+			result.slice(0, match.index) +
+			'[' +
+			result.slice(openIdx + 1, closeIdx) +
+			']' +
+			result.slice(closeIdx + 1);
+	}
+
+	return result;
+}
+
+/**
+ * Rule 2 (part one) — strip padding just inside every bracket and after `!`.
+ * Control structures get their own padding back in fixControlStructures().
  *
  * @param {string} source PHP source.
  * @return {string} Rewritten source.
@@ -186,7 +238,7 @@ function fixParenSpacing(source) {
 	for (let i = 0; i < source.length; i++) {
 		const char = source[i];
 
-		if (mask[i] && ('(' === char || ('!' === char && '=' !== source[i + 1]))) {
+		if (mask[i] && ('(' === char || '[' === char || ('!' === char && '=' !== source[i + 1]))) {
 			out += char;
 			atLineStart = false;
 
@@ -197,12 +249,12 @@ function fixParenSpacing(source) {
 			continue;
 		}
 
-		// Padding before a closing paren goes, but never a line's indentation.
+		// Padding before a closing bracket goes, but never a line's indentation.
 		if (mask[i] && isBlank(char) && !atLineStart) {
 			let j = i;
 			while (j < source.length && mask[j] && isBlank(source[j])) j++;
 
-			if (')' === source[j] && mask[j]) {
+			if ((')' === source[j] || ']' === source[j]) && mask[j]) {
 				i = j - 1;
 				continue;
 			}
@@ -261,7 +313,7 @@ function fixControlStructures(text) {
 			// Multi-line conditions keep their own layout.
 			if (condition.includes('\n')) continue;
 
-			let replacement = `${keyword}(${condition})`;
+			let replacement = `${keyword}( ${condition} )`;
 			let end = closeIdx + 1;
 
 			if ('if' === keyword || 'elseif' === keyword) {
@@ -276,7 +328,7 @@ function fixControlStructures(text) {
 					// Only a single, unconditional jump collapses; anything
 					// with a trailing else keeps its braces.
 					if (COLLAPSIBLE.test(body) && !/^\s*(else|elseif)\b/.test(result.slice(bodyEnd + 1))) {
-						replacement = `${keyword}(${condition}) ${body}`;
+						replacement = `${keyword}( ${condition} ) ${body}`;
 						end = bodyEnd + 1;
 					}
 				}
@@ -382,7 +434,7 @@ function format(source) {
 	if (/<<<['"]?\w/.test(source)) return source;
 
 	return fixComponentCalls(
-		fixControlStructures(fixParenSpacing(fixAssignmentAlignment(source)))
+		fixControlStructures(fixParenSpacing(fixArraySyntax(fixAssignmentAlignment(source))))
 	);
 }
 
