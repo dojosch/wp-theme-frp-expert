@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
-"""Check each font in `figma-extract.json` against Google Fonts and record the
-matching google-webfonts-helper URL.
+"""Check each font in `figma-extract.json` against a bundled list of Google
+Fonts and record the matching google-webfonts-helper URL.
 
-Standard library only -- no pip install required.
+Standard library only, and fully offline -- no API key, no network, no .env.
 
 Usage:
     python3 match_gwfh_fonts.py [--extract figma-extract.json]
 
-Set GOOGLE_FONTS_API_KEY (environment or .env) for an authoritative lookup.
-Without a key the script falls back to the bundled list below, which covers the
-commonly used families but is not exhaustive.
+The bundled list is not exhaustive. A family it does not know is reported as
+unverified, not as unavailable: the candidate gwfh URL is still written out so
+it can be checked by opening it.
 """
 
 import argparse
@@ -17,15 +17,12 @@ import json
 import os
 import re
 import sys
-import urllib.error
-import urllib.parse
-import urllib.request
+import unicodedata
 
-WEBFONTS_API = 'https://www.googleapis.com/webfonts/v1/webfonts'
 GWFH_URL = 'https://gwfh.mranftl.com/fonts/{slug}?subsets=latin'
 DEFAULT_EXTRACT = 'figma-extract.json'
 
-# Fallback used when GOOGLE_FONTS_API_KEY is unset: family -> category.
+# Known Google Fonts: family -> category. Extend as needed.
 BUNDLED_GOOGLE_FONTS = {
     'Abril Fatface': 'display', 'Alegreya': 'serif', 'Alegreya Sans': 'sans-serif',
     'Anton': 'sans-serif', 'Archivo': 'sans-serif', 'Archivo Black': 'sans-serif',
@@ -70,62 +67,19 @@ class MatchError(Exception):
     """A user-facing error with a clear message."""
 
 
-def load_dotenv(start_dir):
-    directory = os.path.abspath(start_dir)
-    while True:
-        candidate = os.path.join(directory, '.env')
-        if os.path.isfile(candidate):
-            with open(candidate, 'r', encoding='utf-8') as handle:
-                for raw in handle:
-                    line = raw.strip()
-                    if not line or line.startswith('#') or '=' not in line:
-                        continue
-                    key, _, value = line.partition('=')
-                    key = key.strip()
-                    value = value.strip().strip('"').strip("'")
-                    if key and key not in os.environ:
-                        os.environ[key] = value
-            return candidate
-        parent = os.path.dirname(directory)
-        if parent == directory:
-            return None
-        directory = parent
+def _ascii_fold(value):
+    """Fold accents to ASCII so slugs keep their letters: Söhne -> sohne."""
+    text = str(value)
+    for source, target in (('ß', 'ss'), ('æ', 'ae'), ('œ', 'oe'), ('ø', 'o'), ('đ', 'd'), ('ł', 'l')):
+        text = text.replace(source, target).replace(source.upper(), target.upper())
+    decomposed = unicodedata.normalize('NFKD', text)
+    return ''.join(ch for ch in decomposed if not unicodedata.combining(ch))
 
 
 def gwfh_slug(family):
     """Google Webfonts Helper slug: lowercase, spaces -> dashes."""
-    slug = str(family).strip().lower().replace(' ', '-')
+    slug = _ascii_fold(family).strip().lower().replace(' ', '-')
     return re.sub(r'[^a-z0-9-]', '', slug)
-
-
-def fetch_google_catalog(api_key):
-    """Return {lowercased family: category} from the Google Fonts API."""
-    url = '%s?%s' % (WEBFONTS_API, urllib.parse.urlencode({'key': api_key, 'sort': 'alpha'}))
-    try:
-        with urllib.request.urlopen(url, timeout=60) as response:
-            payload = json.loads(response.read().decode('utf-8'))
-    except urllib.error.HTTPError as error:
-        detail = ''
-        try:
-            detail = error.read().decode('utf-8', 'replace')[:300]
-        except Exception:  # pragma: no cover - best effort only
-            pass
-        if error.code in (400, 403):
-            raise MatchError(
-                'Google Fonts API rejected the key (HTTP %s). Check GOOGLE_FONTS_API_KEY, '
-                'or unset it to use the bundled list.\n%s' % (error.code, detail)
-            ) from error
-        if error.code == 429:
-            raise MatchError('Google Fonts API rate limit hit (HTTP 429). Try again later.') from error
-        raise MatchError('Google Fonts API error (HTTP %s): %s' % (error.code, detail)) from error
-    except urllib.error.URLError as error:
-        raise MatchError('Could not reach the Google Fonts API (%s).' % error.reason) from error
-
-    return {
-        item['family'].lower(): item.get('category', 'sans-serif')
-        for item in payload.get('items', [])
-        if item.get('family')
-    }
 
 
 def main(argv=None):
@@ -136,11 +90,9 @@ def main(argv=None):
                         help='Path to figma-extract.json (default: %s)' % DEFAULT_EXTRACT)
     args = parser.parse_args(argv)
 
-    load_dotenv(os.getcwd())
-
     path = os.path.abspath(args.extract)
     if not os.path.isfile(path):
-        raise MatchError('No extract file at %s. Run figma_fetch.py first.' % path)
+        raise MatchError('No extract file at %s. Run mcp_tokens_to_extract.py first.' % path)
 
     with open(path, 'r', encoding='utf-8') as handle:
         try:
@@ -152,15 +104,9 @@ def main(argv=None):
     if not isinstance(fonts, list) or not fonts:
         raise MatchError('No "fonts" array in %s -- nothing to match.' % path)
 
-    api_key = os.environ.get('GOOGLE_FONTS_API_KEY')
-    if api_key:
-        catalog = fetch_google_catalog(api_key)
-        lookup_source = 'Google Fonts API (%d families)' % len(catalog)
-    else:
-        catalog = {family.lower(): category for family, category in BUNDLED_GOOGLE_FONTS.items()}
-        lookup_source = 'bundled list (%d families, no GOOGLE_FONTS_API_KEY set)' % len(catalog)
+    catalog = {family.lower(): category for family, category in BUNDLED_GOOGLE_FONTS.items()}
 
-    matched, manual = [], []
+    matched, unverified = [], []
     for font in fonts:
         family = font.get('family')
         if not family:
@@ -173,16 +119,19 @@ def main(argv=None):
             font['category'] = category
             matched.append(font)
         else:
+            # Unknown to the bundled list -- not proof it is unavailable.
             font['gwfhAvailable'] = False
-            font['gwfhSlug'] = None
-            font['note'] = 'manual -- not on Google Webfont Helper, add fallback only.'
-            manual.append(font)
+            font['gwfhSlug'] = gwfh_slug(family)
+            font['gwfhCandidateUrl'] = GWFH_URL.format(slug=font['gwfhSlug'])
+            font['note'] = ('not in the bundled Google Fonts list -- open the candidate URL '
+                            'to check; if it 404s, self-host and add a fallback only.')
+            unverified.append(font)
 
     with open(path, 'w', encoding='utf-8') as handle:
         json.dump(data, handle, indent=2, ensure_ascii=False)
         handle.write('\n')
 
-    print('Matched fonts against %s' % lookup_source)
+    print('Matched against the bundled Google Fonts list (%d families).' % len(catalog))
     print('Updated %s\n' % path)
     if matched:
         print('Google Fonts (download the weights listed, place in theme/assets/fonts/<slug>/):')
@@ -192,13 +141,11 @@ def main(argv=None):
                 ', '.join(str(weight) for weight in font.get('weights') or []),
             ))
             print('    %s' % font['gwfhUrl'])
-    if manual:
-        print('\nNot on Google Webfont Helper -- manual, add fallback only:')
-        for font in manual:
+    if unverified:
+        print('\nNot in the bundled list -- check these before treating them as unavailable:')
+        for font in unverified:
             print('  %s' % font['family'])
-    if not api_key and manual:
-        print('\nNote: matched against the bundled list. Set GOOGLE_FONTS_API_KEY for an '
-              'authoritative check before treating a font as unavailable.')
+            print('    %s' % font['gwfhCandidateUrl'])
     return 0
 
 

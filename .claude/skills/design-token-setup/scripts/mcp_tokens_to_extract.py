@@ -22,6 +22,7 @@ import json
 import os
 import re
 import sys
+import unicodedata
 
 DEFAULT_OUT = 'figma-extract.json'
 
@@ -95,8 +96,17 @@ def weight_from(fields):
     return 400
 
 
+def _ascii_fold(value):
+    """Fold accents to ASCII so slugs keep their letters: Söhne -> sohne."""
+    text = str(value)
+    for source, target in (('ß', 'ss'), ('æ', 'ae'), ('œ', 'oe'), ('ø', 'o'), ('đ', 'd'), ('ł', 'l')):
+        text = text.replace(source, target).replace(source.upper(), target.upper())
+    decomposed = unicodedata.normalize('NFKD', text)
+    return ''.join(ch for ch in decomposed if not unicodedata.combining(ch))
+
+
 def slugify(value):
-    slug = re.sub(r'[^a-z0-9]+', '-', str(value).lower()).strip('-')
+    slug = re.sub(r'[^a-z0-9]+', '-', _ascii_fold(value).lower()).strip('-')
     return slug or 'color'
 
 
@@ -233,6 +243,239 @@ def build(defs):
     }
 
 
+WEIGHT_CLASS = {
+    100: 'font-thin', 200: 'font-extralight', 300: 'font-light', 400: 'font-normal',
+    500: 'font-medium', 600: 'font-semibold', 700: 'font-bold', 800: 'font-extrabold',
+    900: 'font-black',
+}
+SERIF_CATEGORIES = {'serif', 'display'}
+WOFF_WEIGHT_RE = re.compile(r'(?<!\d)([1-9]00)(?!\d)')
+
+
+def _rem(px):
+    value = round(float(px) / 16.0, 6)
+    text = ('%f' % value).rstrip('0').rstrip('.')
+    return '%srem' % text
+
+
+def _size_class(px):
+    return 'text-ds-%s' % num(px)
+
+
+def _font_slot(font):
+    return 'serif' if (font.get('category') or '').lower() in SERIF_CATEGORIES else 'sans'
+
+
+def _color_for(word, colors):
+    """Best-guess colour variable for a button variant word."""
+    word = word.lower()
+    exact = [c for c in colors if c['variableName'] == 'ds-%s' % word]
+    if exact:
+        return exact[0]['variableName']
+    partial = [c for c in colors if word in c['variableName'].split('-')]
+    if partial:
+        return sorted(partial, key=lambda c: len(c['variableName']))[0]['variableName']
+    return None
+
+
+def _luminance(hex_value):
+    """Relative luminance 0..1 of a #rrggbb[aa] string."""
+    raw = hex_value.lstrip('#')
+    if len(raw) in (3, 4):
+        raw = ''.join(ch * 2 for ch in raw[:3])
+    raw = raw[:6]
+    try:
+        r, g, b = (int(raw[i:i + 2], 16) / 255.0 for i in (0, 2, 4))
+    except ValueError:
+        return 0.0
+
+    def channel(value):
+        return value / 12.92 if value <= 0.03928 else ((value + 0.055) / 1.055) ** 2.4
+
+    return 0.2126 * channel(r) + 0.7152 * channel(g) + 0.0722 * channel(b)
+
+
+def _extremes(colors):
+    """(darkest, lightest) opaque palette entries, as variable names."""
+    opaque = [c for c in colors if not c.get('hasAlpha')] or colors
+    if not opaque:
+        return None, None
+    ordered = sorted(opaque, key=lambda c: _luminance(c['hex']))
+    return ordered[0]['variableName'], ordered[-1]['variableName']
+
+
+def _contrast_text(var_name, colors):
+    """Pick a readable foreground for a background colour variable."""
+    dark, light = _extremes(colors)
+    match = next((c for c in colors if c['variableName'] == var_name), None)
+    if not match:
+        return light or 'ds-white'
+    return dark if _luminance(match['hex']) > 0.5 else light
+
+
+def emit_css(data, fonts_dir):
+    fonts = data.get('fonts') or []
+    colors = data.get('colors') or []
+    styles = data.get('textStyles') or {}
+    all_styles = data.get('allTextStyles') or {}
+    section = data.get('section') or {}
+    button = data.get('button') or {}
+    out = []
+    add = out.append
+
+    add('/* ===== tailwind.css - inside @theme, under the Fonts heading ===== */')
+    for slot in ('sans', 'serif'):
+        picks = [f for f in fonts if _font_slot(f) == slot]
+        if picks:
+            fallback = "'Times New Roman', serif" if slot == 'serif' else "'Arial', sans-serif"
+            add("--font-%s: '%s', %s;" % (slot, picks[0]['family'], fallback))
+        else:
+            add('/* --font-%s: unchanged - no %s font in the design; confirm with the user */'
+                % (slot, slot))
+    for font in fonts:
+        if not font.get('category'):
+            add('/* TODO %s has no known category - placed in --font-sans by default; '
+                'confirm serif vs sans with the user */' % font['family'])
+
+    sizes = sorted(
+        {num(style['fontSize']) for style in all_styles.values() if style.get('fontSize')}
+        | ({num(button['fontSize'])} if button.get('fontSize') else set()),
+        reverse=True,
+    )
+    if sizes:
+        add('')
+        add('/* ===== tailwind.css - under the Font Sizes heading ===== */')
+        for size in sizes:
+            add('--text-ds-%s: %s; /* %spx */' % (size, _rem(size), size))
+
+    if colors:
+        add('')
+        add('/* ===== tailwind.css - under the Colors heading ===== */')
+        for color in colors:
+            add('--color-%s: %s;' % (color['variableName'], color['hex'].lower()))
+        suggestions = []
+        for semantic, word in (('ds-black', 'black'), ('ds-white', 'white')):
+            target = _color_for(word, colors)
+            if target and target != semantic:
+                suggestions.append('/* --color-%s: var(--color-%s); */' % (semantic, target))
+            elif target == semantic:
+                suggestions.append(
+                    '/* --color-%s already comes from the palette above - leave it. */' % semantic)
+        if suggestions:
+            add('/* Point the existing semantic vars at the palette above, e.g.: */')
+            for line in suggestions:
+                add(line)
+
+    add('')
+    add('/* ===== custom/fonts.css ===== */')
+    for font in fonts:
+        if not font.get('gwfhAvailable'):
+            add('/* %s: not on Google Webfont Helper - self-host or license separately. */'
+                % font['family'])
+            continue
+        slug = font.get('gwfhSlug') or slugify(font['family'])
+        directory = os.path.join(fonts_dir, slug)
+        files = sorted(
+            name for name in (os.listdir(directory) if os.path.isdir(directory) else [])
+            if name.endswith('.woff2')
+        )
+        if not files:
+            add('/* %s: no .woff2 files in %s yet - download from %s */'
+                % (font['family'], directory, font.get('gwfhUrl') or ''))
+            continue
+        for name in files:
+            match = WOFF_WEIGHT_RE.search(name)
+            weight = int(match.group(1)) if match else 400
+            italic = 'italic' in name.lower()
+            add('@font-face {')
+            add('    font-display: swap;')
+            add("    font-family: '%s';" % font['family'])
+            add('    font-style: %s;' % ('italic' if italic else 'normal'))
+            add('    font-weight: %d;' % weight)
+            add("    src: url('../assets/fonts/%s/%s') format('woff2');" % (slug, name))
+            add('}')
+
+    add('')
+    add('/* ===== custom/layout.css ===== */')
+    body = styles.get('body')
+    if body:
+        add('body {')
+        add('    @apply font-%s %s %s leading-[%s] text-ds-black bg-background;'
+            % (_font_slot(next((f for f in fonts if f['family'] == body['fontFamily']), {})),
+               _size_class(body['fontSize']),
+               WEIGHT_CLASS.get(body['fontWeight'], 'font-normal'),
+               body['lineHeight']))
+        add('}')
+    for role, selector in (('heading', '.ds-heading'), ('subheading', '.ds-subheading')):
+        style = styles.get(role)
+        if not style:
+            continue
+        add('')
+        add('%s {' % selector)
+        add('    @apply font-%s %s %s leading-[%s];'
+            % (_font_slot(next((f for f in fonts if f['family'] == style['fontFamily']), {})),
+               _size_class(style['fontSize']),
+               WEIGHT_CLASS.get(style['fontWeight'], 'font-normal'),
+               style['lineHeight']))
+        add('}')
+
+    if section.get('maxWidth'):
+        pad_x = section.get('paddingX') or {}
+        pad_y = section.get('paddingY') or {}
+        parts = ['mx-auto', 'max-w-[%spx]' % num(section['maxWidth'])]
+        if pad_x.get('sm'):
+            parts.append('px-[%spx]' % num(pad_x['sm']))
+        if pad_y.get('sm'):
+            parts.append('py-[%spx]' % num(pad_y['sm']))
+        if pad_x.get('lg'):
+            parts.append('lg:px-[%spx]' % num(pad_x['lg']))
+        if pad_y.get('lg'):
+            parts.append('lg:py-[%spx]' % num(pad_y['lg']))
+        add('')
+        add('.ds-section {')
+        add('    @apply %s;' % ' '.join(parts))
+        add('}')
+
+    variants = button.get('colorVariants') or []
+    if button.get('paddingX') or variants:
+        base = ['w-fit', 'text-center']
+        if button.get('borderRadius') is not None:
+            base.append('rounded-[%spx]' % num(button['borderRadius']))
+        if button.get('paddingX'):
+            base.append('px-[%spx]' % num(button['paddingX']))
+        if button.get('paddingY'):
+            base.append('py-[%spx]' % num(button['paddingY']))
+        if button.get('fontSize'):
+            base.append(_size_class(button['fontSize']))
+        base.append('leading-normal')
+        add('')
+        add('.ds-button {')
+        add('    @apply %s;' % ' '.join(base))
+        add('}')
+        for variant in variants:
+            word = variant[:-8] if variant.endswith('-outline') else variant
+            var = _color_for(word, colors)
+            add('')
+            add('.ds-button--%s {' % variant)
+            if not var:
+                add('    /* TODO no palette colour matches "%s" - set by hand */' % word)
+                continue
+            fg = _contrast_text(var, colors)
+            if variant.endswith('-outline'):
+                add('    @apply border border-%s bg-transparent text-%s;' % (var, var))
+                add('    @apply lg:hover:bg-%s lg:hover:text-%s;' % (var, fg))
+            else:
+                add('    @apply border border-%s bg-%s text-%s;' % (var, var, fg))
+                add('    @apply lg:hover:bg-transparent lg:hover:text-%s;' % var)
+                match = next((c for c in colors if c['variableName'] == var), None)
+                if match and _luminance(match['hex']) > 0.5:
+                    add('    /* TODO light variant: hover puts %s on the page ground - check */'
+                        % var)
+            add('}')
+
+    return '\n'.join(out)
+
+
 def deep_merge(base, override):
     for key, value in override.items():
         if isinstance(value, dict) and isinstance(base.get(key), dict):
@@ -258,7 +501,21 @@ def main(argv=None):
     parser.add_argument('-i', '--input', help='JSON file of variable defs (default: stdin)')
     parser.add_argument('-o', '--out', default=DEFAULT_OUT, help='Output path (default: %s)' % DEFAULT_OUT)
     parser.add_argument('--extra', help='JSON file or literal merged over the result')
+    parser.add_argument('--emit-css', action='store_true',
+                        help='Read an existing extract and print ready-to-merge CSS')
+    parser.add_argument('--extract', default=DEFAULT_OUT,
+                        help='Extract to read with --emit-css (default: %s)' % DEFAULT_OUT)
+    parser.add_argument('--fonts-dir', default='theme/assets/fonts',
+                        help='Where downloaded font files live (default: theme/assets/fonts)')
     args = parser.parse_args(argv)
+
+    if args.emit_css:
+        if not os.path.isfile(args.extract):
+            raise ConvertError('No extract at %s. Run without --emit-css first.' % args.extract)
+        with open(args.extract, 'r', encoding='utf-8') as handle:
+            data = json.load(handle)
+        print(emit_css(data, args.fonts_dir))
+        return 0
 
     raw = None
     if args.input:
