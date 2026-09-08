@@ -8,13 +8,13 @@
  */
 
 $popups = get_posts(
-	array(
+	[
 		'post_type'      => 'ds_popups',
 		'post_status'    => 'publish',
 		'posts_per_page' => -1,
 		'meta_key'       => 'active',
 		'meta_value'     => '1',
-	)
+	]
 );
 
 if ( empty( $popups ) ) {
@@ -22,8 +22,10 @@ if ( empty( $popups ) ) {
 }
 
 $queried_id = get_queried_object_id();
+?>
 
-foreach ( $popups as $popup ) {
+<?php foreach ( $popups as $popup ) : ?>
+<?php
 	$popup_id = $popup->ID;
 
 	if ( ! get_field( 'active', $popup_id ) ) {
@@ -54,7 +56,7 @@ foreach ( $popups as $popup ) {
 		);
 		$cat_ids = array_filter( $cat_ids );
 
-		$current_cat_ids = array();
+		$current_cat_ids = [];
 		if ( is_category() || is_tax() ) {
 			$current_cat_ids[] = (int) $queried_id;
 		} elseif ( is_singular() ) {
@@ -70,7 +72,7 @@ foreach ( $popups as $popup ) {
 	$text            = get_field( 'text', $popup_id );
 	$button1         = get_field( 'button_1', $popup_id );
 	$button2         = get_field( 'button_2', $popup_id );
-	$popup_settings  = get_field( 'popup_settings', $popup_id ) ?: array();
+	$popup_settings  = get_field( 'popup_settings', $popup_id ) ?: [];
 	$cookie_duration = isset( $popup_settings['cookie_duration'] ) ? (int) $popup_settings['cookie_duration'] : 7;
 	$popup_delay     = isset( $popup_settings['delay'] ) ? (int) $popup_settings['delay'] : 3;
 	?>
@@ -89,58 +91,29 @@ foreach ( $popups as $popup ) {
             </svg>
         </button>
 
-        <?php if ( ! empty( $heading['heading'] ) ) : ?>
-        <?php
-				ds_render_component(
-					'heading',
-					array(
-						'heading'   => $heading,
-						'css_class' => 'font-light text-[26px] leading-[34px] lg:text-[36px] lg:leading-[44px] text-ds-brown',
-					)
-				);
-				?>
-        <?php endif; ?>
+        <?php ds_render_component('heading', [
+            'heading'   => $heading,
+            'css_class' => 'font-light text-[26px] leading-[34px] lg:text-[36px] lg:leading-[44px] text-ds-brown',
+        ]); ?>
 
-        <?php if ( ! empty( $text ) ) : ?>
-        <?php
-				ds_render_component(
-					'text',
-					array(
-						'text'      => $text,
-						'css_class' => 'ds-wysiwyg text-ds-16 lg:text-ds-18 leading-[24px] lg:leading-[26px] text-ds-brown/85',
-					)
-				);
-				?>
-        <?php endif; ?>
+        <?php ds_render_component('text', [
+            'text'      => $text,
+            'css_class' => 'ds-wysiwyg text-ds-16 lg:text-ds-18 leading-[24px] lg:leading-[26px] text-ds-brown/85',
+        ]); ?>
 
-        <?php if ( ds_is_valid_link( $button1 ) || ds_is_valid_link( $button2 ) ) : ?>
+        <?php if ( $button1 || $button2 ) : ?>
         <div class="flex flex-col sm:flex-row gap-[12px] mt-[8px]">
-            <?php if ( ds_is_valid_link( $button1 ) ) : ?>
-            <?php
-					ds_render_component(
-						'link-button',
-						array(
-							'link'      => $button1,
-							'css_class' => 'ds-button--rost popup-btn',
-						)
-					);
-					?>
-            <?php endif; ?>
+            <?php ds_render_component('link-button', [
+                'link'      => $button1,
+                'css_class' => 'ds-button--rost popup-btn',
+            ]); ?>
 
-            <?php if ( ds_is_valid_link( $button2 ) ) : ?>
-            <?php
-					ds_render_component(
-						'link-button',
-						array(
-							'link'      => $button2,
-							'css_class' => 'ds-button--black-outline popup-btn',
-						)
-					);
-					?>
-            <?php endif; ?>
+            <?php ds_render_component('link-button', [
+                'link'      => $button2,
+                'css_class' => 'ds-button--black-outline popup-btn',
+            ]); ?>
         </div>
         <?php endif; ?>
     </div>
 </dialog>
-	<?php
-}
+<?php endforeach; ?>
