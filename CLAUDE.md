@@ -127,6 +127,11 @@ ds_wysiwyg_field($key, $label, $toolbar='basic', $media_upload=0, $args=[]) // W
 ds_email_field($key, $label, $args=[]) // email input with ACF email validation
 ```
 
+**Select field** (`theme/utils/acf-fields/select.php`):
+```php
+ds_select_field($key, $label, $choices=[], $default_value='', $args=[]) // select, $choices as 'value' => 'Label'
+```
+
 **Image fields** (`theme/utils/acf-fields/image.php`) — return format is `id`:
 ```php
 ds_image_field($key, $label, $args=[])                          // standard image
