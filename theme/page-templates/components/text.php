@@ -2,6 +2,7 @@
 
 if(!isset($text)) return; 
 
+$css_class = $css_class ?? '';
 ?>
 
 <?php if($text): ?>
