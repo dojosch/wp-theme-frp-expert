@@ -109,8 +109,8 @@ When registering ACF field groups in PHP, always use the helpers from `theme/uti
 
 **Heading fields** (`theme/utils/acf-fields/heading.php`) — all return a `group` with `heading` + `heading_tag` sub-fields:
 ```php
-ds_heading_field($key, $label, $default_tag='h2', $args=[])          // text input
-ds_heading_textarea_field($key, $label, $default_tag='h2', $args=[]) // textarea (supports line breaks)
+ds_heading_field($key, $label, $default_tag='h2', $default_text='', $args=[])          // text input
+ds_heading_textarea_field($key, $label, $default_tag='h2', $default_text='', $args=[]) // textarea (supports line breaks)
 ds_heading_wysiwyg_field($key, $label, $toolbar='basic', $default_tag='h2', $args=[]) // WYSIWYG
 ```
 The returned group value is an array `['heading' => '...', 'heading_tag' => 'h2']` — pass it directly as `$heading` to the `heading` component.

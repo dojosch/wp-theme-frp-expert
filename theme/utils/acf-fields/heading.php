@@ -7,12 +7,13 @@
  * @param string $key   The unique key for the field.
  * @param string $label The label for the field.
  * @param string $default_tag Optional. The default HTML tag for the heading. Default is 'h2'.
+ * @param string $default_text Optional. The default value for the heading text. Default is empty.
  * @param array  $args  Optional. Additional arguments to customize the group field.
  *                      These will override the default group settings.
  *
  * @return array|null The ACF field array for the heading group, or null on error.
  */
-function ds_heading_field($key, $label, $default_tag='h2', $args = []) {
+function ds_heading_field($key, $label, $default_tag='h2', $default_text='', $args = []) {
     if (empty($key)) {
         error_log('ds_heading_field: key parameter is required');
         return null;
@@ -31,7 +32,7 @@ function ds_heading_field($key, $label, $default_tag='h2', $args = []) {
             'class' => '',
             'id' => '',
         ),
-        'default_value' => '',
+        'default_value' => $default_text,
         'placeholder' => '',
         'prepend' => '',
         'append' => '',
@@ -197,12 +198,13 @@ function ds_heading_wysiwyg_field($key, $label, $toolbar='basic', $default_tag='
  * @param string $label     The label for the field.
  * @param string $toolbar   Optional. The WYSIWYG toolbar preset ('basic' or 'full'). Default is 'basic'.
  * @param string $default_tag Optional. The default HTML tag for the heading. Default is 'h2'.
+ * @param string $default_text Optional. The default value for the heading text. Default is empty.
  * @param array  $args      Optional. Additional arguments to customize the group field.
  *                          These will override the default group settings.
  *
  * @return array|null The ACF field array for the heading WYSIWYG group, or null on error.
  */
-function ds_heading_textarea_field($key, $label, $default_tag='h2', $args = []) {
+function ds_heading_textarea_field($key, $label, $default_tag='h2', $default_text='', $args = []) {
     if (empty($key)) {
         error_log('ds_heading_textarea_field: key parameter is required');
         return null;
@@ -221,7 +223,7 @@ function ds_heading_textarea_field($key, $label, $default_tag='h2', $args = []) 
             'class' => '',
             'id' => '',
         ),
-        'default_value' => '',
+        'default_value' => $default_text,
         'placeholder' => '',
         'maxlength' => '',
         'rows' => 2,
