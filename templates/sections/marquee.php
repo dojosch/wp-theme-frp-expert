@@ -1,37 +1,39 @@
 <?php
-    $column1 = get_sub_field('column_1');
-    $column2 = get_sub_field('column_2');
+    $logos = get_sub_field('logos');
 ?>
 
-<?php echo ds_open_section("ds-section !px-0 !max-full !min-w-full flex flex-col ds-section--marquee text-brand-dark font-serif text-4xl lg:text-5xl font-light leading-[60px] lg:leading-[100px]") ?>
-    <?php if($column1 && count($column1) > 0): ?>
-    <div class="overflow-hidden flex whitespace-nowrap ds-marquee gap-[10px] lg:gap-[20px]" data-direction="right">
-        <div>
-            <?php foreach($column1 as $column): ?>
-                <?php echo $column['text']; ?>
-            <?php endforeach; ?>
-            <?php foreach($column1 as $column): ?>
-                <?php echo $column['text']; ?>
-            <?php endforeach; ?>
-            <?php foreach($column1 as $column): ?>
-                <?php echo $column['text']; ?>
+<?php echo ds_open_section(); ?>
+
+<div class="ds-section max-w-full px-0">
+    <div class="flex flex-col gap-[40px] overflow-hidden" x-data="dsMarquee()">
+        <?php if(!empty($logos)): ?>
+        <div class="flex w-full cursor-grab flex-row items-center gap-[50px] overflow-x-auto overscroll-x-contain [scrollbar-width:none] lg:gap-[80px] [&::-webkit-scrollbar]:hidden"
+            x-ref="track">
+            <?php foreach($logos as $logo): ?>
+            <?php $image = ds_get_image_data_from_id($logo['image'], 'medium'); ?>
+            <?php if(!$image): ?>
+            <?php continue; ?>
+            <?php endif; ?>
+
+            <?php if(ds_is_valid_link($logo['link'])): ?>
+            <?php echo ds_open_link($logo['link'], 'block shrink-0'); ?>
+            <?php ds_render_component('image', [
+                'image'     => $image,
+                'css_class' => 'max-h-[100px] w-auto object-contain lg:max-h-[150px]',
+            ]); ?>
+            <?php echo ds_close_link(); ?>
+            <?php else: ?>
+            <div class="shrink-0">
+                <?php ds_render_component('image', [
+                    'image'     => $image,
+                    'css_class' => 'max-h-[100px] w-auto object-contain lg:max-h-[150px]',
+                ]); ?>
+            </div>
+            <?php endif; ?>
             <?php endforeach; ?>
         </div>
+        <?php endif; ?>
     </div>
-    <?php endif; ?>
-    <?php if($column2 && count($column2) > 0): ?>
-    <div class="overflow-hidden flex whitespace-nowrap ds-marquee gap-[10px] lg:gap-[20px]" data-direction="left">
-        <div>
-            <?php foreach($column2 as $column): ?>
-                <?php echo $column['text']; ?>
-            <?php endforeach; ?>
-            <?php foreach($column2 as $column): ?>
-                <?php echo $column['text']; ?>
-            <?php endforeach; ?>
-            <?php foreach($column2 as $column): ?>
-                <?php echo $column['text']; ?>
-            <?php endforeach; ?>
-        </div>
-    </div>
-    <?php endif; ?>
-<?php echo ds_close_section() ?>    
+</div>
+
+<?php echo ds_close_section(); ?>
