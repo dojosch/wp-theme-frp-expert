@@ -122,6 +122,11 @@ ds_textarea_field($key, $label, $rows=4, $args=[])             // textarea
 ds_wysiwyg_field($key, $label, $toolbar='basic', $media_upload=0, $args=[]) // WYSIWYG → use $text in text component
 ```
 
+**Email field** (`theme/utils/acf-fields/email.php`):
+```php
+ds_email_field($key, $label, $args=[]) // email input with ACF email validation
+```
+
 **Image fields** (`theme/utils/acf-fields/image.php`) — return format is `id`:
 ```php
 ds_image_field($key, $label, $args=[])                          // standard image
