@@ -17,8 +17,8 @@
  * @param string $path The relative path to the asset within the theme directory.
  * @return string The full URL to the specified asset.
  */
-function ds_get_theme_asset_url( $path ) {
-	return get_stylesheet_directory_uri() . '/assets/' . ltrim( $path, '/' );
+function ds_get_theme_asset_url($path) {
+	return get_stylesheet_directory_uri() . '/assets/' . ltrim($path, '/');
 }
 
 /**
@@ -27,8 +27,8 @@ function ds_get_theme_asset_url( $path ) {
  * @param string $path The relative path to the image within the theme directory.
  * @return string The full URL to the image.
  */
-function ds_get_theme_image_url( $path ) {
-	return get_stylesheet_directory_uri() . '/assets/images/' . ltrim( $path, '/' );
+function ds_get_theme_image_url($path) {
+	return get_stylesheet_directory_uri() . '/assets/images/' . ltrim($path, '/');
 }
 
 /**
@@ -37,8 +37,8 @@ function ds_get_theme_image_url( $path ) {
  * @param string $path The relative path to the icon within the theme directory.
  * @return string The full URL to the theme icon.
  */
-function ds_get_theme_icon_url( $path ) {
-	return get_stylesheet_directory_uri() . '/assets/images/icons/' . ltrim( $path, '/' );
+function ds_get_theme_icon_url($path) {
+	return get_stylesheet_directory_uri() . '/assets/images/icons/' . ltrim($path, '/');
 }
 
 /**
@@ -47,8 +47,8 @@ function ds_get_theme_icon_url( $path ) {
  * @param string $path The relative path to the icon within the theme directory.
  * @return string The full URL to the theme icon.
  */
-function ds_get_theme_logo_url( $path ) {
-	return get_stylesheet_directory_uri() . '/assets/images/logos/' . ltrim( $path, '/' );
+function ds_get_theme_logo_url($path) {
+	return get_stylesheet_directory_uri() . '/assets/images/logos/' . ltrim($path, '/');
 }
 
 /**
@@ -57,8 +57,8 @@ function ds_get_theme_logo_url( $path ) {
  * @param string $path The relative path to the template file within the theme directory.
  * @return string The full URL to the specified template file.
  */
-function ds_get_template_url( $path ) {
-	return get_stylesheet_directory_uri() . '/page-templates/' . ltrim( $path, '/' );
+function ds_get_template_url($path) {
+	return get_stylesheet_directory_uri() . '/page-templates/' . ltrim($path, '/');
 }
 
 /**
@@ -67,7 +67,7 @@ function ds_get_template_url( $path ) {
  * @return bool True if the current page is a blog archive, false otherwise.
  */
 function ds_is_blog_archive() {
-	return ( is_archive() || is_category() || is_home() || is_tag() ) && get_post_type() === 'post';
+	return (is_archive() || is_category() || is_home() || is_tag()) && get_post_type() === 'post';
 }
 
 /**
@@ -88,11 +88,11 @@ function ds_create_unique_css_id() {
  * @param mixed  $data     The data to log (string, array, object, etc).
  * @param string $context  Optional. A context label to prefix the log. Default is 'Debug'.
  */
-function ds_console_log( $data, $context = 'Debug' ) {
-	if ( is_array( $data) || is_object( $data ) ) {
-		$data = json_encode( $data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE );
+function ds_console_log($data, $context = 'Debug') {
+	if( is_array($data) || is_object($data) ) {
+		$data = json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 	} else {
-		$data = json_encode( (string) $data );
+		$data = json_encode((string) $data);
 	}
 
 	echo "<script>console.log('[{$context}]', {$data});</script>";
@@ -134,26 +134,24 @@ function ds_parse_label_to_name($label) {
 function ds_get_main_template_post_types() {
     static $post_types = null;
 
-    if ( null !== $post_types ) {
-        return $post_types;
-    }
+    if( null !== $post_types ) return $post_types;
 
-    $post_types = array( 'page' );
-    $file       = get_template_directory() . '/page-templates/main-template.php';
+    $post_types = array('page');
+    $file = get_template_directory() . '/page-templates/main-template.php';
 
-    if ( file_exists( $file ) ) {
-        $data = get_file_data( $file, array( 'post_type' => 'Template Post Type' ) );
+    if( file_exists($file) ) {
+        $data = get_file_data($file, array('post_type' => 'Template Post Type'));
 
-        foreach ( explode( ',', (string) $data['post_type'] ) as $post_type ) {
-            $post_type = trim( $post_type );
+        foreach( explode(',', (string) $data['post_type']) as $post_type ) {
+            $post_type = trim($post_type);
 
-            if ( '' !== $post_type ) {
+            if( '' !== $post_type ) {
                 $post_types[] = $post_type;
             }
         }
     }
 
-    $post_types = array_values( array_unique( $post_types ) );
+    $post_types = array_values(array_unique($post_types));
 
     return $post_types;
 }

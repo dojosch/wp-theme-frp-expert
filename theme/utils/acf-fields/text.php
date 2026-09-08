@@ -12,7 +12,7 @@
  * @return array|null The ACF field array for the text field, or null on error.
  */
 function ds_text_field($key, $label, $args = []) {
-    if (empty($key)) {
+    if( empty($key) ) {
         error_log('ds_text_field: key parameter is required');
         return null;
     }
@@ -52,7 +52,7 @@ function ds_text_field($key, $label, $args = []) {
  * @return array|null The ACF field array for the textarea field, or null on error.
  */
 function ds_textarea_field($key, $label, $rows = 4, $args = []) {
-    if (empty($key)) {
+    if( empty($key) ) {
         error_log('ds_textarea_field: key parameter is required');
         return null;
     }
@@ -93,7 +93,7 @@ function ds_textarea_field($key, $label, $rows = 4, $args = []) {
  * @return array|null The ACF field array for the wysiwyg field, or null on error.
  */
 function ds_wysiwyg_field($key, $label, $toolbar = 'basic', $media_upload = 0, $args = []) {
-    if (empty($key)) {
+    if( empty($key) ) {
         error_log('ds_wysiwyg_field: key parameter is required');
         return null;
     }

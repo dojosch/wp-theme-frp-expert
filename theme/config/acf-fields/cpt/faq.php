@@ -1,6 +1,6 @@
 <?php
 
-acf_add_local_field_group( array(
+acf_add_local_field_group(array(
 	'key' => 'group_67877dc96bf94',
 	'title' => 'FAQ Elements',
 	'fields' => array(
@@ -24,4 +24,4 @@ acf_add_local_field_group( array(
 	'active' => true,
 	'description' => '',
 	'show_in_rest' => 0,
-) );
+));

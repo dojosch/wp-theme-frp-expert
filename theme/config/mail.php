@@ -7,25 +7,25 @@
 
 add_action(
 	'phpmailer_init',
-	function ( $phpmailer ) {
+	function ($phpmailer) {
 		if (
-		defined( 'SMTP_HOST' ) &&
-		defined( 'SMTP_PORT' ) &&
-		defined( 'SMTP_USER' ) &&
-		defined( 'SMTP_PASS' ) &&
-		defined( 'SMTP_FROM' ) &&
-		defined( 'SMTP_NAME' )
+		defined('SMTP_HOST') &&
+		defined('SMTP_PORT') &&
+		defined('SMTP_USER') &&
+		defined('SMTP_PASS') &&
+		defined('SMTP_FROM') &&
+		defined('SMTP_NAME')
 		) {
 			$phpmailer->isSMTP();
-			$phpmailer->host        = SMTP_HOST;
-			$phpmailer->smtp_auth   = SMTP_AUTH;
-			$phpmailer->port        = SMTP_PORT;
-			$phpmailer->username    = SMTP_USER;
-			$phpmailer->password    = SMTP_PASS;
+			$phpmailer->host = SMTP_HOST;
+			$phpmailer->smtp_auth = SMTP_AUTH;
+			$phpmailer->port = SMTP_PORT;
+			$phpmailer->username = SMTP_USER;
+			$phpmailer->password = SMTP_PASS;
 			$phpmailer->smtp_secure = SMTP_SECURE;
-			$phpmailer->from        = SMTP_FROM;
-			$phpmailer->from_name   = SMTP_NAME;
-			$phpmailer->smtp_debug  = defined( 'SMTP_DEBUG' ) ? SMTP_DEBUG : 0;
+			$phpmailer->from = SMTP_FROM;
+			$phpmailer->from_name = SMTP_NAME;
+			$phpmailer->smtp_debug = defined('SMTP_DEBUG') ? SMTP_DEBUG : 0;
 		}
 	}
 );

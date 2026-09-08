@@ -11,8 +11,7 @@
  *      `get_field('heading', $id)`, `!empty($x)`, `['page']`.
  *   3. Single `return` / `continue` / `break` bodies collapse onto the
  *      condition line without braces — `if( $x ) return;`.
- *   4. Short array syntax everywhere — `[]`, never `array()`.
- *   5. ds_render_component() calls align their `=>`.
+ *   4. ds_render_component() calls use short array syntax with `=>` aligned.
  *
  * Usage:
  *   node node_scripts/format-php.cjs [--check] [path ...]
@@ -172,54 +171,6 @@ function splitTopLevel(text, mask) {
 	parts.push(text.slice(start));
 
 	return parts;
-}
-
-/**
- * Rule 4 — long array syntax becomes short array syntax.
- *
- * @param {string} source PHP source.
- * @return {string} Rewritten source.
- */
-function fixArraySyntax(source) {
-	let result = source;
-	let cursor = 0;
-
-	for (;;) {
-		const mask = buildMask(result);
-		const pattern = /\barray\b\s*\(/g;
-		let match = null;
-
-		pattern.lastIndex = cursor;
-
-		for (;;) {
-			const candidate = pattern.exec(result);
-
-			if (null === candidate) break;
-
-			if (mask[candidate.index]) {
-				match = candidate;
-				break;
-			}
-		}
-
-		if (null === match) break;
-
-		const openIdx = match.index + match[0].length - 1;
-		const closeIdx = findMatching(result, openIdx, mask);
-
-		cursor = match.index + 1;
-
-		if (-1 === closeIdx) continue;
-
-		result =
-			result.slice(0, match.index) +
-			'[' +
-			result.slice(openIdx + 1, closeIdx) +
-			']' +
-			result.slice(closeIdx + 1);
-	}
-
-	return result;
 }
 
 /**
@@ -434,7 +385,7 @@ function format(source) {
 	if (/<<<['"]?\w/.test(source)) return source;
 
 	return fixComponentCalls(
-		fixControlStructures(fixParenSpacing(fixArraySyntax(fixAssignmentAlignment(source))))
+		fixControlStructures(fixParenSpacing(fixAssignmentAlignment(source)))
 	);
 }
 

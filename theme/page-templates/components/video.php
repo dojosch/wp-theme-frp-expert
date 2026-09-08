@@ -9,24 +9,20 @@
  * @var string $css_class Optional. Classes applied to the video wrapper.
  */
 
-if ( ! isset( $video ) || ! is_array( $video ) ) {
-    return;
-}
+if( !isset($video) || !is_array($video) ) return;
 
 $css_class = $css_class ?? '';
 $video_url = $video['url'] ?? '';
 $mime_type = $video['mime_type'] ?? 'video/mp4';
 
-if ( empty( $video_url ) || ! filter_var( $video_url, FILTER_VALIDATE_URL ) ) {
-    return;
-}
+if( empty($video_url) || !filter_var($video_url, FILTER_VALIDATE_URL) ) return;
 
-$poster_image = ds_get_image_data_from_id( $poster ?? null, 'full' );
+$poster_image = ds_get_image_data_from_id($poster ?? null, 'full');
 ?>
-<div class="relative <?php echo esc_attr( $css_class ); ?>" x-data="{ playing: false }">
+<div class="relative <?php echo esc_attr($css_class); ?>" x-data="{ playing: false }">
     <video class="w-full h-full object-cover" x-ref="video" playsinline preload="metadata"
-        poster="<?php echo esc_url( $poster_image['src'] ?? '' ); ?>" @play="playing = true" @pause="playing = false">
-        <source src="<?php echo esc_url( $video_url ); ?>" type="<?php echo esc_attr( $mime_type ); ?>">
+        poster="<?php echo esc_url($poster_image['src'] ?? ''); ?>" @play="playing = true" @pause="playing = false">
+        <source src="<?php echo esc_url($video_url); ?>" type="<?php echo esc_attr($mime_type); ?>">
     </video>
 
     <button type="button"

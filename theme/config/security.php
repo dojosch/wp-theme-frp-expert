@@ -15,7 +15,7 @@
  */
 
 // Hide login errors
-add_filter( 'login_errors', 'ds_hide_login_errors' );
+add_filter('login_errors', 'ds_hide_login_errors');
 
 /**
  * Hides login error messages for security purposes.
@@ -31,13 +31,13 @@ function ds_hide_login_errors() {
 }
 
 // Disable XML-RPC
-add_filter( 'xmlrpc_enabled', '__return_false' );
+add_filter('xmlrpc_enabled', '__return_false');
 
 // Hide WP version
-remove_action( 'wp_head', 'wp_generator' );
-add_filter( 'the_generator', '__return_empty_string' );
-add_filter( 'style_loader_src', 'ds_remove_wp_version_param', 9999 );
-add_filter( 'script_loader_src', 'ds_remove_wp_version_param', 9999 );
+remove_action('wp_head', 'wp_generator');
+add_filter('the_generator', '__return_empty_string');
+add_filter('style_loader_src', 'ds_remove_wp_version_param', 9999);
+add_filter('script_loader_src', 'ds_remove_wp_version_param', 9999);
 
 /**
  * Removes the WordPress version parameter from enqueued scripts and styles.
@@ -48,6 +48,6 @@ add_filter( 'script_loader_src', 'ds_remove_wp_version_param', 9999 );
  * @param string $src The source URL of the enqueued script or style.
  * @return string The modified source URL without the WordPress version parameter.
  */
-function ds_remove_wp_version_param( $src ) {
-	return remove_query_arg( 'ver', $src );
+function ds_remove_wp_version_param($src) {
+	return remove_query_arg('ver', $src);
 }

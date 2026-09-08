@@ -1,6 +1,6 @@
 <?php
 
-acf_add_local_field_group( array(
+acf_add_local_field_group(array(
 	'key' => 'group_d798a358f40c51',
 	'title' => 'Popup Einstellungen',
 	'fields' => array(
@@ -12,8 +12,8 @@ acf_add_local_field_group( array(
         ]),
         ds_heading_field('field_6d9308005a4098', 'Heading', 'h2', ''),
         ds_wysiwyg_field('field_e7e2411789a732', 'Text', 'basic', 0),
-        ds_link_field('field_55a08824b13038', 'Button 1 (Primary)', array( 'name' => 'button_1' ) ),
-        ds_link_field('field_6862f838e93568', 'Button 2 (Secondary)', array( 'name' => 'button_2' ) ),
+        ds_link_field('field_55a08824b13038', 'Button 1 (Primary)', array('name' => 'button_1')),
+        ds_link_field('field_6862f838e93568', 'Button 2 (Secondary)', array('name' => 'button_2')),
         ds_select_field('field_88e17854163cfe', 'Anzeigeoption', [
             'all' => 'Auf allen Seiten',
             'pages' => 'Bestimmte Seiten',
@@ -142,4 +142,4 @@ acf_add_local_field_group( array(
 	'active' => true,
 	'description' => '',
 	'show_in_rest' => 0,
-) );
+));

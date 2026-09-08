@@ -18,17 +18,17 @@ $debugging = false;
 ?>
 
 <main class="min-h-dvh <?php echo $debugging ? 'ds-debug' : ''; ?>">
-    <?php if ( have_rows( 'elements' ) ) : ?>
+    <?php if( have_rows('elements') ) : ?>
     <?php
-		while ( have_rows( 'elements' ) ) :
+		while( have_rows('elements') ) :
 			the_row();
 			?>
     <?php
-			$layout       = get_row_layout();
+			$layout = get_row_layout();
 			$section_path = 'sections/' . $layout . '.php';
-			$file         = get_stylesheet_directory() . '/page-templates/' . $section_path;
+			$file = get_stylesheet_directory() . '/page-templates/' . $section_path;
 
-			if($debugging) {
+			if( $debugging ) {
 				?>
     <div class="rounded-md bg-blue-50 p-4 max-w-3xl mx-auto my-4">
         <div class="flex">
@@ -48,10 +48,10 @@ $debugging = false;
     <?php
 			}
 
-			if ( file_exists( $file ) ) {
+			if( file_exists($file) ) {
 				include $section_path;
 			} else {
-				ds_missing_layout_notice( $layout );
+				ds_missing_layout_notice($layout);
 			}
 			?>
     <?php endwhile; ?>

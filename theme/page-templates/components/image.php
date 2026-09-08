@@ -1,5 +1,5 @@
 <?php 
-    if(!isset($image) || !is_array($image) || !isset($image['src'])) return;
+    if( !isset($image) || !is_array($image) || !isset($image['src']) ) return;
 
     $css_class = $css_class ?? '';
 ?>

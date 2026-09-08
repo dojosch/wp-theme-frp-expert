@@ -49,74 +49,70 @@
  *     }
  */
 
-if ( empty( $heading ) ) {
-	return;
-}
+if( empty($heading) ) return;
 
-if ( is_array( $heading ) ) {
-	$title       = $heading['heading'] ?? '';
+if( is_array($heading) ) {
+	$title = $heading['heading'] ?? '';
 	$heading_tag = $heading['heading_tag'] ?? 'span';
 } else {
-	$title       = $heading;
+	$title = $heading;
 	$heading_tag = $heading_tag ?? 'span';
 }
 
-if ( empty( $title ) ) {
-	return;
-}
+if( empty($title) ) return;
 
-$index           = $index ?? null;
-$text            = $text ?? '';
-$icon            = $icon ?? '';
-$open            = ! empty( $open );
-$css_class       = $css_class ?? '';
-$button_class    = $button_class ?? '';
-$number_class    = $number_class ?? '';
-$heading_class   = $heading_class ?? '';
-$icon_class      = $icon_class ?? '';
+$index = $index ?? null;
+$text = $text ?? '';
+$icon = $icon ?? '';
+$open = !empty($open);
+$css_class = $css_class ?? '';
+$button_class = $button_class ?? '';
+$number_class = $number_class ?? '';
+$heading_class = $heading_class ?? '';
+$icon_class = $icon_class ?? '';
 $icon_open_class = $icon_open_class ?? 'rotate-90';
 $icon_idle_class = $icon_idle_class ?? '';
-$content_class   = $content_class ?? '';
-$text_class      = $text_class ?? 'ds-wysiwyg';
+$content_class = $content_class ?? '';
+$text_class = $text_class ?? 'ds-wysiwyg';
 
 // Unique ids so multiple FAQ lists can share a page.
-$GLOBALS['ds_faq_uid'] = ( $GLOBALS['ds_faq_uid'] ?? 0 ) + 1;
-$uid                   = $GLOBALS['ds_faq_uid'];
+$GLOBALS['ds_faq_uid'] = ($GLOBALS['ds_faq_uid'] ?? 0) + 1;
+$uid = $GLOBALS['ds_faq_uid'];
 ?>
 
-<div class="group/faq <?php echo esc_attr( $css_class ); ?>" x-data="{ open: <?php echo $open ? 'true' : 'false'; ?> }"
-    <?php if ( null !== $index ) : ?>data-faq="<?php echo esc_attr( $index ); ?>" <?php endif; ?>>
-    <button type="button" id="faq-trigger-<?php echo esc_attr( $uid ); ?>"
-        class="w-full cursor-pointer text-left <?php echo esc_attr( $button_class ); ?>" @click="open = !open"
-        :aria-expanded="open" aria-controls="faq-panel-<?php echo esc_attr( $uid ); ?>">
-        <?php if ( null !== $index ) : ?>
-        <span class="shrink-0 <?php echo esc_attr( $number_class ); ?>">
-            <?php echo esc_html( $index ); ?>
+<div class="group/faq <?php echo esc_attr($css_class); ?>" x-data="{ open: <?php echo $open ? 'true' : 'false'; ?> }"
+    <?php if( null !== $index ) : ?>data-faq="<?php echo esc_attr($index); ?>" <?php endif; ?>>
+    <button type="button" id="faq-trigger-<?php echo esc_attr($uid); ?>"
+        class="w-full cursor-pointer text-left <?php echo esc_attr($button_class); ?>" @click="open = !open"
+        :aria-expanded="open" aria-controls="faq-panel-<?php echo esc_attr($uid); ?>">
+        <?php if( null !== $index ) : ?>
+        <span class="shrink-0 <?php echo esc_attr($number_class); ?>">
+            <?php echo esc_html($index); ?>
         </span>
         <?php endif; ?>
 
-        <?php echo ds_get_heading( $title, $heading_tag, $heading_class ); ?>
+        <?php echo ds_get_heading($title, $heading_tag, $heading_class); ?>
 
-        <?php if ( $icon ) : ?>
-        <span class="shrink-0 transition-transform duration-300 <?php echo esc_attr( $icon_class ); ?>"
-            :class="open ? '<?php echo esc_attr( $icon_open_class ); ?>' : '<?php echo esc_attr( $icon_idle_class ); ?>'"
+        <?php if( $icon ) : ?>
+        <span class="shrink-0 transition-transform duration-300 <?php echo esc_attr($icon_class); ?>"
+            :class="open ? '<?php echo esc_attr($icon_open_class); ?>' : '<?php echo esc_attr($icon_idle_class); ?>'"
             aria-hidden="true">
             <?php echo $icon; ?>
         </span>
         <?php endif; ?>
     </button>
 
-    <div id="faq-panel-<?php echo esc_attr( $uid ); ?>" role="region"
-        aria-labelledby="faq-trigger-<?php echo esc_attr( $uid ); ?>"
+    <div id="faq-panel-<?php echo esc_attr($uid); ?>" role="region"
+        aria-labelledby="faq-trigger-<?php echo esc_attr($uid); ?>"
         class="grid transition-all duration-300 <?php echo $open ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'; ?>"
         :class="{ 'grid-rows-[1fr]': open, 'grid-rows-[0fr]': !open }">
         <div class="overflow-hidden">
-            <div class="<?php echo esc_attr( $content_class ); ?>">
+            <div class="<?php echo esc_attr($content_class); ?>">
                 <?php
 					ds_render_component('text', [
-                        'text'      => $text,
-                        'css_class' => $text_class,
-                    ]); ?>
+						'text'      => $text,
+						'css_class' => $text_class,
+					]); ?>
             </div>
         </div>
     </div>

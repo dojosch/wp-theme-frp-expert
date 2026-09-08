@@ -17,18 +17,18 @@ $home_link = [
             class="ds-section bg-transparent ds-section flex flex-row gap-[50px] justify-between h-full pt-[14px] lg:pt-[34px] pb-[9px] items-center lg:items-start">
             <?php echo ds_open_link($home_link, 'h-fit'); ?>
             <?php ds_render_component('image', [
-                'image' => $logo,
+                'image'     => $logo,
                 'css_class' => 'h-[62px] lg:h-[72px] w-auto',
             ]); ?>
             <?php echo ds_close_link(); ?>
 
-            <?php if(is_array($links) && count($links) > 0): ?>
+            <?php if( is_array($links) && count($links) > 0 ): ?>
             <div class="hidden lg:flex flex-row lg:gap-[50px] xl:gap-[74px] pt-[8px]">
-                <?php foreach($links as $link): ?>
+                <?php foreach( $links as $link ): ?>
                 <div x-data="{ linkHref: '<?php echo esc_url($link['link']['url']); ?>' }"
                     :class="isActive(linkHref) && !hasHeader ? 'text-ds-red-dark' : (!isScrolled && hasHeader ? 'text-ds-white' : 'text-ds-black')">
                     <?php ds_render_component('link', [
-                        'link' => $link['link'],
+                        'link'      => $link['link'],
                         'css_class' => 'leading-[50px] text-ds-18 font-amarante uppercase transition-colors duration-300',
                     ]); ?>
                 </div>
@@ -56,7 +56,7 @@ $home_link = [
             <div class="bg-transparent flex flex-row justify-between items-center h-full">
                 <?php echo ds_open_link($home_link, 'h-fit'); ?>
                 <?php ds_render_component('image', [
-                    'image' => $logo,
+                    'image'     => $logo,
                     'css_class' => ' h-[62px] w-auto',
                 ]); ?>
                 <?php echo ds_close_link(); ?>
@@ -74,12 +74,12 @@ $home_link = [
             <div class="flex flex-col gap-[20px] justify-center py-[28px] overflow-y-auto h-[calc(100dvh-76px)]">
 
                 <div class="flex flex-col gap-[35px] text-ds-black overflow-y-auto max-h-full ds-no-scrollbar">
-                    <?php if(is_array($links) && count($links) > 0): ?>
-                    <?php foreach($links as $link): ?>
+                    <?php if( is_array($links) && count($links) > 0 ): ?>
+                    <?php foreach( $links as $link ): ?>
                     <div x-data="{ linkHref: '<?php echo esc_url($link['link']['url']); ?>' }"
                         :class="isActive(linkHref) ? 'text-ds-red-dark' : ''">
                         <?php ds_render_component('link', [
-                            'link' => $link['link'],
+                            'link'      => $link['link'],
                             'css_class' => 'text-ds-30',
                         ]); ?>
                     </div>

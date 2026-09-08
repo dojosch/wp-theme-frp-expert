@@ -18,10 +18,10 @@
  * @param mixed $link The input to validate as a link array.
  * @return bool True if the link is valid, false otherwise.
  */
-function ds_is_valid_link( $link ) {
-	return is_array( $link )
-		&& ! empty( $link['url'] )
-		&& ! empty( $link['title'] );
+function ds_is_valid_link($link) {
+	return is_array($link)
+		&& !empty($link['url'])
+		&& !empty($link['title']);
 }
 
 /**
@@ -33,19 +33,17 @@ function ds_is_valid_link( $link ) {
  *
  * @return string The generated HTML heading element as a string.
  */
-function ds_get_heading( $text = '', $tag = 'h2', $css_class = '' ) {
-	if ( empty( $text ) || ! is_string( $text ) ) {
-		return '';
-	}
+function ds_get_heading($text = '', $tag = 'h2', $css_class = '') {
+	if( empty($text) || !is_string($text) ) return '';
 
-    $allowed_tags = array( 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'span', 'p', 'div', 'strong', 'em', 'u', 'a', 'ul', 'ol', 'li', 'br' );
-	$tag          = in_array( strtolower( $tag ), $allowed_tags, true ) ? strtolower( $tag ) : 'h2';
+    $allowed_tags = array('h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'span', 'p', 'div', 'strong', 'em', 'u', 'a', 'ul', 'ol', 'li', 'br');
+	$tag = in_array(strtolower($tag), $allowed_tags, true) ? strtolower($tag) : 'h2';
 
 	return sprintf(
 		'<%1$s class="%2$s">%3$s</%1$s>',
 		$tag,
-		esc_attr( $css_class ),
-		wp_kses( $text, array_fill_keys( $allowed_tags, array() ) )
+		esc_attr($css_class),
+		wp_kses($text, array_fill_keys($allowed_tags, array()))
 	);
 }
 
@@ -57,21 +55,19 @@ function ds_get_heading( $text = '', $tag = 'h2', $css_class = '' ) {
  *
  * @return string The generated HTML link.
  */
-function ds_get_link( $link = null, $css_class = '' ) {
-	if ( ! ds_is_valid_link( $link ) ) {
-		return '';
-	}
+function ds_get_link($link = null, $css_class = '') {
+	if( !ds_is_valid_link($link) ) return '';
 
-	$rel    = ( $link['target'] ?? '' ) === '_blank' ? 'rel="noopener noreferrer"' : '';
-	$target = esc_attr( $link['target'] ?? '_self' );
+	$rel = ($link['target'] ?? '') === '_blank' ? 'rel="noopener noreferrer"' : '';
+	$target = esc_attr($link['target'] ?? '_self');
 
 	return sprintf(
 		'<a href="%1$s" target="%2$s" %3$s class="%4$s">%5$s</a>',
-		esc_url( $link['url'] ),
+		esc_url($link['url']),
 		$target,
 		$rel,
-		esc_attr( $css_class ),
-		esc_html( $link['title'] )
+		esc_attr($css_class),
+		esc_html($link['title'])
 	);
 }
 
@@ -85,32 +81,28 @@ function ds_get_link( $link = null, $css_class = '' ) {
  *
  * @return string The generated HTML string for the icon link.
  */
-function ds_get_icon_link( $link = null, $icon_id = null, $css_class = '', $icon_class = '' ) {
-	if ( ! ds_is_valid_link( $link ) || empty( $icon_id ) ) {
-		return '';
-	}
+function ds_get_icon_link($link = null, $icon_id = null, $css_class = '', $icon_class = '') {
+	if( !ds_is_valid_link($link) || empty($icon_id) ) return '';
 
-	$icon = ds_get_image_data_from_id( $icon_id );
+	$icon = ds_get_image_data_from_id($icon_id);
 
-	if ( ! $icon || empty( $icon['src'] ) ) {
-		return '';
-	}
+	if( !$icon || empty($icon['src']) ) return '';
 
-	$rel       = ( $link['target'] ?? '' ) === '_blank' ? 'rel="noopener noreferrer"' : '';
-	$target    = esc_attr( $link['target'] ?? '_self' );
+	$rel = ($link['target'] ?? '') === '_blank' ? 'rel="noopener noreferrer"' : '';
+	$target = esc_attr($link['target'] ?? '_self');
 	$icon_elem = sprintf(
 		'<img src="%1$s" alt="%2$s" class="%3$s" />',
-		esc_url( $icon['src'] ),
-		esc_attr( $icon['alt'] ?? '' ),
-		esc_attr( $icon_class )
+		esc_url($icon['src']),
+		esc_attr($icon['alt'] ?? ''),
+		esc_attr($icon_class)
 	);
 
 	return sprintf(
 		'<a href="%1$s" target="%2$s" %3$s class="%4$s">%5$s</a>',
-		esc_url( $link['url'] ),
+		esc_url($link['url']),
 		$target,
 		$rel,
-		esc_attr( $css_class ),
+		esc_attr($css_class),
 		$icon_elem
 	);
 }
@@ -123,20 +115,18 @@ function ds_get_icon_link( $link = null, $icon_id = null, $css_class = '', $icon
  *
  * @return string The opening <a> tag or an empty string.
  */
-function ds_open_link( $link = null, $css_class = '' ) {
-	if ( ! ds_is_valid_link( $link ) ) {
-		return '';
-	}
+function ds_open_link($link = null, $css_class = '') {
+	if( !ds_is_valid_link($link) ) return '';
 
-	$rel    = ( $link['target'] ?? '' ) === '_blank' ? 'rel="noopener noreferrer"' : '';
-	$target = esc_attr( $link['target'] ?? '_self' );
+	$rel = ($link['target'] ?? '') === '_blank' ? 'rel="noopener noreferrer"' : '';
+	$target = esc_attr($link['target'] ?? '_self');
 
 	return sprintf(
 		'<a href="%1$s" target="%2$s" %3$s class="bj-type-link %4$s">',
-		esc_url( $link['url'] ),
+		esc_url($link['url']),
 		$target,
 		$rel,
-		esc_attr( $css_class )
+		esc_attr($css_class)
 	);
 }
 
@@ -156,13 +146,11 @@ function ds_close_link() {
  *
  * @return string The formatted phone number as a tel: link.
  */
-function ds_parse_phone_into_tel( $phone = '' ) {
-	if ( ! is_string( $phone ) || empty( $phone ) ) {
-		return '';
-	}
+function ds_parse_phone_into_tel($phone = '') {
+	if( !is_string($phone) || empty($phone) ) return '';
 
-	$clean = preg_replace( array( '/[^\d\+]/', '/\(\d+\)/' ), '', $phone );
-	return 'tel:' . esc_attr( $clean );
+	$clean = preg_replace(array('/[^\d\+]/', '/\(\d+\)/'), '', $phone);
+	return 'tel:' . esc_attr($clean);
 }
 
 /**
@@ -172,10 +160,8 @@ function ds_parse_phone_into_tel( $phone = '' ) {
  *
  * @return string The mailto link generated from the email address.
  */
-function ds_parse_mail_into_mailto( $mail = '' ) {
-	if ( ! is_email( $mail ) ) {
-		return '';
-	}
+function ds_parse_mail_into_mailto($mail = '') {
+	if( !is_email($mail) ) return '';
 
-	return 'mailto:' . sanitize_email( $mail );
+	return 'mailto:' . sanitize_email($mail);
 }

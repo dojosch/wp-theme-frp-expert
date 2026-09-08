@@ -1,11 +1,9 @@
 <?php 
 
-add_action( 'acf/include_fields', function() {
-	if ( ! function_exists( 'acf_add_local_field_group' ) ) {
-		return;
-	}
+add_action('acf/include_fields', function() {
+	if( !function_exists('acf_add_local_field_group') ) return;
 
-	acf_add_local_field_group( array(
+	acf_add_local_field_group(array(
 	'key' => 'group_67570e38a271e',
 	'title' => '404',
 	'fields' => array(
@@ -49,6 +47,6 @@ add_action( 'acf/include_fields', function() {
 	'active' => true,
 	'description' => '',
 	'show_in_rest' => 0,
-) );
-} );
+));
+});
 

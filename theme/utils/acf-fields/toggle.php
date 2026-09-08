@@ -12,7 +12,7 @@
  * @return array|null The ACF field array for the toggle field, or null on error.
  */
 function ds_toggle_field($key, $label, $args = []) {
-    if (empty($key)) {
+    if( empty($key) ) {
         error_log('ds_toggle_field: key parameter is required');
         return null;
     }

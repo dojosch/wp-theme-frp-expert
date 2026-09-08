@@ -13,8 +13,8 @@
 
 </div><!-- #content -->
 
-<?php get_template_part( 'page-templates/layout/footer', 'content' ); ?>
-<?php get_template_part( 'page-templates/popup', 'template' ); ?>
+<?php get_template_part('page-templates/layout/footer', 'content'); ?>
+<?php get_template_part('page-templates/popup', 'template'); ?>
 
 </div><!-- #page -->
 

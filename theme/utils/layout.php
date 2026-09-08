@@ -15,7 +15,7 @@
  *
  * @param string $layout The name of the layout file that is missing.
  */
-function ds_missing_layout_notice( $layout ) {
+function ds_missing_layout_notice($layout) {
 	?>
 	<div class="bg-gray-50 py-20">
 		<div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
@@ -28,7 +28,7 @@ function ds_missing_layout_notice( $layout ) {
 					</div>
 					<div class="ml-3">
 						<h3 class="text-sm font-medium text-red-800">
-							Row Layout "<?php echo esc_html( $layout ); ?>" not found
+							Row Layout "<?php echo esc_html($layout); ?>" not found
 						</h3>
 					</div>
 				</div>
@@ -43,7 +43,7 @@ function ds_missing_layout_notice( $layout ) {
  *
  * @param string $view The name of the view where the component is missing.
  */
-function ds_missing_component_notice( $view ) {
+function ds_missing_component_notice($view) {
 	?>
 		<div class="bg-gray-50 py-10">
 			<div class="mx-auto max-w-4xl px-4">
@@ -56,10 +56,10 @@ function ds_missing_component_notice( $view ) {
 						</div>
 						<div class="ml-3">
 							<h3 class="text-sm font-medium text-red-800">
-								Component "<?php echo esc_html( $view ); ?>" not found.
+								Component "<?php echo esc_html($view); ?>" not found.
 							</h3>
 							<div class="mt-1 text-sm text-red-700">
-								<p>Expected path: <code>/page-templates/components/<?php echo esc_html( $view ); ?>.php</code></p>
+								<p>Expected path: <code>/page-templates/components/<?php echo esc_html($view); ?>.php</code></p>
 							</div>
 						</div>
 					</div>
@@ -80,37 +80,37 @@ function ds_missing_component_notice( $view ) {
  *
  * @return void
  */
-function ds_render_component( $view, $args = array() ) {
+function ds_render_component($view, $args = array()) {
 	$component_path = get_template_directory() . "/page-templates/components/{$view}.php";
 
-	if ( file_exists( $component_path ) ) {
-		if ( ! empty( $args ) && is_array( $args ) ) {
-			foreach ( $args as $key => $value ) {
+	if( file_exists($component_path) ) {
+		if( !empty($args) && is_array($args) ) {
+			foreach( $args as $key => $value ) {
 				${$key} = $value;
 			}
 		}
 		include $component_path;
 	} else {
-		ds_missing_component_notice( $view );
+		ds_missing_component_notice($view);
 	}
 }
 
-function ds_load_acf_layout( $file, $section_config ) {
+function ds_load_acf_layout($file, $section_config) {
 	require_once $file;
 
-	$layout_name = basename( $file, '.php' );
+	$layout_name = basename($file, '.php');
 
-	if ( isset( ${$layout_name} ) && is_array( ${$layout_name} ) ) {
+	if( isset(${$layout_name}) && is_array(${$layout_name}) ) {
 		// Deep clone layout and section config
-		$layout = unserialize( serialize( ${$layout_name} ) );
+		$layout = unserialize(serialize(${$layout_name}));
 
-		if ( isset( $layout['sub_fields'] ) && is_array( $layout['sub_fields'] ) ) {
+		if( isset($layout['sub_fields']) && is_array($layout['sub_fields']) ) {
 			// Add section config as the FIRST field
-			array_unshift( $layout['sub_fields'], unserialize( serialize( $section_config ) ) );
+			array_unshift($layout['sub_fields'], unserialize(serialize($section_config)));
 		}
-		return [ $layout_name => $layout ];
+		return [$layout_name => $layout];
 	} else {
-		trigger_error( "ACF layout variable \${$layout_name} not found in {$file}", E_USER_WARNING );
+		trigger_error("ACF layout variable \${$layout_name} not found in {$file}", E_USER_WARNING);
 		return [];
 	}
 }

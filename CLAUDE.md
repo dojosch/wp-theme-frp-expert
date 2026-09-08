@@ -103,7 +103,6 @@ ds_console_log($data, $context) // Outputs to browser console
 - No alignment padding on assignments — `$file = ...`, never `$file       = ...`.
 - Control-structure conditions pad inside the parens but not before them — `if( $debugging )`, never `if ($x)` or `if($x)`. Applies to `if`, `elseif`, `while`, `for`, `foreach`, `switch`, `catch`.
 - Everything else stays tight: no padding inside call parens or brackets, and none after `!` — `get_field('heading', $id)`, `!empty($x)`, `['page']`. A nested call inside a condition keeps that tightness: `if( !empty($args) )`.
-- Short array syntax everywhere — `[]`, never `array()`. `(array)` casts are untouched.
 - A condition whose whole body is a single `return`, `continue` or `break` goes on one line without braces — `if( !$link ) return;`. Anything longer keeps its braces.
 - `ds_render_component()` calls use short array syntax with `=>` aligned, the array opening on the call line and the keys one indent level in:
 
@@ -114,7 +113,7 @@ ds_render_component('heading', [
 ]);
 ```
 
-Note: these rules invert several WordPress-Extra sniffs (`Generic.Formatting.MultipleStatementAlignment`, `WordPress.WhiteSpace.ControlStructureSpacing`, `Generic.ControlStructures.InlineControlStructure`, and whichever short-array sniff the installed WPCS version ships). `phpcbf` is not installed in this checkout; if it gets installed, exclude those sniffs in `phpcs.xml.dist` — `lint-fix:php` runs the formatter after `phpcbf` so the house style wins either way.
+Note: these rules invert several WordPress-Extra sniffs (`Generic.Formatting.MultipleStatementAlignment`, `WordPress.WhiteSpace.ControlStructureSpacing`, `Generic.ControlStructures.InlineControlStructure`). `phpcbf` is not installed in this checkout; if it gets installed, exclude those sniffs in `phpcs.xml.dist` — `lint-fix:php` runs the formatter after `phpcbf` so the house style wins either way.
 
 ### Template Rules
 

@@ -1,5 +1,5 @@
 <?php
-    if (!isset($shortcode) || !is_string($shortcode)) return;
+    if( !isset($shortcode) || !is_string($shortcode) ) return;
 
     $css_class = $css_class ?? '';
 ?>

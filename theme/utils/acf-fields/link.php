@@ -10,7 +10,7 @@
  * @return array The ACF link field configuration array.
  */
 function ds_link_field($key, $label, $args = []) {
-    if(empty($key)) {
+    if( empty($key) ) {
         error_log('ds_link_field: key parameter is required');
         return null;
     }

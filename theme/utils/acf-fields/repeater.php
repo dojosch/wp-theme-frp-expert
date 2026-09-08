@@ -14,7 +14,7 @@
  * @return array|null The ACF field array for the repeater field, or null on error.
  */
 function ds_repeater_field($key, $label, $sub_fields = [], $button_label = 'Add Row', $args = []) {
-    if (empty($key)) {
+    if( empty($key) ) {
         error_log('ds_repeater_field: key parameter is required');
         return null;
     }

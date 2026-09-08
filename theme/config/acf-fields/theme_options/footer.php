@@ -1,6 +1,6 @@
 <?php 
 
-acf_add_local_field_group( array(
+acf_add_local_field_group(array(
 	'key' => 'group_67570e38a271d',
 	'title' => 'Footer',
 	'fields' => array(

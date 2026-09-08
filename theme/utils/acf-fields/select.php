@@ -14,7 +14,7 @@
  * @return array|null The ACF field array for the select field, or null on error.
  */
 function ds_select_field($key, $label, $choices = [], $default_value = '', $args = []) {
-    if (empty($key)) {
+    if( empty($key) ) {
         error_log('ds_select_field: key parameter is required');
         return null;
     }

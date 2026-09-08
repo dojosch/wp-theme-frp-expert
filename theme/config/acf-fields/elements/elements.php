@@ -18,27 +18,27 @@ $layouts_without_background_option = [
 ];
 
 require_once get_template_directory() . '/config/acf-fields/elements/section_config.php';
-if(!isset($section_config)) return;
+if( !isset($section_config) ) return;
 
-foreach ( glob( get_template_directory() . '/config/acf-fields/elements/fields/*.php' ) as $file ) {
-	$layout_name = basename( $file, '.php' );
+foreach( glob(get_template_directory() . '/config/acf-fields/elements/fields/*.php') as $file ) {
+	$layout_name = basename($file, '.php');
 
-	if ( 'content_part' === $layout_name ) {
+	if( 'content_part' === $layout_name ) {
 		require_once $file;
-		if ( isset( $content_part ) ) {
+		if( isset($content_part) ) {
 			$content_part_raw = $content_part;
 		}
 		continue;
 	}
 
-	$new_config        = unserialize( serialize( $section_config ) );
+	$new_config = unserialize(serialize($section_config));
 	$new_config['key'] = 'field_' . $layout_name;
 
-	if ( in_array( $layout_name, $layouts_without_background_option, true ) ) {
+	if( in_array($layout_name, $layouts_without_background_option, true) ) {
 		$new_config['sub_fields'] = array_filter(
 			$new_config['sub_fields'],
-			function ( $field ) {
-				return ! in_array(
+			function ($field) {
+				return !in_array(
 					$field['key'],
 					array(
 						'field_section_background',
@@ -48,17 +48,17 @@ foreach ( glob( get_template_directory() . '/config/acf-fields/elements/fields/*
 			}
 		);
 
-		$new_config['sub_fields'] = array_values( $new_config['sub_fields'] );
+		$new_config['sub_fields'] = array_values($new_config['sub_fields']);
 	}
 
-	$layout_entry = ds_load_acf_layout( $file, $new_config );
+	$layout_entry = ds_load_acf_layout($file, $new_config);
 
 	// Merge single-element array into section_layouts
-	$section_layouts = array_merge( $section_layouts, $layout_entry );
+	$section_layouts = array_merge($section_layouts, $layout_entry);
 }
 
-if ( ! empty( $content_part_raw ) ) {
-	$all_layouts = array_merge( $section_layouts, array( 'content_part' => $content_part_raw ) );
+if( !empty($content_part_raw) ) {
+	$all_layouts = array_merge($section_layouts, array('content_part' => $content_part_raw));
 } else {
 	$all_layouts = $section_layouts;
 }
@@ -117,10 +117,10 @@ acf_add_local_field_group(
 
 add_filter(
 	'acf/prepare_field/name=elements',
-	function( $field ) {
-		if ( get_post_type() === 'content_part' ) {
-			if ( isset( $field['layouts']['content_part'] ) ) {
-				unset( $field['layouts']['content_part'] );
+	function($field) {
+		if( get_post_type() === 'content_part' ) {
+			if( isset($field['layouts']['content_part']) ) {
+				unset($field['layouts']['content_part']);
 			}
 		}
 		return $field;

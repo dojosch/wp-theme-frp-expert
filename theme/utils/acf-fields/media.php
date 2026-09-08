@@ -11,7 +11,7 @@
  * @return array The ACF field group array for media selection.
  */
 function ds_media_field($key, $label, $args=[]) {
-    if( empty($key)) {
+    if( empty($key) ) {
         error_log('ds_media_field: key parameter is required');
         return null;
     }
@@ -134,7 +134,7 @@ function ds_media_field($key, $label, $args=[]) {
  * @return array The ACF field group array for media selection with crop.
  */
 function ds_media_crop_field($key, $label, $width=1, $height=1, $args=[]) {
-    if( empty($key)) {
+    if( empty($key) ) {
         error_log('ds_media_crop_field: key parameter is required');
         return null;
     }

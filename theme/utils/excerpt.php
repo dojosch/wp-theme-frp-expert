@@ -25,20 +25,20 @@
  *
  * @return string The processed excerpt with the specified character limit.
  */
-function ds_get_excerpt( $limit = 100, $source = null, $post_id = null ) {
+function ds_get_excerpt($limit = 100, $source = null, $post_id = null) {
 	$excerpt = 'content' === $source
-		? get_the_content( null, false, $post_id )
-		: get_the_excerpt( $post_id );
+		? get_the_content(null, false, $post_id)
+		: get_the_excerpt($post_id);
 
-	$excerpt = preg_replace( '/\[.*?\]/', '', $excerpt );
-	$excerpt = strip_shortcodes( $excerpt );
-	$excerpt = wp_strip_all_tags( $excerpt );
+	$excerpt = preg_replace('/\[.*?\]/', '', $excerpt);
+	$excerpt = strip_shortcodes($excerpt);
+	$excerpt = wp_strip_all_tags($excerpt);
 
-	if ( $limit < strlen( $excerpt ) ) {
-		$excerpt = substr( $excerpt, 0, $limit );
-		$excerpt = substr( $excerpt, 0, strrpos( $excerpt, ' ' ) );
-		$excerpt = trim( preg_replace( '/\s+/', ' ', $excerpt ) );
-		$excerpt = rtrim( $excerpt, ',' ) . ' ...';
+	if( $limit < strlen($excerpt) ) {
+		$excerpt = substr($excerpt, 0, $limit);
+		$excerpt = substr($excerpt, 0, strrpos($excerpt, ' '));
+		$excerpt = trim(preg_replace('/\s+/', ' ', $excerpt));
+		$excerpt = rtrim($excerpt, ',') . ' ...';
 	}
 
 	return $excerpt;

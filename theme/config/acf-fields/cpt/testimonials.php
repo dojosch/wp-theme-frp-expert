@@ -1,6 +1,6 @@
 <?php 
 
-acf_add_local_field_group( array(
+acf_add_local_field_group(array(
 	'key' => 'group_67879735a7e23',
 	'title' => 'Testimonial Elements',
 	'fields' => array(

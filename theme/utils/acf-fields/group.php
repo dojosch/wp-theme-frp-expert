@@ -13,7 +13,7 @@
  * @return array|null The ACF field array for the group field, or null on error.
  */
 function ds_group_field($key, $label, $sub_fields = [], $args = []) {
-    if (empty($key)) {
+    if( empty($key) ) {
         error_log('ds_group_field: key parameter is required');
         return null;
     }

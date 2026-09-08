@@ -56,7 +56,7 @@ add_action(
 					'show_in_menu'        => true,
 					'exclude_from_search' => true,
 					'publicly_queryable'  => false,
-					'supports'            => array( 'title' ),
+					'supports'            => array('title'),
 				),
 			)
 		);

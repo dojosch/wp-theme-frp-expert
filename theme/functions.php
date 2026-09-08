@@ -20,17 +20,17 @@
  */
 function ds_load_theme_files() {
 	// Load utilities first (top-level)
-	foreach ( glob( get_template_directory() . '/utils/*.php' ) as $file ) {
+	foreach( glob(get_template_directory() . '/utils/*.php') as $file ) {
 		require_once $file;
 	}
 
 	// Load utility subfolders (e.g., utils/acf-fields) before configs
-	foreach ( glob( get_template_directory() . '/utils/*/*.php' ) as $file ) {
+	foreach( glob(get_template_directory() . '/utils/*/*.php') as $file ) {
 		require_once $file;
 	}
 
 	// Finally load configs
-	foreach ( glob( get_template_directory() . '/config/*.php' ) as $file ) {
+	foreach( glob(get_template_directory() . '/config/*.php') as $file ) {
 		require_once $file;
 	}
 }

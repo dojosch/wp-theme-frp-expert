@@ -18,8 +18,8 @@
  * @param string $plural     Plural label (e.g. 'FAQs').
  * @param array  $options    Optional overrides: 'slug', 'menu_icon', 'labels', 'args'.
  */
-function ds_register_cpt( $type, $singular, $plural, $options = array() ) {
-	$slug      = $options['slug'] ?? $type;
+function ds_register_cpt($type, $singular, $plural, $options = array()) {
+	$slug = $options['slug'] ?? $type;
 	$menu_icon = $options['menu_icon'] ?? 'dashicons-admin-post';
 
 	// Default labels.
@@ -62,7 +62,7 @@ function ds_register_cpt( $type, $singular, $plural, $options = array() ) {
 			'label'               => $plural,
 			'description'         => "$plural content type",
 			'labels'              => $labels,
-			'supports'            => array( 'title', 'custom-fields', 'page-attributes' ),
+			'supports'            => array('title', 'custom-fields', 'page-attributes'),
 			'hierarchical'        => false,
 			'public'              => true,
 			'show_ui'             => true,
@@ -75,11 +75,11 @@ function ds_register_cpt( $type, $singular, $plural, $options = array() ) {
 			'has_archive'         => false,
 			'exclude_from_search' => false,
 			'publicly_queryable'  => true,
-			'rewrite'             => array( 'slug' => $slug ),
+			'rewrite'             => array('slug' => $slug),
 			'capability_type'     => 'page',
 		),
 		$options['args'] ?? array()
 	);
 
-	register_post_type( $type, $args );
+	register_post_type($type, $args);
 }

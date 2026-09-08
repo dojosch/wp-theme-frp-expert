@@ -14,7 +14,7 @@
  * @return array|null The ACF field array for the heading group, or null on error.
  */
 function ds_heading_field($key, $label, $default_tag='h2', $default_text='', $args = []) {
-    if (empty($key)) {
+    if( empty($key) ) {
         error_log('ds_heading_field: key parameter is required');
         return null;
     }
@@ -109,7 +109,7 @@ function ds_heading_field($key, $label, $default_tag='h2', $default_text='', $ar
  * @return array|null The ACF field array for the heading WYSIWYG group, or null on error.
  */
 function ds_heading_wysiwyg_field($key, $label, $toolbar='basic', $default_tag='h2', $args = []) {
-    if (empty($key)) {
+    if( empty($key) ) {
         error_log('ds_heading_wysiwyg_field: key parameter is required');
         return null;
     }
@@ -205,7 +205,7 @@ function ds_heading_wysiwyg_field($key, $label, $toolbar='basic', $default_tag='
  * @return array|null The ACF field array for the heading WYSIWYG group, or null on error.
  */
 function ds_heading_textarea_field($key, $label, $default_tag='h2', $default_text='', $args = []) {
-    if (empty($key)) {
+    if( empty($key) ) {
         error_log('ds_heading_textarea_field: key parameter is required');
         return null;
     }
