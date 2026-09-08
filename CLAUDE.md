@@ -48,7 +48,7 @@ ds_render_component('component-name', ['var' => $value]);
 | `video` | `$video` (array with `url` + `mime_type` keys) | `$css_class` |
 | `media` | `$media` (array with `type`, `image` ID or `video` array) | `$css_class` |
 | `shortcode` | `$shortcode` (shortcode string) | `$css_class` |
-| `collapsible` | `$heading` (array), `$index` | `$heading_tag`, `$text`, `$link` |
+| `faq` | `$heading` (string or array) | `$heading_tag`, `$text`, `$index`, `$icon` (inline SVG), `$open`, `$css_class`, `$button_class`, `$number_class`, `$heading_class`, `$icon_class`, `$icon_open_class`, `$icon_idle_class`, `$content_class`, `$text_class` |
 
 Section layouts are included from `theme/page-templates/sections/` based on the ACF flexible content row layout name. Each section has a `section_config` sub-field with `id`, `css_class`, and `background`.
 
