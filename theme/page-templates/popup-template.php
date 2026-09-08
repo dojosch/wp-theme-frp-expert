@@ -1,11 +1,4 @@
 <?php
-/**
- * Popup Template
- *
- * Queries and renders active popups for the current page context.
- *
- * @package wp-starter-tw
- */
 
 $popups = get_posts(
 	[
@@ -102,6 +95,8 @@ $queried_id = get_queried_object_id();
         ]); ?>
 
         <?php if ( $button1 || $button2 ) : ?>
+
+        <!-- ds-lint-ignore -->
         <div class="flex flex-col sm:flex-row gap-[12px] mt-[8px]">
             <?php ds_render_component('link-button', [
                 'link'      => $button1,

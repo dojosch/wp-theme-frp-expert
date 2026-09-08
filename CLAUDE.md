@@ -86,7 +86,8 @@ ds_console_log($data, $context) // Outputs to browser console
 
 ### Frontend Assets
 
-- **CSS**: Tailwind CSS v4, compiled via PostCSS. Source: `tailwind/tailwind.css`. Output: `theme/dist/style.css` (frontend) and `theme/dist/style-editor.css` (block editor). All classes are prefixed `ds_`.
+- **CSS**: Tailwind CSS v4, compiled via PostCSS. Source: `styles/tailwind/tailwind.css`. Output: `theme/dist/style.css` (frontend) and `theme/dist/style-editor.css` (block editor). All classes are prefixed `ds_`.
+- **Admin CSS**: plain CSS, no Tailwind. Source: `styles/admin.css`, copied to `theme/dist/admin.css` and enqueued on every wp-admin screen.
 - **JS**: Bundled with esbuild from `javascript/`. Output: `theme/dist/script.min.js`.
 - **Libraries**: Alpine.js and Swiper are bundled into the JS output.
 
@@ -96,6 +97,25 @@ ds_console_log($data, $context) // Outputs to browser console
 - Text domain: `ds-starter`.
 - PHP CodeSniffer enforces WordPress-Extra + WordPress-Docs standards; always escape output (`esc_attr`, `esc_url`, `esc_html`, `wp_kses`).
 - Locale: `de_DE` (German), timezone: `Europe/Vienna`.
+
+### Template Rules
+
+Apply these when writing or editing anything under `theme/page-templates/`. `yarn lint:templates` checks the mechanical subset and runs on save during `yarn watch`; suppress a single false positive with a `ds-lint-ignore` (or `ds-lint-ignore:<rule>`) comment on the offending line or the line above.
+
+**Markup and styling**
+
+- Use px in Tailwind arbitrary values, never rem — `gap-[77px]`, not `gap-[4.8125rem]`. Applies to spacing, sizes, font sizes and line heights. Raw `@media` queries in `styles/tailwind/custom/*.css` are the exception: mirror Tailwind's rem breakpoints there (`@media (min-width: 64rem)` for `lg`). *(lint: `no-rem-arbitrary`)*
+- Space stacked elements with `flex flex-col` + `gap-*` on the parent. Never use `mt-*` for spacing; nest another `flex flex-col gap-*` for a sub-group's tighter rhythm. An absolute offset with no preceding sibling to space from (e.g. `lg:mt-[305px]` staggering a grid column) is a position, not spacing — mark it with `ds-lint-ignore`. *(lint: `no-margin-spacing`)*
+- Use `<div>` for structural wrappers. Reserve `<p>` for prose. *(lint: `no-p-wrapper`)*
+- Style one-off, single-template cases with inline Tailwind utilities. Add a named class to `styles/tailwind/custom/layout.css` only when it is reused across multiple files (buttons, links, headings).
+- Check whether an existing named class (`.ds-button`, `.ds-button--menu`, …) already gives the right base behavior before writing a new one. Two classes with near-identical `@apply` lists mean the second should not exist.
+
+**PHP templates**
+
+- Render ACF text and WYSIWYG output with `ds_render_component('text', [...])`. Never hand-roll `<div><?php echo $text; ?></div>`, and never wrap the call in an `!empty($text)` check — the component already guards on empty and unset values. The same applies to the other components: they self-guard, so callers don't add their own checks. *(lint: `no-raw-text-echo`, `no-redundant-text-guard`)*
+- No top-of-file docblock or explainer comment on section, layout and page templates — narrative explanation belongs in the commit message. Two exceptions: page templates keep the WordPress `Template Name:` header, and components document their `$args` contract. *(lint: `no-file-docblock`)*
+- Don't declare a PHP variable for a value used only once — inline the ternary class string or ACF sub-field read at its single call site. Keep variables for values read twice or more, or non-trivial to recompute.
+- Use the `section-header` component for a section's sub-heading + heading pair rather than two `heading` calls; pass layout tweaks via `css_class` on the wrapper. (Not present in this theme yet — add it before the first section needs one.)
 
 ### Custom Post Types
 
