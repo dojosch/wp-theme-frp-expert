@@ -7,27 +7,9 @@ add_action('acf/include_fields', function() {
 	'key' => 'group_67570e38a271e',
 	'title' => '404',
 	'fields' => array(
-		array(
-			'key' => 'field_67caf7248168l',
-			'label' => 'Wysiwyg',
-			'name' => 'text_404',
-			'aria-label' => '',
-			'type' => 'wysiwyg',
-			'instructions' => '',
-			'required' => 0,
-			'conditional_logic' => 0,
-			'wrapper' => array(
-				'width' => '',
-				'class' => '',
-				'id' => '',
-			),
-			'default_value' => '',
-			'allow_in_bindings' => 0,
-			'tabs' => 'all',
-			'toolbar' => 'full',
-			'media_upload' => 0,
-			'delay' => 0,
-		),
+        ds_wysiwyg_field('field_4cdfc746639d43', 'Wysiwyg', 'full', 0, [
+            'name' => 'text_404'
+        ]),
 	),
 	'location' => array(
 		array(
@@ -49,4 +31,3 @@ add_action('acf/include_fields', function() {
 	'show_in_rest' => 0,
 ));
 });
-

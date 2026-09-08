@@ -4,24 +4,9 @@ acf_add_local_field_group(array(
 	'key' => 'group_678e68e95a3ce',
 	'title' => 'Navigation',
 	'fields' => array(
-        array(
-            'key' => 'field_9454c316eb7998',
-            'label' => 'Navigation',
-            'name' => 'navigation',
-            'type' => 'group',
-            'instructions' => '',
-            'required' => 0,
-            'conditional_logic' => 0,
-            'wrapper' => array(
-                'width' => '',
-                'class' => '',
-                'id' => '',
-            ),
-            'layout' => 'block',
-            'sub_fields' => array(
-                
-            ),
-        ),
+        ds_group_field('field_bf28d816b0c121', 'Navigation', [
+            
+        ]),
     ),
 	'location' => array(
 		array(

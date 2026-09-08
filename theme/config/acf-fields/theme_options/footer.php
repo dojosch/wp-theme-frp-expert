@@ -4,24 +4,9 @@ acf_add_local_field_group(array(
 	'key' => 'group_67570e38a271d',
 	'title' => 'Footer',
 	'fields' => array(
-        array(
-            'key' => 'field_cc4a480511adc8',
-            'label' => 'Footer',
-            'name' => 'footer',
-            'type' => 'group',
-            'instructions' => '',
-            'required' => 0,
-            'conditional_logic' => 0,
-            'wrapper' => array(
-                'width' => '',
-                'class' => '',
-                'id' => '',
-            ),
-            'layout' => 'block',
-            'sub_fields' => array(
-                
-            ),
-        ),
+        ds_group_field('field_c95a8835cfeb9c', 'Footer', [
+            
+        ]),
     ),
 	'location' => array(
 		array(
