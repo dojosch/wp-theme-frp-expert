@@ -42,5 +42,23 @@ add_action(
 				'menu_icon' => 'dashicons-layout',
 			)
 		);
+
+        ds_register_cpt(
+			'ds_popups',
+			'Popup',
+			'Popups',
+			array(
+				'slug'      => 'popups',
+				'menu_icon' => 'dashicons-welcome-widgets-menus',
+				'args'      => array(
+					'public'              => false,
+					'show_ui'             => true,
+					'show_in_menu'        => true,
+					'exclude_from_search' => true,
+					'publicly_queryable'  => false,
+					'supports'            => array( 'title' ),
+				),
+			)
+		);
 	}
 );
