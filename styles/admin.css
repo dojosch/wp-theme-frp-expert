@@ -8,5 +8,5 @@
 
 /* Hide the preview action in the minor publishing actions */
 #minor-publishing-actions > #preview-action {
-    display: none;
+	display: none;
 }

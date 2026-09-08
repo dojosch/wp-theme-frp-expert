@@ -1,23 +1,25 @@
-[x-cloak] { display: none !important; }
+[x-cloak] {
+	display: none !important;
+}
 
 body {
-    @apply font-sans text-ds-16 leading-normal text-ds-black bg-background;
+	@apply font-sans text-ds-16 leading-normal text-ds-black bg-background;
 }
 
 .ds-section {
-    @apply max-w-[1440px] mx-auto py-20 px-[30px] lg:px-[100px];
+	@apply max-w-[1440px] mx-auto py-20 px-[30px] lg:px-[100px];
 }
 
 .ds-heading {
-    @apply font-serif text-xl lg:text-2xl leading-normal hyphens-auto;
+	@apply font-serif text-xl lg:text-2xl leading-normal hyphens-auto;
 }
 
 .ds-subheading {
-    @apply uppercase text-primary text-sm lg:text-sm leading-[1.2];
+	@apply uppercase text-primary text-sm lg:text-sm leading-[1.2];
 }
 
 .ds-button {
-    @apply text-center text-white bg-primary border border-primary rounded-full w-fit;
-    @apply py-3 px-5 lg:py-2.5 lg:px-6 text-sm lg:text-base leading-normal;
-    @apply lg:hover:bg-transparent lg:hover:text-primary;
+	@apply text-center text-white bg-primary border border-primary rounded-full w-fit;
+	@apply py-3 px-5 lg:py-2.5 lg:px-6 text-sm lg:text-base leading-normal;
+	@apply lg:hover:bg-transparent lg:hover:text-primary;
 }

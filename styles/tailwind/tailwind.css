@@ -10,47 +10,47 @@
 @import "swiper/css/navigation";
 
 @theme {
-    /* Fonts */
-    --font-sans: 'Arial', sans-serif;
-    --font-serif: 'Times New Roman', serif;
+	/* Fonts */
+	--font-sans: "Arial", sans-serif;
+	--font-serif: "Times New Roman", serif;
 
-  /* Font Sizes */
-    --text-ds-80: 5rem; /* 80px */
-    --text-ds-50: 3.125rem; /* 50px */
-    --text-ds-42: 2.625rem; /* 42px */
-    --text-ds-35: 2.1875rem; /* 35px */
-    --text-ds-28: 1.75rem; /* 28px */
-    --text-ds-24: 1.5rem; /* 24px */
-    --text-ds-20: 1.25rem; /* 20px */
-    --text-ds-16: 1rem; /* 16px */
-    --text-ds-15: 0.9375rem; /* 15px */
-    --text-ds-14: 0.875rem; /* 14px */
-    --text-ds-13: 0.8125rem; /* 13px */
-    --text-ds-12: 0.75rem; /* 12px */
+	/* Font Sizes */
+	--text-ds-80: 5rem; /* 80px */
+	--text-ds-50: 3.125rem; /* 50px */
+	--text-ds-42: 2.625rem; /* 42px */
+	--text-ds-35: 2.1875rem; /* 35px */
+	--text-ds-28: 1.75rem; /* 28px */
+	--text-ds-24: 1.5rem; /* 24px */
+	--text-ds-20: 1.25rem; /* 20px */
+	--text-ds-16: 1rem; /* 16px */
+	--text-ds-15: 0.9375rem; /* 15px */
+	--text-ds-14: 0.875rem; /* 14px */
+	--text-ds-13: 0.8125rem; /* 13px */
+	--text-ds-12: 0.75rem; /* 12px */
 
-    /* Colors */
-    --color-background: #f5f2ef;
-    --color-primary: #0000ff;
-    --color-secondary: #ff0000;
+	/* Colors */
+	--color-background: #f5f2ef;
+	--color-primary: #0000ff;
+	--color-secondary: #ff0000;
 
-    --color-ds-black: #000000;
-    --color-ds-white: #ffffff;
+	--color-ds-black: #000000;
+	--color-ds-white: #ffffff;
 
-    /* Breakpoints */
-    --breakpoint-xs: 375px;
+	/* Breakpoints */
+	--breakpoint-xs: 375px;
 }
 
 .ds-debug section {
-  @apply border border-4 border-red-500;
+	@apply border border-4 border-red-500;
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
 .ds-no-scrollbar::-webkit-scrollbar {
-    display: none;
+	display: none;
 }
 
 /* Hide scrollbar for IE, Edge and Firefox */
 .ds-no-scrollbar {
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
+	-ms-overflow-style: none; /* IE and Edge */
+	scrollbar-width: none; /* Firefox */
 }

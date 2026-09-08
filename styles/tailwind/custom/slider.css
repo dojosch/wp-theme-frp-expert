@@ -1,17 +1,17 @@
 .glide__bullet {
-    @apply bg-transparent size-[10px] !border !border-primary shadow-none hover:bg-transparent transition-none;
+	@apply bg-transparent size-[10px] !border !border-primary shadow-none hover:bg-transparent transition-none;
 }
 
 .glide__bullet--active {
-    @apply !bg-primary;
+	@apply !bg-primary;
 }
 
 .ds-slider-nav {
-    @apply flex size-[44px] shrink-0 cursor-pointer items-center justify-center rounded-full;
-    @apply border border-primary text-primary transition-colors duration-300;
-    @apply lg:hover:bg-primary lg:hover:text-ds-white;
+	@apply flex size-[44px] shrink-0 cursor-pointer items-center justify-center rounded-full;
+	@apply border border-primary text-primary transition-colors duration-300;
+	@apply lg:hover:bg-primary lg:hover:text-ds-white;
 }
 
 .ds-slider-nav--disabled {
-    @apply pointer-events-none opacity-40;
+	@apply pointer-events-none opacity-40;
 }
