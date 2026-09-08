@@ -4,24 +4,14 @@ acf_add_local_field_group(array(
 	'key' => 'group_321bf8107f6a58',
 	'title' => 'Defaults',
 	'fields' => array(
-        array(
-            'key' => 'field_c4d44833ee805a',
-            'label' => 'Defaults',
-            'name' => 'defaults',
-            'type' => 'group',
-            'instructions' => '',
-            'required' => 0,
-            'conditional_logic' => 0,
-            'wrapper' => array(
-                'width' => '',
-                'class' => '',
-                'id' => '',
-            ),
-            'layout' => 'block',
-            'sub_fields' => array(
-                
-            ),
-        ),
+        ds_group_field('field_d671b423c81c7c', 'Defaults', [
+            ds_text_field('field_aa404830578648', 'Video Play Text', [
+                'default_value' => 'Video abspielen',
+            ]),
+            ds_text_field('field_aa404830578648', 'Video Pause Text', [
+                'default_value' => 'Video pausieren',
+            ]),
+        ]),
     ),
 	'location' => array(
 		array(
