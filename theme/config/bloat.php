@@ -171,6 +171,9 @@ function remove_unused_cf7_assets() {
         '/cf7-conditional-fields/'
     ];
 
+    // The footer renders a form on every page.
+    if( !empty(get_field('footer', 'options')['form']) ) return;
+
     // Safety check
     if( !isset($post) || !is_a($post, 'WP_Post') ) return;
 

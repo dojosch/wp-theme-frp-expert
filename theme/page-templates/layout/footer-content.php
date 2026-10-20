@@ -4,10 +4,10 @@ $footer = get_field('footer', 'options');
 $meta_links = get_field('navigation', 'options')['meta_links'] ?? [];
 ?>
 
-<footer class="relative isolate overflow-hidden text-ds-white bg-ds-main bg-[conic-gradient(from_270deg_at_calc(100%-26px)_calc(100%-51px),#0b1223_0%,#0f1933_32.212%,#18234d_35.877%,#202d66_39.543%,#304299_46.875%,#4056cc_54.207%,#506bff_61.538%,#6c83fe_71.154%,#899afc_80.769%,#c1c9fa_100%)] lg:bg-[conic-gradient(from_270deg_at_calc(100%-61px)_calc(100%-60px),#0b1223_0%,#0f1933_32.212%,#18234d_35.877%,#202d66_39.543%,#304299_46.875%,#4056cc_54.207%,#506bff_61.538%,#6c83fe_71.154%,#899afc_80.769%,#c1c9fa_100%)]">
+<footer class="relative isolate overflow-hidden text-ds-white bg-ds-main bg-[conic-gradient(from_270deg_at_calc(100%-26px)_calc(100%-58px),#0b1223_0%,#0f1933_32.212%,#18234d_35.877%,#202d66_39.543%,#304299_46.875%,#4056cc_54.207%,#506bff_61.538%,#6c83fe_71.154%,#899afc_80.769%,#c1c9fa_100%)] lg:bg-[conic-gradient(from_270deg_at_calc(100%-61px)_calc(100%-60px),#0b1223_0%,#0f1933_32.212%,#18234d_35.877%,#202d66_39.543%,#304299_46.875%,#4056cc_54.207%,#506bff_61.538%,#6c83fe_71.154%,#899afc_80.769%,#c1c9fa_100%)]">
     <div class="absolute inset-0 -z-10 bg-[rgba(126,126,126,0.87)] opacity-60 mix-blend-overlay" aria-hidden="true"></div>
 
-    <div class="ds-section pt-[60px] pb-[24px] lg:pt-[100px] lg:pb-[28px] flex flex-col gap-[57px] lg:gap-[64px]">
+    <div class="ds-section pt-[60px] pb-[21px] lg:pt-[100px] lg:pb-[21px] flex flex-col gap-[57px] lg:gap-[64px]">
         <div class="flex flex-col gap-[20px] lg:grid lg:grid-cols-2 lg:grid-rows-[auto_1fr] lg:gap-x-[20px] lg:gap-y-[51px] lg:px-[83px]">
             <div class="flex flex-col gap-[20px] lg:gap-[26px]">
                 <?php
@@ -49,7 +49,7 @@ $meta_links = get_field('navigation', 'options')['meta_links'] ?? [];
         ?>
 
         <?php if( !empty($meta_links) ): ?>
-        <nav class="flex flex-row items-center justify-center gap-[20px]" aria-label="Rechtliches">
+        <nav class="flex flex-row items-center justify-center gap-[20px] h-[16px] lg:h-[18px]" aria-label="Rechtliches">
             <?php foreach( $meta_links as $index => $item ): ?>
             <?php if( $index > 0 ): ?>
             <span class="h-[16px] lg:h-[18px] border-l border-ds-accent" aria-hidden="true"></span>

@@ -108,6 +108,13 @@ acf_add_local_field_group(
 					'value'    => 'content_part',
 				),
 			),
+            array(
+				array(
+					'param'    => 'post_type',
+					'operator' => '==',
+					'value'    => 'post',
+				),
+			),
         ),
     )
 );
@@ -119,6 +126,11 @@ add_filter(
 			if( isset($field['layouts']['content_part']) ) {
 				unset($field['layouts']['content_part']);
 			}
+		}
+
+		// The blog header reads the blog card fields, so it only makes sense on a blog post.
+		if( get_post_type() !== 'post' ) {
+			unset($field['layouts']['blog_header']);
 		}
 		return $field;
 	}

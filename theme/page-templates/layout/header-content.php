@@ -3,17 +3,26 @@
 $navigation = get_field('navigation', 'options');
 $links = $navigation['links'] ?? [];
 $button = $navigation['button'] ?? null;
+$light = ds_has_light_header();
 ?>
 
 <div x-data="dsNavigation()" x-effect="document.body.style.overflow = isSubmenuOpen ? 'hidden' : ''"
     @keydown.escape.window="isSubmenuOpen = false" @resize.window="if( window.innerWidth >= 1024 ) isSubmenuOpen = false">
-    <header class="fixed top-0 inset-x-0 z-[1000] transition-colors duration-300"
-        :class="isScrolled && !isSubmenuOpen ? 'bg-ds-main' : 'bg-transparent'">
+    <header class="group/header fixed top-0 inset-x-0 z-[1000] transition-colors duration-300 <?php echo $light ? 'is-light' : ''; ?>"
+        :class="{
+            'bg-ds-main': isScrolled && !isSubmenuOpen,
+            'bg-transparent': !isScrolled || isSubmenuOpen,
+            'is-light': <?php echo $light ? 'true' : 'false'; ?> && !isScrolled && !isSubmenuOpen,
+        }">
         <div class="ds-section py-0 lg:py-0 h-[90px] lg:h-[99px] flex flex-row items-center justify-between gap-[50px]">
             <?php echo ds_open_link(['url' => home_url('/'), 'title' => 'Zur Startseite'], 'shrink-0'); ?>
             <?php ds_render_component('image', [
                 'image'     => ds_get_image_data_from_option_field('defaults_logo', 'full'),
-                'css_class' => 'block h-[30px] w-auto',
+                'css_class' => 'block h-[30px] w-auto group-[.is-light]/header:hidden',
+            ]); ?>
+            <?php ds_render_component('image', [
+                'image'     => ds_get_image_data_from_id($navigation['logo_dark'] ?? null, 'full'),
+                'css_class' => 'hidden h-[30px] w-auto group-[.is-light]/header:block',
             ]); ?>
             <?php echo ds_close_link(); ?>
 
@@ -22,7 +31,7 @@ $button = $navigation['button'] ?? null;
                 <?php foreach( $links as $item ): ?>
                 <?php ds_render_component('link', [
                     'link'      => $item['link'],
-                    'css_class' => 'font-medium text-ds-white whitespace-nowrap transition-colors hover:text-ds-light-accent-3',
+                    'css_class' => 'font-medium text-ds-white whitespace-nowrap transition-colors hover:text-ds-light-accent-3 group-[.is-light]/header:text-ds-main group-[.is-light]/header:hover:text-ds-accent',
                 ]); ?>
                 <?php endforeach; ?>
             </nav>
@@ -37,7 +46,9 @@ $button = $navigation['button'] ?? null;
                 aria-controls="ds-mobile-menu" :aria-expanded="isSubmenuOpen"
                 :aria-label="isSubmenuOpen ? 'Menü schließen' : 'Menü öffnen'" @click="isSubmenuOpen = !isSubmenuOpen">
                 <img src="<?php echo esc_url(ds_get_theme_icon_url('menu-burger-white.svg')); ?>" alt=""
-                    x-show="!isSubmenuOpen">
+                    class="group-[.is-light]/header:hidden" x-show="!isSubmenuOpen">
+                <img src="<?php echo esc_url(ds_get_theme_icon_url('menu-burger-dark.svg')); ?>" alt=""
+                    class="hidden group-[.is-light]/header:block" x-show="!isSubmenuOpen">
                 <img src="<?php echo esc_url(ds_get_theme_icon_url('menu-x-white.svg')); ?>" alt="" x-show="isSubmenuOpen"
                     x-cloak>
             </button>

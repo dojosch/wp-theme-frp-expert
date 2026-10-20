@@ -5,6 +5,9 @@ acf_add_local_field_group(array(
 	'title' => 'Navigation',
 	'fields' => array(
         ds_group_field('field_bf28d816b0c121', 'Navigation', [
+            ds_image_field('field_nav_logo_dark', 'Logo Dark', [
+                'instructions' => 'Dunkles Logo für Seiten, deren erster Abschnitt hell ist (z. B. Blog-Beiträge). Das helle Logo kommt aus Defaults.',
+            ]),
             ds_repeater_field('field_nav_links', 'Links', [
                 ds_link_field('field_nav_links_link', 'Link'),
             ], 'Link hinzufügen'),

@@ -2,6 +2,10 @@
 	display: none !important;
 }
 
+html {
+	@apply scroll-smooth;
+}
+
 body {
 	@apply font-sans text-ds-14 lg:text-ds-16 leading-[21px] lg:leading-[24px] bg-background overflow-x-hidden;
 }

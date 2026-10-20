@@ -17,8 +17,45 @@ function ds_get_layouts_without_background() {
         'cta',
         'calculator',
         'faq',
+        'blog_header',
+        'text',
+        'blog_slider',
+        'about',
+        'blog_grid',
+    ];
+}
+
+/**
+ * Layouts with a dark background. When one of them is the first section on a page,
+ * the transparent header keeps its white logo and links.
+ *
+ * @return string[] Flexible content layout names.
+ */
+function ds_get_dark_layouts() {
+    return [
+        'header_main',
+        'process',
+        'content_slider',
+        'cta',
         'about',
     ];
+}
+
+/**
+ * Whether the current page starts with a light section, so the transparent header
+ * needs the dark logo and dark links.
+ *
+ * @return bool
+ */
+function ds_has_light_header() {
+    if( !is_singular() ) return false;
+
+    $post_id = get_queried_object_id();
+    $layouts = get_post_meta($post_id, 'elements', true);
+    if( empty($layouts) || !is_array($layouts) ) return false;
+    if( in_array($layouts[0], ds_get_dark_layouts(), true) ) return false;
+
+    return 'dark' !== get_post_meta($post_id, 'elements_0_section_config_background', true);
 }
 
 function ds_open_section($additional_classes = '') {
