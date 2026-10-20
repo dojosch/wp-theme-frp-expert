@@ -5,6 +5,9 @@ acf_add_local_field_group(array(
 	'title' => 'Defaults',
 	'fields' => array(
         ds_group_field('field_d671b423c81c7c', 'Defaults', [
+            ds_image_field('field_defaults_logo', 'Logo', [
+                'instructions' => 'Wird in der Navigation verwendet.',
+            ]),
             ds_text_field('field_aa404830578648', 'Video Play Text', [
                 'default_value' => 'Video abspielen',
             ]),

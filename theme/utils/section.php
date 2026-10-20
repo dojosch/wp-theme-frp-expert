@@ -9,6 +9,11 @@
 function ds_get_layouts_without_background() {
     return [
         'header_main',
+        'intro',
+        'process',
+        'content_slider',
+        'two_col',
+        'showcase',
     ];
 }
 

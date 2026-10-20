@@ -90,3 +90,17 @@ body {
 .ds-section--dark .ds-button {
 	@apply hover:border-ds-white;
 }
+
+.ds-button-arrow {
+	@apply flex flex-row w-fit;
+}
+
+.ds-button-arrow:hover .ds-button {
+	@apply bg-ds-white text-ds-accent;
+}
+
+.ds-button-arrow__icon {
+	@apply p-0 size-[40px] lg:size-[43px];
+	@apply before:size-[20px] lg:before:size-[24px] before:bg-current;
+	@apply before:mask-[url(../assets/images/icons/arrow-up-right-20.svg)] lg:before:mask-[url(../assets/images/icons/arrow-up-right-24.svg)];
+}

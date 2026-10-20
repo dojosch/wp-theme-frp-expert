@@ -45,6 +45,7 @@ ds_render_component('component-name', ['var' => $value]);
 | `text` | `$text` (HTML string) | `$css_class` |
 | `link` | `$link` (ACF link array) | `$css_class` |
 | `link-button` | `$link` (ACF link array) | `$css_class` (appended to `ds-button`) |
+| `link-button-arrow` | `$link` (ACF link array) | `$css_class` (appended to `ds-button-arrow`) — split button: label + square arrow icon |
 | `video` | `$video` (array with `url` + `mime_type` keys) | `$css_class` |
 | `media` | `$media` (array with `type`, `image` ID or `video` array) | `$css_class` |
 | `shortcode` | `$shortcode` (shortcode string) | `$css_class` |
