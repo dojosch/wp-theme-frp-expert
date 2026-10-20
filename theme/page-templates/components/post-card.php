@@ -3,7 +3,7 @@
  * Post card component
  *
  * Renders a blog post as a linked card from its "Blog Card" fields: card image
- * (falls back to the featured image), sub heading, title and teaser text
+ * (falls back to the featured image), first category, title and teaser text
  * (falls back to the excerpt), followed by an arrow button.
  *
  * @var int    $post_id   Required. ID of the post to render.
@@ -28,7 +28,7 @@ $css_class = $css_class ?? '';
             <div class="flex flex-col gap-[10px] font-medium">
                 <?php
                 ds_render_component('heading', [
-                    'heading'   => ['heading' => get_field('sub_heading', $post_id), 'heading_tag' => 'div'],
+                    'heading'   => ['heading' => get_the_category($post_id)[0]->name ?? '', 'heading_tag' => 'div'],
                     'css_class' => 'text-ds-10 leading-[14px] tracking-[2px] uppercase text-ds-accent',
                 ]);
                 ds_render_component('heading', [

@@ -42,16 +42,20 @@ body {
 			color-mix(in srgb, var(--color-ds-main) 75%, transparent)
 		),
 		linear-gradient(var(--color-ds-main), var(--color-ds-main)),
-		url("../assets/images/background.svg");
-	background-blend-mode: normal, normal, saturation, hue, normal;
-	background-size: auto, auto, auto, auto, var(--ds-background-image-size);
+		url("../assets/images/background-grain.webp"),
+		url("../assets/images/background.webp");
+	background-blend-mode: normal, normal, saturation, hue, normal, normal;
+	background-size:
+		auto, auto, auto, auto, 128px, var(--ds-background-image-size);
 	background-position:
 		0 0,
 		0 0,
 		0 0,
 		0 0,
+		0 0,
 		var(--ds-background-image-position);
-	background-repeat: no-repeat;
+	background-repeat:
+		no-repeat, no-repeat, no-repeat, no-repeat, repeat, no-repeat;
 }
 
 @media (min-width: 64rem) {
