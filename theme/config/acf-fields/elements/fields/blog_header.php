@@ -9,7 +9,7 @@ $blog_header = array(
         ds_link_field('field_b2f8d5a3c1e967', 'Back Link', [
             'instructions' => 'Leer lassen für „Zurück" zur Startseite.',
         ]),
-        ds_image_field('field_7d1e4b8a6c3f52', 'Image', [
+        ds_image_crop_field('field_7d1e4b8a6c3f52', 'Image', 982, 539, [
             'instructions' => 'Titel und Sub Heading kommen aus den Blog-Card-Feldern dieses Beitrags.',
         ]),
     ),

@@ -21,7 +21,7 @@ $light = ds_has_light_header();
                 'css_class' => 'block h-[30px] w-auto group-[.is-light]/header:hidden',
             ]); ?>
             <?php ds_render_component('image', [
-                'image'     => ds_get_image_data_from_id($navigation['logo_dark'] ?? null, 'full'),
+                'image'     => ds_get_image_data_from_option_field('defaults_logo_dark', 'full'),
                 'css_class' => 'hidden h-[30px] w-auto group-[.is-light]/header:block',
             ]); ?>
             <?php echo ds_close_link(); ?>

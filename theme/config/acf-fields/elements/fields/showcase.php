@@ -12,7 +12,7 @@ $showcase = array(
             ds_text_field('field_9a4c1f7e3b6d52', 'Label', [
                 'instructions' => 'Titel des Tabs, z. B. „Videobeispiel 01".',
             ]),
-            ds_media_field('field_c7f3b9e2d5a148', 'Media', [
+            ds_media_crop_field('field_c7f3b9e2d5a148', 'Media', 884, 497, [
                 'instructions' => 'Bild oder Video (mp4/webm). Videos zeigen das Vorschaubild unscharf mit Play-Button.',
             ]),
         ], 'Eintrag hinzufügen', [

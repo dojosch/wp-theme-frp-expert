@@ -18,7 +18,7 @@ function ds_get_layouts_without_background() {
         'calculator',
         'faq',
         'blog_header',
-        'text',
+        'wysiwyg',
         'blog_slider',
         'about',
         'blog_grid',

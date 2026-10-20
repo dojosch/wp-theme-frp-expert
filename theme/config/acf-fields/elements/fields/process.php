@@ -9,9 +9,7 @@ $process = array(
         ds_heading_field('field_8a3c6e1f5b2d94', 'Sub Heading', 'h3'),
         ds_heading_textarea_field('field_b27e9d4a6c1f53', 'Heading', 'h2'),
         ds_wysiwyg_field('field_4f1a8c3e7d6b25', 'Text'),
-        ds_image_field('field_e6b3d92f1a8c74', 'Image', [
-            'instructions' => 'Wird rechts neben dem Text angezeigt (Desktop) bzw. darüber (Mobile).',
-        ]),
+        ds_image_crop_field('field_e6b3d92f1a8c74', 'Image', 500, 527),
         ds_repeater_field('field_3c9a7e2d5f1b68', 'Steps', [
             ds_image_field('field_7b4e1d8a2c6f39', 'Icon', [
                 'instructions' => 'SVG-Icon, quadratisch.',

@@ -19,5 +19,8 @@ add_filter('tiny_mce_before_init', function($init) {
         ],
     ]);
 
+    // Preview the formats inside the editor, mirroring their desktop styles.
+    $init['content_style'] = trim(($init['content_style'] ?? '') . ' .ds-lead { color: #506bff; font-size: 24px; line-height: 36px; font-weight: 500; }');
+
     return $init;
 });
