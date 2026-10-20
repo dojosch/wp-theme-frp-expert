@@ -12,10 +12,14 @@ acf_add_local_field_group(array(
                 'name'    => 'address',
                 'wrapper' => ['width' => '50'],
             ]),
-            ds_wysiwyg_field('field_footer_contact', 'Kontakt', 'basic', 0, [
-                'name'         => 'contact',
-                'instructions' => 'Telefon und E-Mail.',
-                'wrapper'      => ['width' => '50'],
+            ds_text_field('field_footer_phone', 'Telefon', [
+                'name'         => 'phone',
+                'instructions' => 'z. B. „+43 660 123 456". Wird mit „T." davor als Anruf-Link angezeigt.',
+                'wrapper'      => ['width' => '25'],
+            ]),
+            ds_email_field('field_footer_email', 'E-Mail', [
+                'name'    => 'email',
+                'wrapper' => ['width' => '25'],
             ]),
             ds_text_field('field_footer_form', 'Formular', [
                 'name'         => 'form',

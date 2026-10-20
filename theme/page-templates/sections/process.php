@@ -30,7 +30,7 @@
 </div>
 
 <?php if( !empty($steps) ): ?>
-<ol class="max-w-[1500px] mx-auto flex flex-col lg:flex-row border-b border-ds-accent lg:border-t divide-y lg:divide-y-0 lg:divide-x divide-ds-accent">
+<ol class="max-w-[1500px] mx-auto flex flex-col lg:flex-row border-b border-ds-accent lg:border-t min-[1501px]:border-x divide-y lg:divide-y-0 lg:divide-x divide-ds-accent">
     <?php foreach( $steps as $index => $step ): ?>
     <li class="flex-1 min-h-[340px] lg:min-h-[436px] p-[50px] flex flex-col justify-between gap-[50px]">
         <div class="uppercase font-medium text-[8px] leading-[14px] tracking-[1.6px] lg:text-ds-10 lg:tracking-[2px]">

@@ -93,7 +93,7 @@ $facts = get_sub_field('facts');
     </div>
 
     <?php if( !empty($facts) ): ?>
-    <ul class="grid grid-cols-2 lg:grid-cols-4">
+    <ul class="grid grid-cols-2 lg:grid-cols-4 border-ds-accent min-[1501px]:border-x">
         <?php foreach( $facts as $fact ): ?>
         <li class="min-h-[195px] lg:min-h-[317px] px-[20px] py-[30px] lg:px-[60px] lg:py-[50px] flex flex-col justify-between gap-[30px] border-t border-ds-accent even:border-l lg:not-first:border-l">
             <div class="text-[45px] leading-[45px] lg:text-[60px] lg:leading-[60px] text-ds-accent">

@@ -29,15 +29,30 @@ $meta_links = get_field('navigation', 'options')['meta_links'] ?? [];
             ]);
             ?>
 
-            <div class="grid grid-cols-[196px_1fr] gap-x-[20px] pt-[15px] text-ds-13 leading-[1.5] lg:flex lg:flex-col lg:gap-[21px] lg:pt-0 lg:text-ds-14 lg:leading-[21px]">
+            <div class="grid grid-cols-[minmax(0,196px)_auto] gap-x-[20px] pt-[15px] text-ds-13 leading-[1.5] lg:flex lg:flex-col lg:gap-[21px] lg:pt-0 lg:text-ds-14 lg:leading-[21px]">
                 <?php
                 ds_render_component('text', [
                     'text' => $footer['address'] ?? null,
                 ]);
-                ds_render_component('text', [
-                    'text' => $footer['contact'] ?? null,
-                ]);
                 ?>
+                <div class="flex flex-col">
+                    <?php
+                    ds_render_component('link', [
+                        'link'      => empty($footer['phone']) ? null : [
+                            'url'   => 'tel:' . preg_replace('/[^\d+]/', '', $footer['phone']),
+                            'title' => 'T. ' . $footer['phone'],
+                        ],
+                        'css_class' => 'transition-colors hover:text-ds-light-accent-3',
+                    ]);
+                    ds_render_component('link', [
+                        'link'      => empty($footer['email']) ? null : [
+                            'url'   => 'mailto:' . antispambot($footer['email']),
+                            'title' => antispambot($footer['email']),
+                        ],
+                        'css_class' => 'transition-colors hover:text-ds-light-accent-3',
+                    ]);
+                    ?>
+                </div>
             </div>
         </div>
 

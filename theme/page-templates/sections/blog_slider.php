@@ -48,7 +48,7 @@ if( empty($post_ids) ) return;
         </div>
     </div>
 
-    <div class="lg:hidden flex flex-row items-center justify-between gap-[20px]">
+    <div class="lg:hidden flex flex-row flex-wrap items-center justify-between gap-[20px]">
         <?php ds_render_component('link-button-arrow', [
             'link' => $link,
         ]); ?>
