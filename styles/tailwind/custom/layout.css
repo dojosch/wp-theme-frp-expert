@@ -10,8 +10,24 @@ body {
 	@apply max-w-[1440px] mx-auto py-20 px-[30px] lg:px-[100px];
 }
 
+.ds-section--white {
+	@apply bg-ds-white text-ds-main;
+}
+
+.ds-section--dark {
+	@apply bg-ds-main text-ds-white;
+}
+
 .ds-heading {
 	@apply text-ds-34 leading-[34px] font-semibold lg:text-ds-50 lg:leading-[110%] hyphens-auto;
+}
+
+.ds-section--white .ds-heading {
+	@apply text-ds-main;
+}
+
+.ds-section--dark .ds-heading {
+	@apply text-ds-white;
 }
 
 .ds-subheading {
@@ -21,7 +37,12 @@ body {
 }
 
 .ds-button {
-	@apply text-center text-white bg-primary border border-primary rounded-full w-fit;
-	@apply py-3 px-5 lg:py-2.5 lg:px-6 text-sm lg:text-base leading-normal;
-	@apply lg:hover:bg-transparent lg:hover:text-primary;
+	@apply text-center py-[10px] px-[25px] border border-ds-accent bg-ds-accent rounded-[3px] w-fit;
+	@apply text-ds-white text-ds-12 leading-[18px] lg:text-ds-13 lg:leading-[21px];
+	@apply flex flex-row items-center justify-center;
+	@apply transition-colors hover:bg-ds-white hover:text-ds-accent;
+}
+
+.ds-section--dark .ds-button {
+	@apply hover:border-ds-white;
 }

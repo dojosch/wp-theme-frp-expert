@@ -13,9 +13,6 @@
 
 $section_layouts = array();
 $content_part_raw = null;
-$layouts_without_background_option = [
-    // Add section names here that should NOT have the background option
-];
 
 require_once get_template_directory() . '/config/acf-fields/elements/section_config.php';
 if( !isset($section_config) ) return;
@@ -34,7 +31,7 @@ foreach( glob(get_template_directory() . '/config/acf-fields/elements/fields/*.p
 	$new_config = unserialize(serialize($section_config));
 	$new_config['key'] = 'field_' . $layout_name;
 
-	if( in_array($layout_name, $layouts_without_background_option, true) ) {
+	if( in_array($layout_name, ds_get_layouts_without_background(), true) ) {
 		$new_config['sub_fields'] = array_filter(
 			$new_config['sub_fields'],
 			function ($field) {

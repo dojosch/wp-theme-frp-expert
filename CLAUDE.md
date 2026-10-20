@@ -187,6 +187,11 @@ ds_link_field($key, $label, $args=[]) // ACF link array → pass as $link to lin
 ds_group_field($key, $label, $sub_fields=[], $args=[]) // group of sub_fields
 ```
 
+**Accordion field** (`theme/utils/acf-fields/accordion.php`):
+```php
+ds_accordion_field($key, $label, $args=[]) // collapsible accordion that wraps the fields after it
+```
+
 **Repeater field** (`theme/utils/acf-fields/repeater.php`):
 ```php
 ds_repeater_field($key, $label, $sub_fields=[], $button_label='Add Row', $args=[]) // repeater of sub_fields
