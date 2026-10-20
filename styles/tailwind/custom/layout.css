@@ -3,7 +3,7 @@
 }
 
 body {
-	@apply font-sans text-ds-16 leading-normal text-ds-black bg-background;
+	@apply font-sans text-ds-14 lg:text-ds-16 leading-[21px] lg:leading-[24px] bg-background;
 }
 
 .ds-section {
@@ -11,11 +11,13 @@ body {
 }
 
 .ds-heading {
-	@apply text-xl lg:text-2xl leading-normal hyphens-auto;
+	@apply text-ds-34 leading-[34px] font-semibold lg:text-ds-50 lg:leading-[110%] hyphens-auto;
 }
 
 .ds-subheading {
 	@apply uppercase text-ds-10 leading-[10px] lg:text-ds-12 font-medium lg:leading-[12px] tracking-[1px] lg:tracking-[1.2px] text-ds-accent [text-edge:cap];
+	@apply flex items-center gap-[10px];
+	@apply before:size-[10px] lg:before:size-[12px] before:shrink-0 before:rounded-[3px] before:bg-current;
 }
 
 .ds-button {
