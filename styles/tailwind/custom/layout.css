@@ -18,6 +18,50 @@ body {
 	@apply bg-ds-main text-ds-white;
 }
 
+.ds-background {
+	--ds-background-gradient: linear-gradient(
+		to bottom,
+		var(--color-ds-main) 3.089%,
+		rgb(46 73 153 / 0) 111%
+	);
+	--ds-background-image-size: auto 128.68%;
+	--ds-background-image-position: 60% 100%;
+
+	background-image:
+		var(--ds-background-gradient),
+		linear-gradient(
+			color-mix(in srgb, var(--color-ds-main) 30%, transparent),
+			color-mix(in srgb, var(--color-ds-main) 30%, transparent)
+		),
+		linear-gradient(
+			color-mix(in srgb, var(--color-ds-main) 75%, transparent),
+			color-mix(in srgb, var(--color-ds-main) 75%, transparent)
+		),
+		linear-gradient(var(--color-ds-main), var(--color-ds-main)),
+		url("../assets/images/background.svg");
+	background-blend-mode: normal, normal, saturation, hue, normal;
+	background-size: auto, auto, auto, auto, var(--ds-background-image-size);
+	background-position:
+		0 0,
+		0 0,
+		0 0,
+		0 0,
+		var(--ds-background-image-position);
+	background-repeat: no-repeat;
+}
+
+@media (min-width: 64rem) {
+	.ds-background {
+		--ds-background-gradient: linear-gradient(
+			136.3deg,
+			var(--color-ds-main) 0.324%,
+			rgb(46 73 153 / 0) 67.576%
+		);
+		--ds-background-image-size: cover;
+		--ds-background-image-position: center;
+	}
+}
+
 .ds-heading {
 	@apply text-ds-34 leading-[34px] font-semibold lg:text-ds-50 lg:leading-[110%] hyphens-auto;
 }
