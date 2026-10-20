@@ -3,27 +3,27 @@
 }
 
 .ds-wysiwyg h1 {
-	@apply font-serif text-2xl lg:text-[2.5rem] leading-tight font-bold mt-10 mb-6;
+	@apply text-2xl lg:text-[2.5rem] leading-tight font-bold mt-10 mb-6;
 }
 
 .ds-wysiwyg h2 {
-	@apply font-serif text-xl lg:text-2xl leading-snug font-bold mt-10 mb-5;
+	@apply text-xl lg:text-2xl leading-snug font-bold mt-10 mb-5;
 }
 
 .ds-wysiwyg h3 {
-	@apply font-serif text-lg lg:text-xl leading-snug font-semibold mt-8 mb-4;
+	@apply text-lg lg:text-xl leading-snug font-semibold mt-8 mb-4;
 }
 
 .ds-wysiwyg h4 {
-	@apply font-serif text-base lg:text-lg leading-snug font-medium mt-8 mb-3;
+	@apply text-base lg:text-lg leading-snug font-medium mt-8 mb-3;
 }
 
 .ds-wysiwyg h5 {
-	@apply font-serif text-sm lg:text-base font-medium mt-6 mb-2;
+	@apply text-sm lg:text-base font-medium mt-6 mb-2;
 }
 
 .ds-wysiwyg h6 {
-	@apply font-serif text-sm uppercase tracking-wide text-primary font-bold mt-6 mb-2;
+	@apply text-sm uppercase tracking-wide text-primary font-bold mt-6 mb-2;
 }
 
 .ds-wysiwyg p {

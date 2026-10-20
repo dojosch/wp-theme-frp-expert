@@ -11,11 +11,11 @@ body {
 }
 
 .ds-heading {
-	@apply font-serif text-xl lg:text-2xl leading-normal hyphens-auto;
+	@apply text-xl lg:text-2xl leading-normal hyphens-auto;
 }
 
 .ds-subheading {
-	@apply uppercase text-primary text-sm lg:text-sm leading-[1.2];
+	@apply uppercase text-ds-10 leading-[10px] lg:text-ds-12 font-medium lg:leading-[12px] tracking-[1px] lg:tracking-[1.2px] text-ds-accent [text-edge:cap];
 }
 
 .ds-button {
