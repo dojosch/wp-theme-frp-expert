@@ -14,6 +14,10 @@ function ds_get_layouts_without_background() {
         'content_slider',
         'two_col',
         'showcase',
+        'cta',
+        'calculator',
+        'faq',
+        'about',
     ];
 }
 

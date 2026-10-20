@@ -3,7 +3,7 @@
 }
 
 body {
-	@apply font-sans text-ds-14 lg:text-ds-16 leading-[21px] lg:leading-[24px] bg-background;
+	@apply font-sans text-ds-14 lg:text-ds-16 leading-[21px] lg:leading-[24px] bg-background overflow-x-hidden;
 }
 
 .ds-section {
@@ -97,6 +97,14 @@ body {
 
 .ds-button-arrow:hover .ds-button {
 	@apply bg-ds-white text-ds-accent;
+}
+
+.ds-button-arrow--white .ds-button {
+	@apply border-ds-white bg-ds-white text-ds-accent;
+}
+
+.ds-button-arrow--white:hover .ds-button {
+	@apply border-ds-accent bg-ds-accent text-ds-white;
 }
 
 .ds-button-arrow__icon {

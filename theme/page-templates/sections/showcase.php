@@ -2,7 +2,7 @@
 
 <?php echo ds_open_section('text-ds-main'); ?>
 <div class="ds-section lg:py-[100px]">
-    <div class="relative flex flex-col gap-[20px] lg:grid lg:grid-cols-[495px_1fr] lg:gap-0 lg:rounded-[5px] lg:bg-ds-white"
+    <div class="relative flex flex-col gap-[20px] lg:grid lg:grid-cols-[495px_minmax(0,1fr)] lg:gap-0 lg:rounded-[5px] lg:bg-ds-white"
         x-data="{ active: 0 }">
         <div class="flex flex-col gap-[20px] lg:px-[41px] lg:pt-[40px] lg:pb-[58px]">
             <div class="flex flex-col gap-[10px] lg:gap-[18px]">

@@ -165,6 +165,11 @@ ds_wysiwyg_field($key, $label, $toolbar='basic', $media_upload=0, $args=[]) // W
 ds_email_field($key, $label, $args=[]) // email input with ACF email validation
 ```
 
+**Number field** (`theme/utils/acf-fields/number.php`):
+```php
+ds_number_field($key, $label, $args=[]) // number input, pass min/max/step/default_value via $args
+```
+
 **Select field** (`theme/utils/acf-fields/select.php`):
 ```php
 ds_select_field($key, $label, $choices=[], $default_value='', $args=[]) // select, $choices as 'value' => 'Label'
@@ -186,6 +191,11 @@ ds_link_field($key, $label, $args=[]) // ACF link array → pass as $link to lin
 **Group field** (`theme/utils/acf-fields/group.php`):
 ```php
 ds_group_field($key, $label, $sub_fields=[], $args=[]) // group of sub_fields
+```
+
+**Relationship field** (`theme/utils/acf-fields/relationship.php`) — return format is `id`:
+```php
+ds_relationship_field($key, $label, $post_types=[], $args=[]) // pick posts, e.g. ['faq']
 ```
 
 **Accordion field** (`theme/utils/acf-fields/accordion.php`):
