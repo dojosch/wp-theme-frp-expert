@@ -60,42 +60,42 @@ $queried_id = get_queried_object_id();
 	$popup_delay = isset($popup_settings['delay']) ? (int) $popup_settings['delay'] : 3;
 	?>
 <dialog id="popup-<?php echo esc_attr($popup_id); ?>"
-    class="popup-dialog fixed inset-0 m-auto w-[calc(100%-32px)] max-w-[560px] rounded-[24px] lg:rounded-[36px] bg-ds-beige-dark p-[28px] lg:p-[44px] text-ds-brown shadow-2xl border border-ds-brown/15 backdrop:bg-ds-brown/60 backdrop:backdrop-blur-sm z-[9999]"
+    class="popup-dialog fixed inset-0 m-auto w-[calc(100%-40px)] max-w-[600px] rounded-[5px] border border-ds-light-accent-2 bg-ds-white p-[30px] lg:p-[50px] text-ds-main backdrop:bg-ds-main/60 backdrop:backdrop-blur-sm z-[9999]"
     data-cookie-duration="<?php echo esc_attr($cookie_duration); ?>"
     data-popup-delay="<?php echo esc_attr($popup_delay); ?>">
-    <div class="relative flex flex-col gap-[20px] lg:gap-[24px]">
-        <button type="button"
-            class="popup-close absolute -top-[12px] -right-[12px] lg:-top-[18px] lg:-right-[18px] size-[36px] rounded-full border border-ds-brown/20 bg-ds-beige text-ds-brown hover:bg-ds-rost hover:text-ds-white hover:border-ds-rost flex items-center justify-center transition-colors duration-200 cursor-pointer shadow-sm"
-            aria-label="<?php esc_attr_e('Schließen', 'ds-starter'); ?>">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none"
-                class="stroke-current" stroke-width="1.8" stroke-linecap="round">
-                <line x1="3" y1="3" x2="13" y2="13" />
-                <line x1="13" y1="3" x2="3" y2="13" />
-            </svg>
-        </button>
+    <button type="button"
+        class="popup-close absolute top-[15px] right-[15px] lg:top-[20px] lg:right-[20px] size-[38px] lg:size-[41px] flex items-center justify-center rounded-[3px] bg-ds-light-accent text-ds-main transition-colors hover:bg-ds-accent hover:text-ds-white cursor-pointer outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ds-accent"
+        aria-label="<?php esc_attr_e('Schließen', 'ds-starter'); ?>">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none"
+            class="stroke-current" stroke-width="1.8" stroke-linecap="round">
+            <line x1="3" y1="3" x2="13" y2="13" />
+            <line x1="13" y1="3" x2="3" y2="13" />
+        </svg>
+    </button>
 
-        <?php ds_render_component('heading', [
-            'heading'   => $heading,
-            'css_class' => 'font-light text-[26px] leading-[34px] lg:text-[36px] lg:leading-[44px] text-ds-brown',
-        ]); ?>
+    <div class="flex flex-col gap-[25px] lg:gap-[30px]">
+        <div class="flex flex-col gap-[15px] lg:gap-[20px] pr-[40px]">
+            <?php ds_render_component('heading', [
+                'heading'   => $heading,
+                'css_class' => 'font-semibold text-ds-28 leading-[1.1] lg:text-ds-35',
+            ]); ?>
 
-        <?php ds_render_component('text', [
-            'text'      => $text,
-            'css_class' => 'ds-wysiwyg text-ds-16 lg:text-ds-18 leading-[24px] lg:leading-[26px] text-ds-brown/85',
-        ]); ?>
+            <?php ds_render_component('text', [
+                'text'      => $text,
+                'css_class' => 'ds-wysiwyg lg:gap-[20px]',
+            ]); ?>
+        </div>
 
         <?php if( $button1 || $button2 ) : ?>
-
-        <!-- ds-lint-ignore -->
-        <div class="flex flex-col sm:flex-row gap-[12px] mt-[8px]">
+        <div class="flex flex-col sm:flex-row gap-[10px]">
             <?php ds_render_component('link-button', [
                 'link'      => $button1,
-                'css_class' => 'ds-button--rost popup-btn',
+                'css_class' => 'popup-btn',
             ]); ?>
 
             <?php ds_render_component('link-button', [
                 'link'      => $button2,
-                'css_class' => 'ds-button--black-outline popup-btn',
+                'css_class' => 'popup-btn bg-transparent text-ds-accent hover:bg-ds-accent hover:text-ds-white',
             ]); ?>
         </div>
         <?php endif; ?>

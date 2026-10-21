@@ -1,92 +1,98 @@
 <?php
 
-$logo = ds_get_image_data_from_option_field('navigation_logo');
-$links = get_field('navigation_links', 'options');
-
-$home_link = [
-    'url' => get_home_url(),
-    'target' => '_self',
-    'title' => 'Zur Startseite',
-];
+$navigation = get_field('navigation', 'options');
+$links = $navigation['links'] ?? [];
+$button = $navigation['button'] ?? null;
+$light = ds_has_light_header();
 ?>
 
-<div x-data="dsNavigation()" x-effect="document.body.style.overflow = isSubmenuOpen ? 'hidden' : 'auto'" class="hidden">
-    <header class="fixed top-0 w-full transition-all duration-300 z-[1000]"
-        :class="!isScrolled && hasHeader ? 'bg-transparent' : 'bg-ds-white'">
-        <div
-            class="ds-section bg-transparent ds-section flex flex-row gap-[50px] justify-between h-full pt-[14px] lg:pt-[34px] pb-[9px] items-center lg:items-start">
-            <?php echo ds_open_link($home_link, 'h-fit'); ?>
+<div x-data="dsNavigation()" x-effect="document.body.style.overflow = isSubmenuOpen ? 'hidden' : ''"
+    @keydown.escape.window="isSubmenuOpen = false" @resize.window="if( window.innerWidth >= 1024 ) isSubmenuOpen = false">
+    <header class="group/header fixed top-0 inset-x-0 z-[1000] transition-colors duration-300 <?php echo $light ? 'is-light' : ''; ?>"
+        :class="{
+            'bg-ds-main': isScrolled && !isSubmenuOpen,
+            'bg-transparent': !isScrolled || isSubmenuOpen,
+            'is-light': <?php echo $light ? 'true' : 'false'; ?> && !isScrolled && !isSubmenuOpen,
+        }">
+        <div class="ds-section py-0 lg:py-0 h-[90px] lg:h-[99px] flex flex-row items-center justify-between gap-[50px]">
+            <?php echo ds_open_link(['url' => home_url('/'), 'title' => 'Zur Startseite'], 'shrink-0'); ?>
             <?php ds_render_component('image', [
-                'image'     => $logo,
-                'css_class' => 'h-[62px] lg:h-[72px] w-auto',
+                'image'     => ds_get_image_data_from_option_field('defaults_logo', 'full'),
+                'css_class' => 'block h-[30px] w-auto group-[.is-light]/header:hidden',
+            ]); ?>
+            <?php ds_render_component('image', [
+                'image'     => ds_get_image_data_from_option_field('defaults_logo_dark', 'full'),
+                'css_class' => 'hidden h-[30px] w-auto group-[.is-light]/header:block',
             ]); ?>
             <?php echo ds_close_link(); ?>
 
-            <?php if( is_array($links) && count($links) > 0 ): ?>
-            <div class="hidden lg:flex flex-row lg:gap-[50px] xl:gap-[74px] pt-[8px]">
-                <?php foreach( $links as $link ): ?>
-                <div x-data="{ linkHref: '<?php echo esc_url($link['link']['url']); ?>' }"
-                    :class="isActive(linkHref) && !hasHeader ? 'text-ds-red-dark' : (!isScrolled && hasHeader ? 'text-ds-white' : 'text-ds-black')">
-                    <?php ds_render_component('link', [
-                        'link'      => $link['link'],
-                        'css_class' => 'leading-[50px] text-ds-18 font-amarante uppercase transition-colors duration-300',
-                    ]); ?>
-                </div>
+            <?php if( !empty($links) ): ?>
+            <nav class="hidden lg:flex flex-row gap-[15px] text-ds-13 leading-[24px]" aria-label="Hauptnavigation">
+                <?php foreach( $links as $item ): ?>
+                <?php ds_render_component('link', [
+                    'link'      => $item['link'],
+                    'css_class' => 'font-medium text-ds-white whitespace-nowrap transition-colors hover:text-ds-light-accent-3 group-[.is-light]/header:text-ds-main group-[.is-light]/header:hover:text-ds-accent',
+                ]); ?>
                 <?php endforeach; ?>
-            </div>
+            </nav>
             <?php endif; ?>
 
-            <button class="lg:hidden ds-button px-[20px] h-fit"
-                :class="!isScrolled && hasHeader ? 'text-ds-white' : 'text-ds-black'" aria-label="Menü öffnen"
-                @click="isSubmenuOpen = true">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                    stroke="currentColor" class="size-6">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-                </svg>
+            <?php ds_render_component('link-button-arrow', [
+                'link'      => $button,
+                'css_class' => 'hidden lg:flex',
+            ]); ?>
+
+            <button type="button" class="lg:hidden flex items-center justify-center size-[32px] shrink-0"
+                aria-controls="ds-mobile-menu" :aria-expanded="isSubmenuOpen"
+                :aria-label="isSubmenuOpen ? 'Menü schließen' : 'Menü öffnen'" @click="isSubmenuOpen = !isSubmenuOpen">
+                <img src="<?php echo esc_url(ds_get_theme_icon_url('menu-burger-white.svg')); ?>" alt=""
+                    class="group-[.is-light]/header:hidden" x-show="!isSubmenuOpen">
+                <img src="<?php echo esc_url(ds_get_theme_icon_url('menu-burger-dark.svg')); ?>" alt=""
+                    class="hidden group-[.is-light]/header:block" x-show="!isSubmenuOpen">
+                <img src="<?php echo esc_url(ds_get_theme_icon_url('menu-x-white.svg')); ?>" alt="" x-show="isSubmenuOpen"
+                    x-cloak>
             </button>
         </div>
     </header>
 
-    <!-- Submenu -->
-    <div class=" ds-header--submenu w-full h-[100dvh] left-0 z-[1050] fixed bg-ds-beige" x-show="isSubmenuOpen"
+    <div id="ds-mobile-menu" class="lg:hidden fixed inset-0 z-[999] bg-ds-main overflow-y-auto" x-show="isSubmenuOpen"
         x-transition.opacity x-cloak>
-        <div class="ds-section py-[14px] flex flex-col justify-between min-h-full">
-            <!-- Top Row -->
-            <div class="bg-transparent flex flex-row justify-between items-center h-full">
-                <?php echo ds_open_link($home_link, 'h-fit'); ?>
-                <?php ds_render_component('image', [
-                    'image'     => $logo,
-                    'css_class' => ' h-[62px] w-auto',
-                ]); ?>
-                <?php echo ds_close_link(); ?>
-
-                <button class="lg:hidden px-[20px] ds-button h-fit" aria-label="Menü schließen"
+        <div class="min-h-full grid grid-rows-[90px_1fr_90px] px-[22px]">
+            <div class="row-start-2 flex flex-col items-center justify-center gap-[20px] py-[20px]">
+                <?php if( !empty($links) ): ?>
+                <nav class="flex flex-col w-full max-w-[348px]" aria-label="Mobile Navigation"
                     @click="isSubmenuOpen = false">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                        stroke="currentColor" class="size-6">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
-                    </svg>
-                </button>
-            </div>
-
-            <!-- Main Links -->
-            <div class="flex flex-col gap-[20px] justify-center py-[28px] overflow-y-auto h-[calc(100dvh-76px)]">
-
-                <div class="flex flex-col gap-[35px] text-ds-black overflow-y-auto max-h-full ds-no-scrollbar">
-                    <?php if( is_array($links) && count($links) > 0 ): ?>
-                    <?php foreach( $links as $link ): ?>
-                    <div x-data="{ linkHref: '<?php echo esc_url($link['link']['url']); ?>' }"
-                        :class="isActive(linkHref) ? 'text-ds-red-dark' : ''">
-                        <?php ds_render_component('link', [
-                            'link'      => $link['link'],
-                            'css_class' => 'text-ds-30',
-                        ]); ?>
-                    </div>
+                    <?php foreach( $links as $item ): ?>
+                    <?php ds_render_component('link', [
+                        'link'      => $item['link'],
+                        'css_class' => 'py-[10px] border-b border-ds-accent last:border-b-0 text-center text-[18px] leading-[24px] font-medium text-ds-white transition-colors hover:text-ds-light-accent-3',
+                    ]); ?>
                     <?php endforeach; ?>
-                    <?php endif; ?>
+                </nav>
+                <?php endif; ?>
+
+                <div @click="isSubmenuOpen = false">
+                    <?php ds_render_component('link-button-arrow', [
+                        'link' => $button,
+                    ]); ?>
                 </div>
             </div>
+
+            <?php if( !empty($navigation['meta_links']) ): ?>
+            <div class="row-start-3 flex flex-row items-end justify-center pb-[30px]">
+                <div class="flex flex-row items-center gap-[20px]">
+                    <?php foreach( $navigation['meta_links'] as $i => $item ): ?>
+                    <?php if( $i > 0 ): ?>
+                    <span class="w-px h-[16px] bg-ds-accent" aria-hidden="true"></span>
+                    <?php endif; ?>
+                    <?php ds_render_component('link', [
+                        'link'      => $item['link'],
+                        'css_class' => 'text-[8px] leading-[10px] tracking-[1.6px] uppercase text-ds-white transition-colors hover:text-ds-light-accent-3',
+                    ]); ?>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+            <?php endif; ?>
         </div>
     </div>
 </div>

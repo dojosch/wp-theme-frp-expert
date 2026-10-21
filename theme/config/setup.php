@@ -74,3 +74,4 @@ function ds_setup() {
 add_action('after_setup_theme', 'ds_setup');
 
 add_filter('wpcf7_autop_or_not', '__return_false');
+add_filter('wpcf7_load_css', '__return_false'); // styles/tailwind/custom/contact.css covers the form

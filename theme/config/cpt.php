@@ -23,16 +23,6 @@ add_action(
 			)
 		);
 
-		ds_register_cpt(
-			'testimonial',
-			'Testimonial',
-			'Testimonials',
-			array(
-				'slug'      => 'testimonials',
-				'menu_icon' => 'dashicons-format-quote',
-			)
-		);
-
         ds_register_cpt(
 			'content_part',
 			'Content Part',

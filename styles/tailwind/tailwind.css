@@ -11,7 +11,7 @@
 
 @theme {
 	/* Fonts */
-	--font-sans: "Arial", sans-serif;
+	--font-sans: "TASA Orbiter", sans-serif;
 	--font-serif: "Times New Roman", serif;
 
 	/* Font Sizes */
@@ -19,6 +19,7 @@
 	--text-ds-50: 3.125rem; /* 50px */
 	--text-ds-42: 2.625rem; /* 42px */
 	--text-ds-35: 2.1875rem; /* 35px */
+	--text-ds-34: 2.125rem; /* 34px */
 	--text-ds-28: 1.75rem; /* 28px */
 	--text-ds-24: 1.5rem; /* 24px */
 	--text-ds-20: 1.25rem; /* 20px */
@@ -27,14 +28,22 @@
 	--text-ds-14: 0.875rem; /* 14px */
 	--text-ds-13: 0.8125rem; /* 13px */
 	--text-ds-12: 0.75rem; /* 12px */
+	--text-ds-10: 0.625rem; /* 10px */
 
 	/* Colors */
-	--color-background: #f5f2ef;
-	--color-primary: #0000ff;
-	--color-secondary: #ff0000;
+	--color-ds-main: #0f1933; /* Main new */
+	--color-ds-accent: #506bff;
+	--color-ds-light-accent: #e8ebfa;
+	--color-ds-light-accent-2: #dde0f1;
+	--color-ds-light-accent-3: #a0ace4;
+	--color-ds-background: #f6f6f6;
 
 	--color-ds-black: #000000;
 	--color-ds-white: #ffffff;
+
+	--color-background: var(--color-ds-background);
+	--color-primary: var(--color-ds-main);
+	--color-secondary: var(--color-ds-accent);
 
 	/* Breakpoints */
 	--breakpoint-xs: 375px;
