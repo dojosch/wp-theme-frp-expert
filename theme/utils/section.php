@@ -70,7 +70,7 @@ function ds_open_section($additional_classes = '') {
         $background = 'dark' === ($section_config['background'] ?? '') ? 'ds-section--dark' : 'ds-section--white';
     }
 
-    $section_classes = $section_classname . ' ' . $css_class . ' ' . $background . ' ' . $additional_classes;
+    $section_classes = $section_classname . ' scroll-mt-[90px] lg:scroll-mt-[99px] ' . $css_class . ' ' . $background . ' ' . $additional_classes;
 
     return '<section id="' . esc_attr($id) . '" class="' . esc_attr($section_classes) . '">';
 }
