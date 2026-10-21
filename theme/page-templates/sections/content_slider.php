@@ -1,6 +1,7 @@
 <?php
 $slides = get_sub_field('slides');
 $facts = get_sub_field('facts');
+$content_id = get_sub_field('content_id');
 ?>
 
 <?php echo ds_open_section('py-[25px] lg:py-[50px]'); ?>
@@ -75,7 +76,7 @@ $facts = get_sub_field('facts');
     </div>
     <?php endif; ?>
 
-    <div class="ds-section w-full pt-[50px] pb-[49px] lg:pt-[75px] lg:pb-[78px] flex flex-col gap-[10px] lg:gap-[20px]">
+    <div <?php echo $content_id ? 'id="' . esc_attr($content_id) . '"' : ''; ?> class="ds-section w-full scroll-mt-[90px] lg:scroll-mt-[99px] pt-[50px] pb-[49px] lg:pt-[75px] lg:pb-[78px] flex flex-col gap-[10px] lg:gap-[20px]">
         <?php
         ds_render_component('heading', [
             'heading'   => get_sub_field('sub_heading'),

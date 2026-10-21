@@ -15,6 +15,10 @@ $content_slider = array(
             ds_wysiwyg_field('field_3a8e5c2f9b1d64', 'Text'),
         ], 'Slide hinzufügen'),
         ds_accordion_field('field_7c3f1b8e4a2d96', 'Content'),
+        ds_text_field('field_6fe6e8e95bf97a', 'Content ID', [
+            'name'         => 'content_id',
+            'instructions' => 'Optional: Use a unique ID for anchor links to the content part.',
+        ]),
         ds_heading_field('field_b5d9a3e7c1f248', 'Sub Heading', 'h3'),
         ds_heading_textarea_field('field_1f6c4b9e2a7d53', 'Heading', 'h2'),
         ds_wysiwyg_field('field_d2a7e5c9f3b186', 'Text'),
