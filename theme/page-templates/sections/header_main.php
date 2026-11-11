@@ -1,7 +1,7 @@
-<?php echo ds_open_section('relative overflow-x-clip text-ds-white'); ?>
+<?php echo ds_open_section('relative overflow-x-clip text-ds-white lg:flex lg:flex-col lg:min-h-[80vh]'); ?>
 <div class="ds-background absolute inset-x-0 top-0 bottom-[142.5px] lg:bottom-[47px]" aria-hidden="true"></div>
 
-<div class="ds-section relative pt-[234px] pb-[12.5px] lg:pt-[309px] lg:pb-[109px] flex flex-col gap-[30px]">
+<div class="ds-section relative pt-[234px] pb-[12.5px] lg:pt-[160px] lg:pb-[109px] lg:w-full lg:flex-1 lg:justify-end flex flex-col gap-[30px]">
     <div class="flex flex-col gap-[20px] lg:gap-[24px]">
         <?php
         ds_render_component('heading', [
@@ -25,7 +25,7 @@
     <?php
     ds_render_component('image', [
         'image'     => ds_get_image_data_from_sub_field('image', 'full'),
-        'css_class' => 'self-center w-full max-w-[350px] aspect-[809/604] object-cover lg:absolute lg:top-[190px] lg:left-[calc(50%+243px)] lg:w-[809px] lg:max-w-none',
+        'css_class' => 'self-center w-full max-w-[350px] aspect-[809/604] object-cover lg:absolute lg:bottom-[30px] lg:left-[calc(50%+243px)] lg:h-[73%] lg:w-auto lg:max-w-none',
     ]);
     ?>
 </div>
