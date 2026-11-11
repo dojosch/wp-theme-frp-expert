@@ -27,7 +27,7 @@ $light = ds_has_light_header();
             <?php echo ds_close_link(); ?>
 
             <?php if( !empty($links) ): ?>
-            <nav class="hidden lg:flex flex-row gap-[15px] text-ds-13 leading-[24px]" aria-label="Hauptnavigation">
+            <nav class="hidden lg:flex flex-row gap-[20px] xl:gap-[30px] text-ds-15 leading-[24px]" aria-label="Hauptnavigation">
                 <?php foreach( $links as $item ): ?>
                 <?php ds_render_component('link', [
                     'link'      => $item['link'],
