@@ -25,7 +25,7 @@
     <?php
     ds_render_component('image', [
         'image'     => ds_get_image_data_from_sub_field('image', 'full'),
-        'css_class' => 'self-center w-full max-w-[350px] aspect-[809/604] object-cover lg:absolute lg:bottom-[30px] lg:left-[calc(50%+243px)] lg:h-[73%] lg:w-auto lg:max-w-none',
+        'css_class' => 'self-center w-full max-w-[350px] aspect-[809/604] object-cover lg:absolute lg:bottom-[30px] lg:left-2/3 lg:h-[73%] lg:w-auto lg:min-w-[calc(100%/3_+_max(0px,(100vw_-_1500px)_/_2))] lg:max-w-none lg:object-left',
     ]);
     ?>
 </div>
