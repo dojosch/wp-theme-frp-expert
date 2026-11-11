@@ -95,8 +95,9 @@ body {
 	@apply transition-colors hover:bg-ds-white hover:text-ds-accent;
 }
 
-.ds-section--dark .ds-button {
-	@apply hover:border-ds-white;
+/* On dark backgrounds the hovered (white) button gets a white border instead of the accent one. */
+:is(.ds-dark, .ds-section--dark, header:not(.is-light)) :is(.ds-button:hover, .ds-button-arrow:hover .ds-button):not(.ds-button-arrow--white *) {
+	@apply border-ds-white;
 }
 
 .ds-button-arrow {

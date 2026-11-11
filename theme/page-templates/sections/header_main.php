@@ -1,4 +1,4 @@
-<?php echo ds_open_section('relative overflow-x-clip text-ds-white lg:flex lg:flex-col lg:min-h-[80vh]'); ?>
+<?php echo ds_open_section('ds-dark relative overflow-x-clip text-ds-white lg:flex lg:flex-col lg:min-h-[80vh]'); ?>
 <div class="ds-background absolute inset-x-0 top-0 bottom-[142.5px] lg:bottom-[47px]" aria-hidden="true"></div>
 
 <div class="ds-section relative pt-[234px] pb-[12.5px] lg:pt-[160px] lg:pb-[109px] lg:w-full lg:flex-1 lg:justify-end flex flex-col gap-[30px]">

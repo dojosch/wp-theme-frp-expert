@@ -55,7 +55,7 @@ $light = ds_has_light_header();
         </div>
     </header>
 
-    <div id="ds-mobile-menu" class="lg:hidden fixed inset-0 z-[999] bg-ds-main overflow-y-auto" x-show="isSubmenuOpen"
+    <div id="ds-mobile-menu" class="ds-dark lg:hidden fixed inset-0 z-[999] bg-ds-main overflow-y-auto" x-show="isSubmenuOpen"
         x-transition.opacity x-cloak>
         <div class="min-h-full grid grid-rows-[90px_1fr_90px] px-[22px]">
             <div class="row-start-2 flex flex-col items-center justify-center gap-[20px] py-[20px]">
