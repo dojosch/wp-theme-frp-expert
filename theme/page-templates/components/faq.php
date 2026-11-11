@@ -6,6 +6,10 @@
  * grid-template-rows (0fr → 1fr), so it works with content of any height and
  * needs no max-height guess.
  *
+ * The whole item (padding included) toggles on click, except the answer panel.
+ * The button stays the keyboard/ARIA trigger — its click bubbles up to the
+ * wrapper handler.
+ *
  * Every class is overridable so the component can be styled per project:
  *
  * @var string|array $heading         Required. Title text, or a heading array with 'heading' + 'heading_tag'.
@@ -80,10 +84,11 @@ $GLOBALS['ds_faq_uid'] = ($GLOBALS['ds_faq_uid'] ?? 0) + 1;
 $uid = $GLOBALS['ds_faq_uid'];
 ?>
 
-<div class="group/faq <?php echo esc_attr($css_class); ?>" x-data="{ open: <?php echo $open ? 'true' : 'false'; ?> }"
+<div class="group/faq cursor-pointer <?php echo esc_attr($css_class); ?>" x-data="{ open: <?php echo $open ? 'true' : 'false'; ?> }"
+    @click="open = !open"
     <?php if( null !== $index ) : ?>data-faq="<?php echo esc_attr($index); ?>" <?php endif; ?>>
     <button type="button" id="faq-trigger-<?php echo esc_attr($uid); ?>"
-        class="w-full cursor-pointer text-left <?php echo esc_attr($button_class); ?>" @click="open = !open"
+        class="w-full cursor-pointer text-left <?php echo esc_attr($button_class); ?>"
         :aria-expanded="open" aria-controls="faq-panel-<?php echo esc_attr($uid); ?>">
         <?php if( null !== $index ) : ?>
         <span class="shrink-0 <?php echo esc_attr($number_class); ?>">
@@ -104,8 +109,8 @@ $uid = $GLOBALS['ds_faq_uid'];
 
     <div id="faq-panel-<?php echo esc_attr($uid); ?>" role="region"
         aria-labelledby="faq-trigger-<?php echo esc_attr($uid); ?>"
-        class="grid transition-all duration-300 <?php echo $open ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'; ?>"
-        :class="{ 'grid-rows-[1fr]': open, 'grid-rows-[0fr]': !open }">
+        class="grid cursor-auto transition-all duration-300 <?php echo $open ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'; ?>"
+        :class="{ 'grid-rows-[1fr]': open, 'grid-rows-[0fr]': !open }" @click.stop>
         <div class="overflow-hidden">
             <div class="<?php echo esc_attr($content_class); ?>">
                 <?php
