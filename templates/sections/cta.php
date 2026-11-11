@@ -33,7 +33,7 @@
             <?php
                 ds_render_component('heading', [
                     'heading' => $sub_heading,
-                    'css_class' => '-rotate-[5deg] font-serif text-[23px] leading-[28px] lg:text-[30px] lg:leading-[35px]',
+                    'css_class' => '-rotate-[5deg] text-[23px] leading-[28px] lg:text-[30px] lg:leading-[35px]',
                 ]);
             ?>
 

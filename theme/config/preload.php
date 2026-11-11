@@ -51,3 +51,22 @@ function ds_preload_header_images() {
 
 }
 add_action('wp_head', 'ds_preload_header_images');
+
+/**
+ * Preload the `.ds-background` images when the page opens with the hero section.
+ *
+ * The images are CSS backgrounds, so the browser only discovers them after the
+ * stylesheet is parsed. Below-the-fold uses (CTA, slider) don't need a preload.
+ * The URLs must match the ones `layout.css` resolves to, or they download twice.
+ *
+ * @return void
+ */
+function ds_preload_background_image() {
+    $elements = get_field('elements');
+
+    if( 'header_main' !== ($elements[0]['acf_fc_layout'] ?? '') ) return;
+
+    echo '<link rel="preload" href="' . esc_url(ds_get_theme_image_url('background.webp')) . '" as="image" type="image/webp" fetchpriority="high">' . "\n";
+    echo '<link rel="preload" href="' . esc_url(ds_get_theme_image_url('background-grain.webp')) . '" as="image" type="image/webp">' . "\n";
+}
+add_action('wp_head', 'ds_preload_background_image');

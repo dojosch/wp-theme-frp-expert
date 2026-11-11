@@ -5,7 +5,15 @@ acf_add_local_field_group(array(
 	'title' => 'Navigation',
 	'fields' => array(
         ds_group_field('field_bf28d816b0c121', 'Navigation', [
-            
+            ds_repeater_field('field_nav_links', 'Links', [
+                ds_link_field('field_nav_links_link', 'Link'),
+            ], 'Link hinzufügen'),
+            ds_link_field('field_nav_button', 'Button'),
+            ds_repeater_field('field_nav_meta_links', 'Meta Links', [
+                ds_link_field('field_nav_meta_links_link', 'Link'),
+            ], 'Link hinzufügen', [
+                'instructions' => 'Rechtliche Links unten im mobilen Menü.',
+            ]),
         ]),
     ),
 	'location' => array(

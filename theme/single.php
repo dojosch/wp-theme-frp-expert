@@ -1,31 +1,26 @@
 <?php
 /**
- * The template for displaying all single posts
+ * Single blog post (standard posts). Renders the post's flexible content like the main template.
  *
- * @link https://developer.wordpress.org/themes/basics/template-hierarchy/#single-post
- *
- * @package devsolution_Starter
+ * @package wp-starter-tw
  */
 
 get_header();
 ?>
 
-	<section id="primary">
-		<main id="main">
+<main class="min-h-dvh">
+    <?php
+    while( have_rows('elements') ) {
+        the_row();
+        $file = get_stylesheet_directory() . '/page-templates/sections/' . get_row_layout() . '.php';
 
-			<?php
-			/* Start the Loop */
-			while( have_posts() ) :
-				the_post();
-				
+        if( file_exists($file) ) {
+            include $file;
+        } else {
+            ds_missing_layout_notice(get_row_layout());
+        }
+    }
+    ?>
+</main>
 
-
-				// End the loop.
-			endwhile;
-			?>
-
-		</main><!-- #main -->
-	</section><!-- #primary -->
-
-<?php
-get_footer();
+<?php get_footer(); ?>
