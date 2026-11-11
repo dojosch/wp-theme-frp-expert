@@ -1,7 +1,7 @@
 <?php $tags = get_sub_field('tags'); ?>
 
 <?php echo ds_open_section('text-ds-main'); ?>
-<div class="ds-section pt-[48.5px] lg:pt-[103px] pb-[100px] lg:pb-[150px] flex flex-col items-center gap-[20px] lg:gap-[28px] text-center">
+<div class="ds-section pt-[80px] lg:pt-[103px] pb-[100px] lg:pb-[150px] flex flex-col items-center gap-[20px] lg:gap-[28px] text-center">
     <div class="flex flex-col items-center gap-[8px] lg:gap-[18px]">
         <?php
         ds_render_component('heading', [

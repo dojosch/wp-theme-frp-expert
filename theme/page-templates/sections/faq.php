@@ -18,7 +18,7 @@ $icon = sprintf(
 ?>
 
 <?php echo ds_open_section('text-ds-main border-y border-ds-accent'); ?>
-<div class="ds-section pb-0 lg:py-0 grid grid-cols-1 gap-[50px] lg:grid-cols-[minmax(0,540px)_minmax(0,784px)] lg:justify-between lg:gap-[30px]">
+<div class="ds-section pt-[50px] pb-0 lg:py-0 grid grid-cols-1 gap-[20px] lg:grid-cols-[minmax(0,540px)_minmax(0,784px)] lg:justify-between lg:gap-[30px]">
     <div class="flex flex-col items-start gap-[20px] lg:gap-[30px] lg:pt-[96px] lg:pb-[50px]">
         <div class="flex flex-col gap-[10px] lg:gap-[20px]">
             <div class="flex flex-col gap-[10px]">
